@@ -5,22 +5,18 @@ export const SIDENAV_ITEMS = [
     title: 'Home',
     path: '/',
     icon: <Icon icon="lucide:home" width="24" height="24" />,
+   
   },
   {
-    title: 'Projects',
+    title: 'Inventory',
     path: '/projects',
-    icon: <Icon icon="lucide:folder" width="24" height="24" />,
+    icon: <Icon icon="fluent-mdl2:work-item" width="24" height="24" />,
     submenu: true,
     subMenuItems: [
-      { title: 'All', path: '/projects' },
-      { title: 'Web Design', path: '/projects/web-design' },
-      { title: 'Graphic Design', path: '/projects/graphic-design' },
+      { title: 'Item', path: '/item' },
+      { title: 'Stock Item', path: '/stockitem' },
+      { title: 'Stock Adjustment', path: '/stockadjustment' },
     ],
-  },
-  {
-    title: 'Messages',
-    path: '/messages',
-    icon: <Icon icon="lucide:mail" width="24" height="24" />,
   },
   {
     title: 'Settings',

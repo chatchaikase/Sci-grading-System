@@ -9,7 +9,7 @@ export async function GET(req, res) {
       values: [],
     });
 
-    if (items.insertId) {
+    if (items.find) {
       message = "success";
     } else {
       message = "error";
@@ -33,14 +33,15 @@ export async function POST(req, res) {
   let message;
   const { itemname, itemcode } = await req.json();
   try {
-    // const newProducts = await query({
-    //   querry: "INSERT INTO items (itemname, itemcode) VALUES (?,?)",
-    //   values: [itemname,itemcode]
-    // });
-    const newItems = await query({
-      querry: "CALL newItem(?, ?)",
-      values: [itemname, itemcode],
+    const newProducts = await query({
+      querry: "INSERT INTO items (itemname, itemcode) VALUES (?,?)",
+      values: [itemname,itemcode]
     });
+
+    // const newItems = await query({
+    //   querry: "CALL newItem(?, ?)",
+    //   values: [itemname, itemcode],
+    // });
 
     if (newItems.insertId) {
       message = "success";

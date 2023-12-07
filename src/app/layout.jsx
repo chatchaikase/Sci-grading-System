@@ -15,8 +15,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="cupcake">
-      <body className={`bg-white${inter.className}`}>
+    <html lang="en" data-theme="autumn">
+      <body className={`bg-white${inter.className}`} suppressHydrationWarning={true}> 
         <div className="flex">
           <SideNav />
           <main className="flex-1">

@@ -8,14 +8,18 @@ export const SIDENAV_ITEMS = [
    
   },
   {
-    title: 'Inventory',
+    title: 'อัปโหลดไฟล์',
     path: '/projects',
-    icon: <Icon icon="fluent-mdl2:work-item" width="24" height="24" />,
+    icon: <Icon icon="tabler:upload" width="24" height="24" />,
+  },
+  {
+    title: 'รายการของฉัน',
+    path: '/projects',
+    icon: <Icon icon="solar:folder-linear" width="24" height="24" />,
     submenu: true,
     subMenuItems: [
-      { title: 'Item', path: '/item' },
-      { title: 'Stock Item', path: '/stockitem' },
-      { title: 'Stock Adjustment', path: '/stockadjustment' },
+      { title: 'รายวิชา', path: '/list/subjectlist' },
+      { title: 'รายนิสิต', path: '/list/studentlist' },
     ],
   },
   {

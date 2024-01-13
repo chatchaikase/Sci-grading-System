@@ -51,7 +51,7 @@ const MenuItem = ({ item }) => {
           >
             <div className="flex flex-row space-x-4 items-center">
               {item.icon}
-              <span className="font-semibold text-xl  flex">{item.title}</span>
+              <span className="font-semibold text-md  flex">{item.title}</span>
             </div>
 
             <div className={`${subMenuOpen ? 'rotate-180' : ''} flex`}>
@@ -85,7 +85,7 @@ const MenuItem = ({ item }) => {
           }`}
         >
           {item.icon}
-          <span className="font-semibold text-xl flex">{item.title}</span>
+          <span className="font-semibold text-md flex">{item.title}</span>
         </Link>
       )}
     </div>

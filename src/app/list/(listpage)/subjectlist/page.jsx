@@ -38,6 +38,12 @@ const Home = () => {
     filterItems(searchTerm, selectedDate);
   };
 
+  const handleDropdownChange = (e) => {
+    setSelectedOption(e.target.value);
+    // Your additional logic for dropdown change
+  };
+
+
   const filterItems = (term, date) => {
     const filtered = items.filter(
       (item) =>
@@ -48,6 +54,7 @@ const Home = () => {
   };
 
   const [startDate, setStartDate] = useState(new Date());
+  const [selectedOption, setSelectedOption] = useState('');
 
   return (
     <div>
@@ -57,7 +64,7 @@ const Home = () => {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      
+
       <div className="drawer drawer-end">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
@@ -68,17 +75,57 @@ const Home = () => {
           <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            <label>
-              Select a date:
-              <DatePicker selected={selectedDate} onChange={handleDateChange} closeOnSelect={true} />
-            </label>
-            <label><input
-              type="text"
-              placeholder="Search by name"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            /></label>
-            <label><button className="btn btn-primary" onClick={handleSearchClick}>Search</button></label>
+            <div className='row'>
+              <div className='col-sm-4'>
+                <label>Select a date: </label>
+                <div className='col-sm-6'>
+                  <DatePicker
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    className="input input-bordered w-full max-w-xs"
+                    closeOnSelect={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className='row'>
+              <div className='col-sm-4'>
+                <label>Search by course name: </label>
+                <div className='col-sm-6'>
+                  <input
+                    type="text"
+                    placeholder="Search by name"
+                    className="input input-bordered w-full max-w-xs"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className='row'>
+              <div className='col-sm-4'>
+                <label>Select an option: </label>
+                <div className='col-sm-6'>
+                  <select
+                    value={selectedOption}
+                    onChange={handleDropdownChange}
+                    className="input input-bordered w-full max-w-xs"
+                  >
+                    <option value="">Select an option</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    {/* Add more options as needed */}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-sm-12'>
+                <button className="btn btn-primary mt-2" onClick={handleSearchClick}>Search</button>
+              </div>
+            </div>
           </ul>
         </div>
       </div>

@@ -8,9 +8,24 @@ export const SIDENAV_ITEMS = [
    
   },
   {
+    title: 'อัปโหลดไฟล์',
+    path: '/projects',
+    icon: <Icon icon="tabler:upload" width="24" height="24" />,
+  },
+  {
+    title: 'รายการของฉัน',
+    path: '/projects',
+    icon: <Icon icon="solar:folder-linear" width="24" height="24" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'รายวิชา', path: '/list/subjectlist' },
+      { title: 'รายนิสิต', path: '/list/studentlist' },
+    ],
+  },
+  {
     title: 'Admin',
     path: '/admin',
-    icon: <Icon icon="ic:outline-admin-panel-settings" width="24" height="24" />,
+    icon: <Icon icon="ic:outline-admin-panel-settings" width="24" height="24" />,   
   },
   {
     title: 'Settings',

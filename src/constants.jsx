@@ -9,7 +9,7 @@ export const SIDENAV_ITEMS = [
   },
   {
     title: 'อัปโหลดไฟล์',
-    path: '/projects',
+    path: '/import',
     icon: <Icon icon="tabler:upload" width="24" height="24" />,
   },
   {

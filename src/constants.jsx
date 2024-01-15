@@ -8,15 +8,9 @@ export const SIDENAV_ITEMS = [
    
   },
   {
-    title: 'Inventory',
-    path: '/projects',
-    icon: <Icon icon="fluent-mdl2:work-item" width="24" height="24" />,
-    submenu: true,
-    subMenuItems: [
-      { title: 'Item', path: '/item' },
-      { title: 'Stock Item', path: '/stockitem' },
-      { title: 'Stock Adjustment', path: '/stockadjustment' },
-    ],
+    title: 'Admin',
+    path: '/admin',
+    icon: <Icon icon="ic:outline-admin-panel-settings" width="24" height="24" />,
   },
   {
     title: 'Settings',

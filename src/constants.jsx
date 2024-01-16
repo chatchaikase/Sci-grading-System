@@ -23,6 +23,11 @@ export const SIDENAV_ITEMS = [
     ],
   },
   {
+    title: 'Admin',
+    path: '/admin',
+    icon: <Icon icon="ic:outline-admin-panel-settings" width="24" height="24" />,   
+  },
+  {
     title: 'Settings',
     path: '/settings',
     icon: <Icon icon="lucide:settings" width="24" height="24" />,

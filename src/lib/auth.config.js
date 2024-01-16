@@ -30,8 +30,13 @@ export const authConfig = {
       const isOnHelpPanel = request.nextUrl?.pathname.startsWith("/help");
       const isOnImportListPanel = request.nextUrl?.pathname.startsWith("/list/importlist");
       const isOnImportMaintainPanel = request.nextUrl?.pathname.startsWith("/list/importmaintain");
+      const isOnImportPanel = request.nextUrl?.pathname.startsWith("/import");
 
       if (isOnAdminPanel && !user?.isAdmin) {
+        return false;
+      }
+
+      if (isOnImportPanel && !user) {
         return false;
       }
 

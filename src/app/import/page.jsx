@@ -1,7 +1,7 @@
 "use client"
 import { Fuzzy_Bubbles } from 'next/font/google'
 import  * as  XLSX from 'xlsx';
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 
 export default function ImportPage() {
 
@@ -10,6 +10,15 @@ export default function ImportPage() {
     const [typeError, setTypeError] = useState(null);
     //Submit 
     const [excelData, setExcelData] = useState(null);
+    const [no,setNo] = useState("");
+    const [coruseid,setCoruseid] = useState("");
+    const [corusename,setCorusename] = useState("");
+    const [semester,setSemester] = useState("");
+    const [year,setYear] = useState("");
+
+    const handleSubmit=(e)=>{
+
+    }
     //ChangeEvent
     const handleFile=(e)=>{
         let fileTypes = ['application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','text/csv'];
@@ -96,6 +105,9 @@ export default function ImportPage() {
                 <div className="artboard artboard-horizontal phone-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="col-span-1">
+                            <form action="">
+                                
+                            </form>
                             <div className="mb-4">
                                 <label htmlFor="name" className="block text-gray-700">Name</label>
                                 <input

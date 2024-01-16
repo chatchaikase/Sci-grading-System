@@ -35,6 +35,7 @@ export default function AdminUserList() {
   const [checkPassword, setCheckPassword] = useState(false);
 
   //form DeleteUser
+  const [deleteUserId, setDeleteUserId] = useState(0);
   const [deleteUsername, setDeleteUsername] = useState("");
 
   const closeModal = () => {
@@ -123,8 +124,10 @@ export default function AdminUserList() {
     document.getElementById("editUser").showModal();
   };
 
-  const deleteUserClickHandler = async (selectedUser) => {
-    setDeleteUsername(selectedUser);
+  const deleteUserClickHandler = async (username,userId) => {
+    setDeleteUsername(username);
+    setDeleteUserId(userId)
+    console.log(userId)
     document.getElementById("warningDeleteUser").showModal();
   };
 
@@ -544,7 +547,7 @@ export default function AdminUserList() {
                       </dialog>
                       <button
                         className="btn bg-red-500 text-white"
-                        onClick={() => deleteUserClickHandler(item.username)}
+                        onClick={() => deleteUserClickHandler(item.username,item.userId)}
                       >
                         ลบ
                       </button>
@@ -562,7 +565,7 @@ export default function AdminUserList() {
                           <div className="modal-action">
                             <form method="dialog">
                               <button
-                                onClick={() => handleDeleteUser(item.userId)}
+                                onClick={() => handleDeleteUser(deleteUserId)}
                                 className="btn bg-red-500 px-6 py-3 text-white"
                               >
                                 ลบ

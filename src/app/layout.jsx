@@ -1,11 +1,13 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
-
 import Header from '../components/header';
 import HeaderMobile from '../components/header-mobile';
 import MarginWidthWrapper from '../components/margin-width-wrapper';
 import PageWrapper from '../components/page-wrapper';
 import SideNav from '../components/side-nav';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -27,6 +29,7 @@ export default function RootLayout({ children }) {
             </MarginWidthWrapper>
           </main>
         </div>
+        <ToastContainer />
       </body>
     </html>
   )

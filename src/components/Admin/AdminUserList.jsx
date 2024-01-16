@@ -10,9 +10,10 @@ import {
 } from "../../function/admin";
 import { useFormState } from "react-dom";
 import { Icon } from "@iconify/react";
+import { toast } from 'react-toastify';
 
 export default function AdminUserList() {
-  const [isLoading, setIsLoading] = useState(false);
+
   const [user, setUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,6 @@ export default function AdminUserList() {
   const [editState, editUserFormAction] = useFormState(editUser, undefined);
   const [usernameSearchTerm, setUsernameSearchTerm] = useState("");
   const [emailSearchTerm, setEmailSearchTerm] = useState("");
-  const [showPasswordRows, setShowPasswordRows] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
   //form EditUser
@@ -34,6 +34,9 @@ export default function AdminUserList() {
   const [newIsAdmin, setNewIsAdmin] = useState("");
   const [checkPassword, setCheckPassword] = useState(false);
 
+  //form DeleteUser
+  const [deleteUsername, setDeleteUsername] = useState("");
+
   const closeModal = () => {
     const modal = document.getElementById("addUser");
     modal.close();
@@ -44,7 +47,6 @@ export default function AdminUserList() {
     modal.close();
     resetInputPassword();
   };
-
 
   const resetInputPassword = () => {
     setCheckPassword(false);
@@ -66,11 +68,20 @@ export default function AdminUserList() {
     if (state) {
       if (!state.error) {
         closeModal();
+        toast.success("บันทึกผู้ใช้งานสำเร็จ")
         fetchData();
       }
     } else if (editState) {
       if (!editState.error) {
         editCloseModal();
+        toast.success("บันทึกผู้ใช้งานสำเร็จ")
+        fetchData();
+      }
+    } else if (state || editState) {
+      if (!state.error || !editState.error) {
+        closeModal();
+        editCloseModal();
+        toast.success("บันทึกผู้ใช้งานสำเร็จ")
         fetchData();
       }
     }
@@ -98,7 +109,6 @@ export default function AdminUserList() {
     setCurrentPage(selectedPage);
   };
 
-
   const editUserClickHandler = async (selectedUser) => {
     const checkUser = await checkUserInDB(selectedUser.userId);
     setSelectedUser(checkUser);
@@ -113,15 +123,23 @@ export default function AdminUserList() {
     document.getElementById("editUser").showModal();
   };
 
+  const deleteUserClickHandler = async (selectedUser) => {
+    setDeleteUsername(selectedUser);
+    document.getElementById("warningDeleteUser").showModal();
+  };
+
   const handleDeleteUser = async (userId) => {
     try {
       const result = await deleteUser(userId);
       if (result === 200) {
-        fetchData();
+        toast.success("ลบผู้ใช้งานสำเร็จ")
+        fetchData();        
       } else {
+        toast.error("พบข้อผิดพลาดเกิดขึ้น")
         console.error("Error deleting user.");
       }
     } catch (error) {
+       toast.error("พบข้อผิดพลาดเกิดขึ้น")
       console.error("Error deleting user:", error);
     }
   };
@@ -165,7 +183,6 @@ export default function AdminUserList() {
                   />
                 </div>
               </div>
-
               <div className="flex mr-2">
                 <div>
                   <button
@@ -271,10 +288,17 @@ export default function AdminUserList() {
                             </div>
                           </div>
                           <div className="mt-2 flex justify-end">
-                            <button className="btn bg-green-600 text-white">
+                            <button
+                              type="submit"
+                              className="btn bg-green-600 text-white"
+                            >
                               เพิ่มผู้ใช้งาน
                             </button>
-                            <button className="btn" onClick={closeModal}>
+                            <button
+                              type="button"
+                              className="btn"
+                              onClick={closeModal}
+                            >
                               ยกเลิก
                             </button>
                           </div>
@@ -489,10 +513,22 @@ export default function AdminUserList() {
                                 </div>
                               </div>
                               <div className="mt-2 flex justify-end">
-                                <button className="btn bg-orange-500 text-white">
+                                <button
+                                  type="submit"
+                                  className="btn bg-orange-500 text-white"
+                                  onClick={() => {
+                                    if (
+                                      !editState ||
+                                      (editState && !editState.error)
+                                    ) {
+                                      editCloseModal();
+                                    }
+                                  }}
+                                >
                                   เเก้ไข
                                 </button>
                                 <button
+                                  type="button"
                                   className="btn"
                                   onClick={(e) => editCloseModal(e)}
                                 >
@@ -508,20 +544,20 @@ export default function AdminUserList() {
                       </dialog>
                       <button
                         className="btn bg-red-500 text-white"
-                        onClick={() =>
-                          document
-                            .getElementById("warningDeleteUser")
-                            .showModal()
-                        }
+                        onClick={() => deleteUserClickHandler(item.username)}
                       >
                         ลบ
                       </button>
                       <dialog id="warningDeleteUser" className="modal">
                         <div className="modal-box">
                           <div className="flex items-center justify-center gap-2">
-                          <h3 className="font-bold text-lg">คุณต้องการลบผู้ใช้งาน</h3>
-                          <h3 className="font-bold text-lg text-red-500">{item.username}</h3>
-                          <h3 className="font-bold text-lg">หรือไม่</h3>
+                            <h3 className="font-bold text-lg">
+                              คุณต้องการลบผู้ใช้งาน
+                            </h3>
+                            <h3 className="font-bold text-lg text-red-500">
+                              {deleteUsername}
+                            </h3>
+                            <h3 className="font-bold text-lg">หรือไม่</h3>
                           </div>
                           <div className="modal-action">
                             <form method="dialog">
@@ -531,7 +567,7 @@ export default function AdminUserList() {
                               >
                                 ลบ
                               </button>
-                              <button className="btn">Close</button>
+                              <button className="btn ml-2">Close</button>
                             </form>
                           </div>
                         </div>
@@ -590,12 +626,14 @@ export default function AdminUserList() {
           <div key={index} className="card w-70 bg-white shadow-xl">
             <div className="card-body">
               <h2 className="card-title">username : {item.username}</h2>
-              <p className="text-sm text-gray-700">ชื่อจริง: {item.firstname}</p>
+              <p className="text-sm text-gray-700">
+                ชื่อจริง: {item.firstname}
+              </p>
               <p className="text-sm text-gray-700">นามสกุล: {item.lastname}</p>
               <p className="text-sm text-gray-700">email: {item.email}</p>
               <p className="text-sm text-gray-700">คณะ: {item.email}</p>
               <div className="card-actions">
-                   {parseInt(item.isAdmin) === 1 ? (
+                {parseInt(item.isAdmin) === 1 ? (
                   <span className="p-1.5 text-xs font-medium tracking-wider uppercase text-white bg-blue-600 rounded-lg bg-opacity-50">
                     Admin
                   </span>

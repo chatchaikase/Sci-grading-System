@@ -146,7 +146,7 @@ export default function ImportComponent({session}) {
         courseID: formData.courseID,
         courseName: formData.courseName,
         semester: formData.semester,
-        yearEducation: parseInt(formData.yearEducation),
+        yearEducation: formData.yearEducation,
         createByUserId:session,
       };
 

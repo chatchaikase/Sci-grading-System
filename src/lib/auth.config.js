@@ -20,6 +20,7 @@ export const authConfig = {
     },
     authorized({ auth, request }) {
       const user = auth?.user;
+      const isOnStartPanel = request.nextUrl?.pathname.startsWith("/");
       const isOnAdminPanel = request.nextUrl?.pathname.startsWith("/admin");
       const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
       const isOnSubjectListPanel = request.nextUrl?.pathname.startsWith("/list/subjectlist");
@@ -59,6 +60,10 @@ export const authConfig = {
       }
 
       if (isOnImportMaintainPanel && !user) {
+        return false;
+      }
+
+      if (isOnStartPanel && !user) {
         return false;
       }
 

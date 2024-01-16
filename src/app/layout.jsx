@@ -7,6 +7,7 @@ import PageWrapper from '../components/page-wrapper';
 import SideNav from '../components/side-nav';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CheckSection from '../components/checkSection'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,15 +20,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="autumn">
       <body className={`bg-white${inter.className}`} suppressHydrationWarning={true}> 
-        <div className="flex">
-          <SideNav />
-          <main className="flex-1">
-            <MarginWidthWrapper>
-              <Header />
-              <HeaderMobile />
-              <PageWrapper>{children}</PageWrapper>
-            </MarginWidthWrapper>
-          </main>
+        <div>
+          <CheckSection>{children}</CheckSection>
         </div>
         <ToastContainer />
       </body>

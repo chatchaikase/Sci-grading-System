@@ -33,7 +33,6 @@ export default function AdminUserList() {
   const [newPassword, setNewPassword] = useState("");
   const [newIsAdmin, setNewIsAdmin] = useState("");
   const [checkPassword, setCheckPassword] = useState(false);
-
   //form DeleteUser
   const [deleteUserId, setDeleteUserId] = useState(0);
   const [deleteUsername, setDeleteUsername] = useState("");
@@ -127,7 +126,6 @@ export default function AdminUserList() {
   const deleteUserClickHandler = async (username,userId) => {
     setDeleteUsername(username);
     setDeleteUserId(userId)
-    console.log(userId)
     document.getElementById("warningDeleteUser").showModal();
   };
 
@@ -469,6 +467,7 @@ export default function AdminUserList() {
                                           name="checkPassword"
                                           type="checkbox"
                                           checked={checkPassword}
+                                          value={checkPassword}
                                           className="checkbox checkbox-success"
                                           onChange={() =>
                                             setCheckPassword(!checkPassword)

@@ -86,9 +86,6 @@ export default function ImportPage() {
         }
     };
 
-
-
-
     return (
         <div className="wrapper">
             <h1>Information</h1>

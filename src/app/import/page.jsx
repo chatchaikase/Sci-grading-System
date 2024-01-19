@@ -4,8 +4,10 @@ import { auth } from '../../lib/auth';
 export default async function ImportPage() {
   const session = await auth();
   return (
-    <div>
+    <div className='m-4'>
+        <div className='bg-[#F5FAF4]'>
         <ImportComponent session={session.user.userId}/>
+        </div>
     </div>
   )
 }

@@ -5,12 +5,6 @@ import { revalidatePath } from "next/cache";
 const path = process.env.LocalhostDOTNET;
 
 export const AddExcel = async(payload) => {
-  // const excelData = payload.excelData;
-  // const importHeader = payload.importHeader;
-
-  console.log(payload)
-  
-
     try {
         const newExcel = await axios.post(
           `${path}/api/Import`,

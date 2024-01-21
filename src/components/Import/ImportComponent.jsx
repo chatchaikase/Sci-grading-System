@@ -14,12 +14,18 @@ export default function ImportComponent({ session }) {
   const [courseName, setCourseName] = useState("");
   const [semester, setSemester] = useState("summer");
   const [yearEducation, setYearEducation] = useState("");
-  const [yearEducationSelect, setYearEducationSelect] = useState("");
-  const [checkYearEducationSelect, setCheckYearEducationSelect] = useState(false);
+  const [yearEducationSelect, setYearEducationSelect] = useState(
+    (new Date().getFullYear() + 542).toString()
+  );
+  const [checkYearEducationSelect, setCheckYearEducationSelect] =
+    useState(false);
 
   // Onchange
   const [excelfile, setExcelfile] = useState(null);
   const [typeError, setTypeError] = useState(null);
+
+  // Upload
+  const [uploadExcel, setUploadExcel] = useState(false);
 
   // ExcelSubmit
   const [excelData, setExcelData] = useState(null);
@@ -58,8 +64,37 @@ export default function ImportComponent({ session }) {
     );
   };
 
+  const handleFile = (e) => {
+    let fileTypes = [
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "text/csv",
+    ];
+    let selectedFile = e.target.files[0];
+    setExcelName(selectedFile.name);
+    if (selectedFile) {
+      if (selectedFile && fileTypes.includes(selectedFile.type)) {
+        setTypeError(null);
+        let reader = new FileReader();
+        reader.readAsArrayBuffer(selectedFile);
+        reader.onload = (e) => {
+          setExcelfile(e.target.result);
+        };
+      } else {
+        setTypeError("Please select only excel file");
+        setExcelfile(null);
+      }
+    } else {
+      console.log("Please Select your file");
+    }
+  };
+
   const handleFileSubmit = (e) => {
     e.preventDefault();
+
+    if (excelfile !== null) {
+      setUploadExcel(true);
+    }
 
     if (excelfile === null) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
@@ -104,9 +139,16 @@ export default function ImportComponent({ session }) {
       return;
     }
 
-    if (!courseID.trim() || !courseName.trim() || !yearEducation.trim()) {
-      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
-      return;
+    if (checkYearEducationSelect) {
+      if (!courseID.trim() || !courseName.trim() || !yearEducation.trim()) {
+        toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
+        return;
+      } else if (!checkYearEducationSelect) {
+        if (!courseID.trim() || !courseName.trim()) {
+          toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
+          return;
+        }
+      }
     }
 
     const formData = {
@@ -340,32 +382,38 @@ export default function ImportComponent({ session }) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <p className="text-gray-600">
-          {excelName
-            ? `ไฟล์ชื่อ ${excelName} กรุณากดปุ่มอัปโหลดไฟล์`
-            : "วางไฟล์ เพื่อ อัปโหลดที่นี่"}
-        </p>
-      </div>
-
-      {/* <h3 className="mt-5">Upload & View Excel Sheets </h3> */}
-
-      {/*form*/}
-      {/* <form className="form-group costom-from" onSubmit={handleFileSubmit}>
-        <input
-          type="File"
-          className='form-control file-input file-input-bordered file-input-success max-w-xs"'
-          required
-          onChange={handleFile}
-        />
-        <button type="Submit" className="btn btn-primary btn-md mt-5">
+        <div className="flex items-center justify-center gap-2">
+          <p className="text-gray-600">
+            {excelName === "" && !uploadExcel && (
+              <>วางไฟล์ เพื่อ อัปโหลดที่นี่</>
+            )}
+            {excelName && !uploadExcel && (
+              <>ไฟล์ชื่อ {excelName} กรุณากดปุ่มอัปโหลดไฟล์</>
+            )}
+            {uploadExcel && <>ตรวจเช็คข้อมูลก่อนบันทึก</>}
+          </p>
+          {/*form*/}
+          <form className="form-group costom-from" onSubmit={handleFileSubmit}>
+            <input
+              type="File"
+              className='form-control file-input file-input-bordered file-input-success max-w-xs"'
+              required
+              onChange={handleFile}
+            />
+            {/* <button type="Submit" className="btn btn-primary btn-md mt-5">
           UPLOAD
         </button>
         {typeError && (
           <div className="aleart aleart-danger" role="alerts">
             {typeError}
           </div>
-        )}
-      </form> */}
+        )} */}
+          </form>
+        </div>
+      </div>
+
+      {/* <h3 className="mt-5">Upload & View Excel Sheets </h3> */}
+
       {/* View  data */}
       <div className="viewer">
         {excelData ? (

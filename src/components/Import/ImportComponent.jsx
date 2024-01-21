@@ -40,7 +40,7 @@ export default function ImportComponent({ session }) {
     }
   };
 
-  const expectedColumnPattern = ["No.", "name", "date"];
+  const expectedColumnPattern = ["NO", "ID", "Name","Grade"];
 
   const validateColumnNames = (worksheet) => {
     const range = XLSX.utils.decode_range(worksheet["!ref"]);
@@ -89,9 +89,10 @@ export default function ImportComponent({ session }) {
 
       // Map the data to include formatted dates and handle specific columns
       const formattedData = data.map((rowData) => ({
-        No: rowData["No."],
-        name: rowData["name"],
-        date: formatDateWithTimeZone(new Date(rowData["date"])),
+        No: rowData["NO"],
+        ID: rowData["ID"],
+        name: rowData["Name"],
+        grade: rowData["Grade"]
       }));
       setDataExcelFile(formattedData);
       setExcelData(formattedData);
@@ -121,8 +122,9 @@ export default function ImportComponent({ session }) {
     if (dataExcelFile && dataExcelFile.length > 0) {
       const formattedExcelData = dataExcelFile.map((item, index) => ({
         no: item.No,
+        id: item.ID,
         name: item.name,
-        date: item.date,
+        grade: item.grade,
         createByUserId: session,
       }));
 

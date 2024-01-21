@@ -46,23 +46,25 @@ export default function ImportComponent({ session }) {
     }
   };
 
-  const expectedColumnPattern = ["NO", "ID", "Name","Grade"];
+  const expectedColumnPattern = ["NO", "ID", "NAME","GRADE"];
 
   const validateColumnNames = (worksheet) => {
     const range = XLSX.utils.decode_range(worksheet["!ref"]);
     const columnNames = [];
-
+  
     for (let C = range.s.c; C <= range.e.c; ++C) {
       const cellAddress = { r: range.s.r, c: C }; // Assuming the column names are in the first row
       const cellRef = XLSX.utils.encode_cell(cellAddress);
       const columnName = worksheet[cellRef]?.v;
       columnNames.push(columnName);
     }
-
+  
+    const uppercaseColumnNames = columnNames.map((name) => name ? name.toUpperCase() : null);
+  
     return expectedColumnPattern.every(
-      (columnName, index) => columnNames[index] === columnName
+      (expectedColumnName, index) => uppercaseColumnNames[index] === expectedColumnName.toUpperCase()
     );
-  };
+  };  
 
   const handleFile = (e) => {
     let fileTypes = [
@@ -123,12 +125,22 @@ export default function ImportComponent({ session }) {
       });
 
       // Map the data to include formatted dates and handle specific columns
-      const formattedData = data.map((rowData) => ({
-        No: rowData["NO"],
-        ID: rowData["ID"],
-        name: rowData["Name"],
-        grade: rowData["Grade"]
-      }));
+      // const formattedData = data.map((rowData) => ({
+      //   NO: rowData["NO"],
+      //   ID: rowData["ID"],
+      //   NAME: rowData["NAME"],
+      //   GRADE: rowData["GRADE"]
+      // }));
+
+      const formattedData = data.map((rowData) => {
+        const formattedRow = {};
+        for (const key in rowData) {
+          const formattedKey = key.toUpperCase(); 
+          formattedRow[formattedKey] = rowData[key];
+        }
+        return formattedRow;
+      });
+
       setDataExcelFile(formattedData);
       setExcelData(formattedData);
     }
@@ -152,21 +164,21 @@ export default function ImportComponent({ session }) {
       }
     }
 
-    const formData = {
+    let formData = {
       courseID: courseID,
       term: term,
       courseName: courseName,
       semester: semester,
-      yearEducation: yearEducation,
+      yearEducation: checkYearEducationSelect ? yearEducation : yearEducationSelect,
       createByUserId: session,
     };
-
+    
     if (dataExcelFile && dataExcelFile.length > 0) {
       const formattedExcelData = dataExcelFile.map((item, index) => ({
-        no: item.No,
+        no: item.NO,
         id: item.ID,
-        name: item.name,
-        grade: item.grade,
+        name: item.NAME,
+        grade: item.GRADE,
         createByUserId: session,
       }));
 
@@ -387,7 +399,7 @@ export default function ImportComponent({ session }) {
         <div className="flex items-center justify-center gap-2">
           <p className="text-gray-600">
             {excelName === "" && !uploadExcel && (
-              <>วางไฟล์ เพื่อ อัปโหลดที่นี่</>
+              <>วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ</>
             )}
             {excelName && !uploadExcel && (
               <>ไฟล์ชื่อ {excelName} กรุณากดปุ่มอัปโหลดไฟล์</>

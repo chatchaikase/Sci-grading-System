@@ -1,30 +1,44 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Calendar } from 'react-date-range';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { Icon } from '@iconify/react';
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Calendar } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { Icon } from "@iconify/react";
+import { getAllListSubject } from "../../../../function/listSubject";
 
 const items = [
-  { id: 1, name: 'Item 1', date: '2022-01-01' },
-  { id: 2, name: 'Item 2', date: '2022-02-01' },
-  { id: 3, name: 'Item 1', date: '2022-01-01' },
-  { id: 4, name: 'Item 2', date: '2022-02-01' },
-  { id: 5, name: 'Item 1', date: '2022-01-01' },
-  { id: 6, name: 'Item 2', date: '2022-02-01' },
+  { id: 1, name: "Item 1", date: "2022-01-01" },
+  { id: 2, name: "Item 2", date: "2022-02-01" },
+  { id: 3, name: "Item 1", date: "2022-01-01" },
+  { id: 4, name: "Item 2", date: "2022-02-01" },
+  { id: 5, name: "Item 1", date: "2022-01-01" },
+  { id: 6, name: "Item 2", date: "2022-02-01" },
   // Add more items as needed
 ];
 
 const Home = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectdate, setDate] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectdate, setDate] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-  
+  const [listItem, setListItem] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const itemList = await getAllListSubject();
+      setListItem(itemList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   useEffect(() => {
     filterItemsNormal();
   }, []);
@@ -36,12 +50,12 @@ const Home = () => {
   };
 
   const handleSearchClick = () => {
-    if (selectedOption === 'advance') {
+    if (selectedOption === "advance") {
       filterItemsAdvance(searchTerm, selectdate);
     } else {
       filterItemsNormal();
     }
-  }; 
+  };
 
   const handleDropdownChange = (e) => {
     setSelectedOption(e.target.value);
@@ -51,7 +65,8 @@ const Home = () => {
     const filtered = items.filter(
       (item) =>
         item.name.toLowerCase().includes(term.toLowerCase()) &&
-        (!date || new Date(item.date).toDateString() === new Date(date).toDateString())
+        (!date ||
+          new Date(item.date).toDateString() === new Date(date).toDateString())
     );
     setFilteredItems(filtered);
   };
@@ -63,8 +78,6 @@ const Home = () => {
     });
     setFilteredItems(filtered);
   };
-
-  
 
   return (
     <div>
@@ -79,29 +92,39 @@ const Home = () => {
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Page content here */}
-          <label htmlFor="my-drawer-4" className="drawer-button btn btn-primary">Open drawer</label>
+          <label
+            htmlFor="my-drawer-4"
+            className="drawer-button btn btn-primary"
+          >
+            Open drawer
+          </label>
         </div>
         <div className="drawer-side">
-          <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+          <label
+            htmlFor="my-drawer-4"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
             <div className="row">
-              <div className='col-sm-4'>
-                <div className='col-sm-6'>
-                  <input type="date"
+              <div className="col-sm-4">
+                <div className="col-sm-6">
+                  <input
+                    type="date"
                     className="input input-bordered w-full max-w-xs"
                     value={selectdate}
                     onChange={(e) => setDate(e.target.value)}
                     placeholder="YYYY-MM-DD"
-                  />      
+                  />
                 </div>
-              </div>            
+              </div>
             </div>
 
-            <div className='row'>
-              <div className='col-sm-4'>
+            <div className="row">
+              <div className="col-sm-4">
                 <label>Search by course name: </label>
-                <div className='col-sm-6'>
+                <div className="col-sm-6">
                   <input
                     type="text"
                     placeholder="Search by name"
@@ -113,10 +136,10 @@ const Home = () => {
               </div>
             </div>
 
-            <div className='row'>
-              <div className='col-sm-4'>
+            <div className="row">
+              <div className="col-sm-4">
                 <label>Select an option: </label>
-                <div className='col-sm-6'>
+                <div className="col-sm-6">
                   <select
                     value={selectedOption}
                     onChange={handleDropdownChange}
@@ -130,9 +153,14 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className='row'>
-              <div className='col-sm-12'>
-                <button className="btn btn-primary mt-2" onClick={handleSearchClick}>Search</button>
+            <div className="row">
+              <div className="col-sm-12">
+                <button
+                  className="btn btn-primary mt-2"
+                  onClick={handleSearchClick}
+                >
+                  Search
+                </button>
               </div>
             </div>
           </ul>
@@ -152,12 +180,12 @@ const Home = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {filteredItems.map((item, index) => (
+            {listItem.map((item, index) => (
               <tr key={index}>
                 <th>{index + 1}</th>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.date}</td>
+                <td>{item.courseID}</td>
+                <td>{item.courseName}</td>
+                {/* <td>{item.date}</td> */}
               </tr>
             ))}
           </tbody>

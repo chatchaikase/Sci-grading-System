@@ -4,7 +4,7 @@ export default function ExcelDataViewer({excelData}) {
   return (
     <div className="viewer">
         {excelData ? (
-          <div className="table=responsive">
+          <div className="table=responsive mt-5 border border-solid">
             <table className="w-full">
               <thead className="bg-gray-50 border-b-2 border-gray-200">
                 <tr>

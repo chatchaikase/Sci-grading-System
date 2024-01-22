@@ -15,7 +15,6 @@ export const getAllListSubject = async() =>{
         if (!allListSubject){
             throw new Error("Cannot fetch data");
         }
-        console.log(allListSubject);
         return allListSubject.data;
     } catch (error) {
         throw new Error("Error to fetch data");

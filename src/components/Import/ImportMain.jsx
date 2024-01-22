@@ -246,6 +246,7 @@ export default function ImportMain({ session }) {
         handleFileSubmit={handleFileSubmit}
         handleFile={handleFile}
         excelName={excelName}
+        setExcelName={setExcelName}
         uploadExcel={uploadExcel}
         excelfile={excelfile}
         setExcelfile={setExcelfile}
@@ -253,6 +254,8 @@ export default function ImportMain({ session }) {
         setTypeError={setTypeError}
         dragging={dragging}
         setDragging={setDragging}
+        setExcelData={setExcelData}
+        setUploadExcel={setUploadExcel}
       />
       
       {/* ตารางเเสดงผลในไฟล์ Excel */}

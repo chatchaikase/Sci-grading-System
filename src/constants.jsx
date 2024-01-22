@@ -11,6 +11,11 @@ export const SIDENAV_ITEMS = [
     title: 'อัปโหลดไฟล์',
     path: '/import',
     icon: <Icon icon="tabler:upload" width="24" height="24" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'รายการอัปโหลด', path: '/import/importlist' },
+      { title: 'อัปโหลด', path: '/import/importmaintain' },
+    ],
   },
   {
     title: 'รายการของฉัน',

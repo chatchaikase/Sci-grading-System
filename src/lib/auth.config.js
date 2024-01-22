@@ -28,15 +28,10 @@ export const authConfig = {
       const isOnSettingAccountPanel = request.nextUrl?.pathname.startsWith("/settings/account");
       const isOnSettingPrivacyPanel = request.nextUrl?.pathname.startsWith("/settings/privacy");
       const isOnHelpPanel = request.nextUrl?.pathname.startsWith("/help");
-      const isOnImportListPanel = request.nextUrl?.pathname.startsWith("/list/importlist");
-      const isOnImportMaintainPanel = request.nextUrl?.pathname.startsWith("/list/importmaintain");
-      const isOnImportPanel = request.nextUrl?.pathname.startsWith("/import");
+      const isOnImportMaintainPanel = request.nextUrl?.pathname.startsWith("/import/importmaintain");
+      const isOnImportListPanel = request.nextUrl?.pathname.startsWith("/import/importlist");
 
       if (isOnAdminPanel && !user?.isAdmin) {
-        return false;
-      }
-
-      if (isOnImportPanel && !user) {
         return false;
       }
 

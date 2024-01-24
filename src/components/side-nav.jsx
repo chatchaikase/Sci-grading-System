@@ -1,14 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { SIDENAV_ITEMS } from '../constants';
 import { Icon } from '@iconify/react';
+import { getUser } from "../function/userInfo";
 
 const SideNav = () => {
+  const [user, setUser] = useState(0);
+
+  useEffect(() => {
+    const logUserInfo = async () => {
+      const userInfo = await getUser();
+      await setUser(userInfo.user.isAdmin);
+    };
+
+    logUserInfo();
+  }, []);
   return (
     <div className="md:w-60 bg-white h-screen flex-1 fixed border-r border-zinc-200 hidden md:flex">
       <div className="flex flex-col space-y-6 w-full">
@@ -22,7 +33,10 @@ const SideNav = () => {
 
         <div className="flex flex-col space-y-2  md:px-6 ">
           {SIDENAV_ITEMS.map((item, idx) => {
-            return <MenuItem key={idx} item={item} />;
+             const shouldShowMenuItem = user === 1 || item.isAdmin === 0;
+             return shouldShowMenuItem ? (
+              <MenuItem key={idx} item={item} user={user} />
+            ) : null;
           })}
         </div>
       </div>
@@ -32,7 +46,7 @@ const SideNav = () => {
 
 export default SideNav;
 
-const MenuItem = ({ item }) => {
+const MenuItem = ({ item,user}) => {
   const pathname = usePathname();
   const [subMenuOpen, setSubMenuOpen] = useState(false);
   const toggleSubMenu = () => {

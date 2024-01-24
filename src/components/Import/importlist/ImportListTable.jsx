@@ -1,17 +1,55 @@
-import React from "react";
-import { getAllListSubject } from "../../function/listSubject";
+"use client"
+import React, { useEffect, useState } from "react";
+import { getAllListSubject } from "../../../function/listSubject";
+import Pagination from "./Pagination"
 
-export default async function ImportListTable() {
-  const importlist = await getAllListSubject();
-  
+export default function ImportListTable() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [importlist, setImportList] = useState(null);
+
+  //fetch ข้อมูล
+  useEffect(() => {
+    const fetchData = async () => {
+      const list = await getAllListSubject();
+      setImportList(list);
+    };
+
+    fetchData();
+  }, []); 
+
+  if (!importlist) {
+    return <div className="flex flex-col gap-4 w-full my-2 mx-2">
+    <div className="skeleton h-4 w-full"></div>
+    <div className="skeleton h-4 w-full"></div>
+    <div className="skeleton h-4 w-full"></div>
+    <div className="skeleton h-4 w-full"></div>
+    <div className="skeleton h-4 w-full"></div>
+  </div>
+  }
+
+  // จัดรูปเเบบเวลา
   const formatDate = (dateCreated) => {
     const DDMMYYYY = dateCreated.split('T')[0].split('-').reverse().join('/');
     return DDMMYYYY;
-  }
+  };
+
+  // ปุ่มเปลี่ยนหน้า
+
+  const itemsPerPage = 15;
+
+  const totalPages = importlist ? Math.ceil(importlist.length / itemsPerPage) : 0;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = importlist ? importlist.slice(startIndex, endIndex) : [];
+
+  const handlePageChange = (selectedPage) => {
+    setCurrentPage(selectedPage);
+  };
 
   return (
     <div>
-      {importlist ? (
+      {currentItems != null ? (
         <div className="table=responsive mt-5 border border-solid">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
@@ -40,7 +78,7 @@ export default async function ImportListTable() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {importlist.map((item, index) => (
+              {currentItems.map((item, index) => (
                 <tr key={index}>
                 <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
                   <a className="font-bold text-blue-500">{index + 1}</a>
@@ -67,9 +105,14 @@ export default async function ImportListTable() {
               ))}
             </tbody>
           </table>
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+          />
         </div>
       ) : (
-        <div>ไม่มีข้อมูลจากอัปโหลดไฟล์</div>
+        <div className='mx-4 mt-3'>ไม่มีรายการอัปโหลด กรุณาอัปโหลด</div>
       )}
     </div>
   );

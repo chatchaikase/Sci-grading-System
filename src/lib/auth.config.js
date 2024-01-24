@@ -5,16 +5,20 @@ export const authConfig = {
   providers: [],
   callbacks: {
     async jwt({ token, user }) {
-      if (user && user.userId) {
+      if (user && user.userId && user.firstname && user.lastname) {
         token.userId = user.userId;
         token.isAdmin = user.isAdmin;
+        token.firstname = user.firstname;
+        token.lastname = user.lastname;
       }
       return token;
     },
     async session({ session, token }) {
       if (token) {
         (session.user.userId = token.userId),
-          (session.user.isAdmin = token.isAdmin);
+        (session.user.isAdmin = token.isAdmin);
+        (session.user.firstname = token.firstname);
+        (session.user.lastname = token.lastname);
       }
       return session;
     },

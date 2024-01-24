@@ -2,14 +2,19 @@
 import { Fuzzy_Bubbles } from "next/font/google";
 import * as XLSX from "xlsx";
 import React, { use, useEffect, useState } from "react";
-import { AddExcel } from "../../function/import";
+import { AddExcel } from "../../../function/import";
 import { toast } from "react-toastify";
 import ImportInputFields from "./ImportInputFields";
 import FileUploadSection from "./FileUploadSection"
 import ExcelDataViewer from "./ExcelDataViewer"
 import FileUploadButton from "./FileUploadButton"
+import { useRouter } from "next/navigation";
 
 export default function ImportMain({ session }) {
+
+  // Redirect to another page
+  const router = useRouter();
+
   // HeaderForm
   const currentYear = new Date().getFullYear();
   const userId = session;
@@ -203,6 +208,8 @@ export default function ImportMain({ session }) {
         const result = await AddExcel(payload);
         if (result === 1) {
           toast.success("บันทึกข้อมูลสำเร็จ");
+          router.push('/import/importlist')
+
         } else {
           toast.error("พบข้อผิดพลาดเกิดขึ้น");
           console.error("Error deleting user.");

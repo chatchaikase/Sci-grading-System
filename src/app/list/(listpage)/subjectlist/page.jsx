@@ -7,7 +7,12 @@ import { Calendar } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { Icon } from "@iconify/react";
-import { getAllListSubject } from "../../../../function/listSubject";
+import {
+  deleteImportList,
+  getAllListSubject,
+} from "../../../../function/listSubject";
+import { toast } from "react-toastify";
+import ModalImportListDelete from "../../../../components/Modal/ModalImportListDelete.jsx";
 
 const items = [
   { id: 1, name: "Item 1", date: "2022-01-01" },
@@ -26,6 +31,7 @@ const Home = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [listItem, setListItem] = useState([]);
+  const [deleteHeaderNumber, setDeleteHeaderNumber] = useState("");
 
   const fetchData = async () => {
     try {
@@ -39,6 +45,7 @@ const Home = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   useEffect(() => {
     filterItemsNormal();
   }, []);
@@ -77,6 +84,27 @@ const Home = () => {
       return item.name.toLowerCase().includes(nameLower);
     });
     setFilteredItems(filtered);
+  };
+
+  const handleDeleteImportList = async (headerNumber) => {
+    try {
+      const res = await deleteImportList(headerNumber);
+      if (res == 200) {
+        toast.success("ลบรายงานเรียบร้อย");
+        fetchData();
+        setDeleteHeaderNumber("");
+      } else {
+        toast.success("ไม่สามารถลบรายงี้นี้ได้");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.success("เกิดข้อผิดพลาดเกิดขึ้น");
+    }
+  };
+
+  const deleteImportListClickHandler = async (headerNumber) => {
+    setDeleteHeaderNumber(headerNumber);
+    document.getElementById("warningDeleteUser").showModal();
   };
 
   return (
@@ -185,7 +213,21 @@ const Home = () => {
                 <th>{index + 1}</th>
                 <td>{item.courseID}</td>
                 <td>{item.courseName}</td>
-                {/* <td>{item.date}</td> */}
+                <td>aaa</td>
+                <td>
+                  <button
+                    className="btn bg-red-500 text-white"
+                    onClick={() =>
+                      deleteImportListClickHandler(item.importHeaderNumber)
+                    }
+                  >
+                    ลบ
+                  </button>
+                  <ModalImportListDelete
+                    deleteHeaderNumber={deleteHeaderNumber}
+                    handleDeleteImportList={handleDeleteImportList}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>

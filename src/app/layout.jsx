@@ -1,10 +1,10 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Header from '../components/header';
-import HeaderMobile from '../components/header-mobile';
-import MarginWidthWrapper from '../components/margin-width-wrapper';
-import PageWrapper from '../components/page-wrapper';
-import SideNav from '../components/side-nav';
+import Header from '../components/Navbar/header';
+import HeaderMobile from '../components/Navbar/header-mobile';
+import MarginWidthWrapper from '../components/Navbar/margin-width-wrapper';
+import PageWrapper from '../components/Navbar/page-wrapper';
+import SideNav from '../components/Navbar/side-nav';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CheckSection from '../components/checkSection'

@@ -44,17 +44,6 @@ export default function ImportMain({ session }) {
   const [dragging, setDragging] = useState(false);
   const [excelName, setExcelName] = useState("");
 
-  const formatDateWithTimeZone = (date) => {
-    if (date instanceof Date) {
-      const options = {
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      };
-      return date.toLocaleDateString(undefined, options);
-    } else {
-      return date; // Handle non-Date objects as needed
-    }
-  };
-
   const expectedColumnPattern = ["NO", "ID", "NAME","GRADE"];
 
   const validateColumnNames = (worksheet) => {
@@ -111,6 +100,10 @@ export default function ImportMain({ session }) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
       return;
     }
+    // else if(!excelfile){
+    //   toast.error("กรุณาอัปโหลดไฟล์ Excel");
+    //   return;
+    // }
 
     if (excelfile !== null) {
       const workbook = XLSX.read(excelfile, {

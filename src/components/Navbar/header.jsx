@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import useScroll from "../hooks/use-scroll";
-import { cn } from "../lib/utils";
-import { getUser } from "../function/userInfo";
+import useScroll from "../../hooks/use-scroll";
+import { cn } from "../../lib/utils";
+import { getUser } from "../../function/userInfo";
 import { Icon } from "@iconify/react";
-import { logout } from "../function/loginSystem";
+import { logout } from "../../function/loginSystem";
 
 const Header = () => {
   const [user, setUser] = useState("");

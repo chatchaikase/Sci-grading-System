@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { SIDENAV_ITEMS } from '../constants';
+import { SIDENAV_ITEMS } from '../../constants';
 import { Icon } from '@iconify/react';
-import { getUser } from "../function/userInfo";
+import { getUser } from "../../function/userInfo";
 
 const SideNav = () => {
   const [user, setUser] = useState(0);

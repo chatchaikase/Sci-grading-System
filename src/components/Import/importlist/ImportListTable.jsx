@@ -77,7 +77,7 @@ export default function ImportListTable() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y bg-white divide-gray-100">
               {currentItems.map((item, index) => (
                 <tr key={index}>
                 <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">

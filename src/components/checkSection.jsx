@@ -2,11 +2,11 @@
 import React from 'react'
 import LoginPage from '../app/(auth)/login/page';
 import { usePathname } from 'next/navigation'
-import Header from './header';
-import HeaderMobile from './header-mobile';
-import MarginWidthWrapper from './margin-width-wrapper';
-import PageWrapper from './page-wrapper';
-import SideNav from './side-nav';
+import Header from './Navbar/header';
+import HeaderMobile from './Navbar/header-mobile';
+import MarginWidthWrapper from './Navbar/margin-width-wrapper';
+import PageWrapper from './Navbar/page-wrapper';
+import SideNav from './Navbar/side-nav';
 
 export default function CheckSection({ children }) {
     const pathname = usePathname()

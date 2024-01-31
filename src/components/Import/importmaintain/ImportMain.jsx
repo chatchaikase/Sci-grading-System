@@ -153,6 +153,7 @@ export default function ImportMain({ session }) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
       return;
     }
+    
 
     if (checkYearEducationSelect) {
       if (!courseID.trim() || !courseName.trim() || !yearEducation.trim()) {
@@ -175,7 +176,10 @@ export default function ImportMain({ session }) {
       createByUserId: session,
     };
     
-    if (dataExcelFile && dataExcelFile.length > 0) {
+    if(dataExcelFile == null){
+      toast.error("กรุณาอัปโหลดไฟล์ Excel");
+      return;
+    }else if (dataExcelFile && dataExcelFile.length > 0) {
       const formattedExcelData = dataExcelFile.map((item, index) => ({
         no: item.NO,
         id: item.ID,
@@ -256,6 +260,7 @@ export default function ImportMain({ session }) {
         setDragging={setDragging}
         setExcelData={setExcelData}
         setUploadExcel={setUploadExcel}
+        setDataExcelFile={setDataExcelFile}
       />
       
       {/* ตารางเเสดงผลในไฟล์ Excel */}

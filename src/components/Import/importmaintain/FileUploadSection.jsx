@@ -14,7 +14,8 @@ export default function FileUploadSection({
   excelfile,
   setExcelfile,
   setExcelData,
-  setUploadExcel
+  setUploadExcel,
+  setDataExcelFile
 }) {
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -63,6 +64,7 @@ export default function FileUploadSection({
     setExcelName("");
     setExcelData(null);
     setUploadExcel(false);
+    setDataExcelFile(null);
   };
 
   return (

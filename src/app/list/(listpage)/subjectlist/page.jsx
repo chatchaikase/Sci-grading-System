@@ -194,27 +194,49 @@ const Home = () => {
           </ul>
         </div>
       </div>
-
-      <div className="overflow-x-auto max-h-screen" style={{ zIndex: 0 }}>
-        <table className="table table-zebra">
+      
+      <div className="overflow-x-auto max-h-screen bg-gray-100" style={{ zIndex: 0 }}>
+        <table className="w-full">
           {/* head */}
-          <thead>
+          <thead className="bg-gray-50 border-b-2 border-gray-200">
             <tr>
-              <th>No.</th>
-              <th>รหัสวิชา</th>
-              <th>วิชา</th>
-              <th>แก้ไขเมื่อ</th>
+              <th className="text-center w-10 p-3 text-sm font-semibold tracking-wide">
+                No.
+              </th>
+              <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                รหัสวิชา
+              </th>
+              <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                วิชา
+              </th>
+              <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                วันที่อัปโหลด (วัน/เดือน/ปี)
+              </th>
+              <th className="text-center w-15 p-3 text-sm font-semibold tracking-wide flex justify-center items-center">
+                <Icon
+                  icon="fluent:options-24-regular"
+                  className="text-orange-500 text-xl"
+                />
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-100 bg-white">
             {/* row 1 */}
             {listItem.map((item, index) => (
               <tr key={index}>
-                <th>{index + 1}</th>
-                <td>{item.courseID}</td>
-                <td>{item.courseName}</td>
-                <td>aaa</td>
-                <td>
+                <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <a className="font-bold text-blue-500">{index + 1}</a>
+                </td>
+                <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  {item.courseID}
+                </td>
+                <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  {item.courseName}
+                </td>
+                <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  aaa
+                </td>
+                <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
                   <button
                     className="btn bg-red-500 text-white"
                     onClick={() =>

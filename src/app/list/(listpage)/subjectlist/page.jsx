@@ -75,7 +75,7 @@ const Home = () => {
         <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
           <a className="font-bold text-blue-500">{index + 1}</a>
         </td>
-        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap" width="20%">
+        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap" width="20%" >
           <Link href={"/"}><p className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">{item.importHeaderNumber}</p></Link>
         </td>
         <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap" width="20%">
@@ -135,10 +135,8 @@ const Home = () => {
         onChange={(e) => handleSearchNormal(e.target.value)}
         className="input input-bordered rounded-lg pr-10 py-2 w-full max-w-sm"
       />
-      
       <Drawer/>
-
-      <div className="overflow-x-auto mt-5 max-h-screen bg-gray-100" style={{ zIndex: 0 }}>
+      <div className="overflow-x-auto mt-5 max-h-screen bg-gray-100 rounded-lg shadow" style={{ zIndex: 0 }}>
         <table className="w-full">
           {/* head */}
           <thead className="bg-gray-50 border-b-2 border-gray-200">

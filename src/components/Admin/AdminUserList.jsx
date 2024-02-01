@@ -10,10 +10,9 @@ import {
 } from "../../function/admin";
 import { useFormState } from "react-dom";
 import { Icon } from "@iconify/react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export default function AdminUserList() {
-
   const [user, setUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +22,15 @@ export default function AdminUserList() {
   const [usernameSearchTerm, setUsernameSearchTerm] = useState("");
   const [emailSearchTerm, setEmailSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
+
+  //form AddUser
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRepeat, setPaswordRepeat] = useState("");
+  const [isAdmin, setIsAdmin] = useState("");
 
   //form EditUser
   const [userId, setUserId] = useState(null);
@@ -54,6 +62,16 @@ export default function AdminUserList() {
     document.querySelector("input[name='newPassword']").disabled = true;
   };
 
+  const resetFormAddUserFields = () => {
+    setUsername("");
+    setEmail("");
+    setFirstname("");
+    setLastname("");
+    setPassword("");
+    setPaswordRepeat("");
+    setIsAdmin("");
+  };
+
   const fetchData = async () => {
     try {
       const result = await getAllUser();
@@ -68,20 +86,22 @@ export default function AdminUserList() {
     if (state) {
       if (!state.error) {
         closeModal();
-        toast.success("บันทึกผู้ใช้งานสำเร็จ")
+        toast.success("บันทึกผู้ใช้งานสำเร็จ");
+        resetFormAddUserFields();
         fetchData();
       }
     } else if (editState) {
       if (!editState.error) {
         editCloseModal();
-        toast.success("บันทึกผู้ใช้งานสำเร็จ")
+        toast.success("บันทึกผู้ใช้งานสำเร็จ");
         fetchData();
       }
     } else if (state || editState) {
       if (!state.error || !editState.error) {
         closeModal();
         editCloseModal();
-        toast.success("บันทึกผู้ใช้งานสำเร็จ")
+        toast.success("บันทึกผู้ใช้งานสำเร็จ");
+        resetFormAddUserFields();
         fetchData();
       }
     }
@@ -123,9 +143,9 @@ export default function AdminUserList() {
     document.getElementById("editUser").showModal();
   };
 
-  const deleteUserClickHandler = async (username,userId) => {
+  const deleteUserClickHandler = async (username, userId) => {
     setDeleteUsername(username);
-    setDeleteUserId(userId)
+    setDeleteUserId(userId);
     document.getElementById("warningDeleteUser").showModal();
   };
 
@@ -133,14 +153,14 @@ export default function AdminUserList() {
     try {
       const result = await deleteUser(userId);
       if (result === 200) {
-        toast.success("ลบผู้ใช้งานสำเร็จ")
-        fetchData();        
+        toast.success("ลบผู้ใช้งานสำเร็จ");
+        fetchData();
       } else {
-        toast.error("พบข้อผิดพลาดเกิดขึ้น")
+        toast.error("พบข้อผิดพลาดเกิดขึ้น");
         console.error("Error deleting user.");
       }
     } catch (error) {
-       toast.error("พบข้อผิดพลาดเกิดขึ้น")
+      toast.error("พบข้อผิดพลาดเกิดขึ้น");
       console.error("Error deleting user:", error);
     }
   };
@@ -210,6 +230,8 @@ export default function AdminUserList() {
                                   name="username"
                                   placeholder="ชื่อผู้ใช้งาน"
                                   className="input input-bordered w-full max-w-xs"
+                                  onChange={(e) => setUsername(e.target.value)}
+                                  value={username}
                                 />
                               </div>
                               <div className="flex flex-col">
@@ -219,6 +241,8 @@ export default function AdminUserList() {
                                   name="email"
                                   placeholder="email"
                                   className="input input-bordered w-full max-w-xs"
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  value={email}
                                 />
                               </div>
                             </div>
@@ -230,6 +254,8 @@ export default function AdminUserList() {
                                   name="firstname"
                                   placeholder="ชื่อจริง"
                                   className="input input-bordered w-full max-w-xs"
+                                  onChange={(e) => setFirstname(e.target.value)}
+                                  value={firstname}
                                 />
                               </div>
                               <div className="flex flex-col">
@@ -239,6 +265,8 @@ export default function AdminUserList() {
                                   name="lastname"
                                   placeholder="นามสกุล"
                                   className="input input-bordered w-full max-w-xs"
+                                  onChange={(e) => setLastname(e.target.value)}
+                                  value={lastname}
                                 />
                               </div>
                             </div>
@@ -250,6 +278,8 @@ export default function AdminUserList() {
                                   name="password"
                                   placeholder="รหัสผ่าน"
                                   className="input input-bordered w-full max-w-xs"
+                                  onChange={(e) => setPassword(e.target.value)}
+                                  value={password}
                                 />
                               </div>
                               <div className="flex flex-col">
@@ -259,29 +289,22 @@ export default function AdminUserList() {
                                   name="passwordRepeat"
                                   placeholder="ยืนยันรหัสผ่าน"
                                   className="input input-bordered w-full max-w-xs"
+                                  onChange={(e) =>
+                                    setPaswordRepeat(e.target.value)
+                                  }
+                                  value={passwordRepeat}
                                 />
                               </div>
                             </div>
-                            {/* <div className="flex flex-col">
-                              <p className="text-md mb-1">คณะ</p>
-                              <select
-                                className="select select-bordered w-full max-w-lg"
-                                name="sdads"
-                                defaultValue={0}
-                              >
-                                <option disabled selected value={0}>
-                                  เลือกคณะ
-                                </option>
-                                <option value={0}>วิทยาศาสาตร์</option>
-                                <option value={1}>วิทยาการจัดการ</option>
-                              </select>
-                            </div> */}
+
                             <div className="flex flex-col">
                               <p className="text-md mb-1">สถานะ</p>
                               <select
                                 className="select select-bordered w-full max-w-lg"
                                 name="isAdmin"
                                 defaultValue={"0"}
+                                onChange={(e) => setIsAdmin(e.target.value)}
+                                value={isAdmin}
                               >
                                 <option value={"0"}>user</option>
                                 <option value={"1"}>admin</option>
@@ -334,12 +357,9 @@ export default function AdminUserList() {
                   <th className="text-center tw-15 p-3 text-sm font-semibold tracking-wide">
                     email
                   </th>
-                  <th className="text-center tw-15 p-3 text-sm font-semibold tracking-wide">
-                    คณะ
-                  </th>
                   <th className="text-center w-15 p-3 text-sm font-semibold tracking-wide">
                     สถานะ
-                  </th>
+                  </th>               
                   <th className="text-center w-15 p-3 text-sm font-semibold tracking-wide flex justify-center items-center">
                     <Icon
                       icon="fluent:options-24-regular"
@@ -368,7 +388,6 @@ export default function AdminUserList() {
                     <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
                       {item.email}
                     </td>
-                    <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap"></td>
                     <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
                       {item.isAdmin === 1 ? (
                         <span className="p-1.5 text-xs font-medium tracking-wider uppercase text-white bg-blue-600 rounded-lg bg-opacity-50">
@@ -488,20 +507,6 @@ export default function AdminUserList() {
                                     className="input input-bordered w-full max-w-lg"
                                   />
                                 </div>
-                                {/* <div className="flex flex-col">
-                                  <p className="text-md mb-1">คณะ</p>
-                                  <select
-                                    className="select select-bordered w-full max-w-lg"
-                                    name="sdads"
-                                    defaultValue={0}
-                                  >
-                                    <option disabled selected value={0}>
-                                      เลือกคณะ
-                                    </option>
-                                    <option value={0}>วิทยาศาสาตร์</option>
-                                    <option value={1}>วิทยาการจัดการ</option>
-                                  </select>
-                                </div> */}
                                 <div className="flex flex-col">
                                   <p className="text-md mb-1">สถานะ</p>
                                   <select
@@ -546,7 +551,9 @@ export default function AdminUserList() {
                       </dialog>
                       <button
                         className="btn bg-red-500 text-white"
-                        onClick={() => deleteUserClickHandler(item.username,item.userId)}
+                        onClick={() =>
+                          deleteUserClickHandler(item.username, item.userId)
+                        }
                       >
                         ลบ
                       </button>
@@ -633,7 +640,6 @@ export default function AdminUserList() {
               </p>
               <p className="text-sm text-gray-700">นามสกุล: {item.lastname}</p>
               <p className="text-sm text-gray-700">email: {item.email}</p>
-              <p className="text-sm text-gray-700">คณะ: {item.email}</p>
               <div className="card-actions">
                 {parseInt(item.isAdmin) === 1 ? (
                   <span className="p-1.5 text-xs font-medium tracking-wider uppercase text-white bg-blue-600 rounded-lg bg-opacity-50">

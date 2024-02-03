@@ -3,14 +3,12 @@ import axios from "axios";
 
 const path = process.env.LocalhostDOTNET;
 
-export const getListSubjectByFilter = async (importHeader) => {
+export const getListSubjectByFilter = async (importHSearch) => {
   try {
     const allListSubject = await axios.get(
-      `${path}/api/List/Getlistimportheader`,
+      `${path}/api/List/GetlistimportheaderByFilter`,
       {
-        ImportHeader: importHeader
-      },
-      {
+        params: importHSearch,
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",

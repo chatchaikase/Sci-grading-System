@@ -4,40 +4,53 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
-import { getListSubjectByFilter } from "../function/listSubject";
+import { getListSubjectByFilter, getAllListSubject } from "../function/listSubject";
 
-export default function Drawer({ onSearch }) {
+export default function Drawer({ onSearch,setLoading }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDate, setSearchDate] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
 
   const handleDateChange = (e) => {
     setSearchDate(e.target.value);
   };
 
-  const formatDate = (dateCreated) => {
-    const dateObject = new Date(dateCreated);
-    return dateObject;
-  }
 
-  const importHeader = {
-    courseID: "",
-    importHeaderNumber: searchTerm,
-    semester: "",
-    yearEducation: "",
-    dateCreated: formatDate(searchDate),
+  const importHSearch = {
+    importHeaderID: null,
+    importHeaderNumber: '',
+    courseID: '',
+    courseName: searchTerm,
+    semester: '',
+    yearEducation: '',
+    dateCreated: searchDate,
+    dateUpdated: '',
   };
 
   const handleSearchClick = async () => {
     try {
-      console.log(importHeader);
-      const listItem = await getListSubjectByFilter(importHeader);
-      setSearchResults(listItem);
-
-      onSearch(searchResults);
+      setLoading(true);
+      const listItem = await getListSubjectByFilter(importHSearch);
+      await onSearch(listItem);
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+      document.getElementById('my-drawer-4').checked = false;
+    }
+  };
+  
+
+  const handleResetData = async () => {
+    try {
+      setLoading(true);
+      const itemList = await getAllListSubject();
+      await onSearch(itemList);
+    } catch (error) {
+      console.error(error);
+    }finally{
+      setLoading(false);
+      document.getElementById('my-drawer-4').checked = false;
     }
   };
 
@@ -94,10 +107,17 @@ export default function Drawer({ onSearch }) {
           <div className="row">
             <div className="col-sm-12">
               <button
-                className="btn btn-primary mt-2"
+                className="btn btn-success mt-2"
                 onClick={handleSearchClick}
               >
                 Search
+              </button>
+              
+              <button
+              className="btn btn-warning mt-2 ml-2"
+              onClick={handleResetData}
+              >
+                Reset
               </button>
             </div>
           </div>

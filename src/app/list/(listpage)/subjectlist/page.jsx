@@ -23,6 +23,7 @@ const Home = () => {
   const [listItem, setListItem] = useState([]);
   const [deleteHeaderNumber, setDeleteHeaderNumber] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -49,12 +50,12 @@ const Home = () => {
     setCurrentPage(selectedPage);
   };
 
-  const handleSearchFilter = (value) => {
-    if(value != null){
-      setFilteredItems(value);
-    }
+  const handleSearchFilter = async (value) => {
+    console.log(value);
+    await setListItem(value);
   };
 
+   
   const handleSearchNormal = (value) => {
     setSearchTerm(value);
 
@@ -141,7 +142,7 @@ const Home = () => {
         onChange={(e) => handleSearchNormal(e.target.value)}
         className="input input-bordered rounded-lg pr-10 py-2 w-full max-w-sm"
       />
-      <Drawer onSearch={handleSearchFilter}/>
+      <Drawer onSearch={handleSearchFilter} setLoading={setLoading}/>
       <div className="overflow-x-auto mt-5 max-h-screen bg-gray-100 rounded-lg shadow" style={{ zIndex: 0 }}>
         <table className="w-full">
           {/* head */}
@@ -170,10 +171,34 @@ const Home = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 bg-white">
-            {/* row 1 */}
-            {renderTableRows()}
-          </tbody>
+          {loading == false ? (
+            <tbody className="divide-y divide-gray-100 bg-white">
+              {/* row 1 */}
+              {renderTableRows()}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                  <td colSpan={6} className="items-center justify-center text-center ml-3">
+                    <div className="flex flex-col gap-4 w-full my-8 mx-10">
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                      <div className="skeleton h-4 w-full"></div>
+                    </div>
+                  </td>
+              </tr>
+            </tbody>
+          )}     
         </table>
         {searchTerm == "" ? (
           <Pagination

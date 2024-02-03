@@ -3,6 +3,27 @@ import axios from "axios";
 
 const path = process.env.LocalhostDOTNET;
 
+export const getListSubjectByFilter = async (importHSearch) => {
+  try {
+    const allListSubject = await axios.get(
+      `${path}/api/List/GetlistimportheaderByFilter`,
+      {
+        params: importHSearch,
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+      }
+    );
+    if (!allListSubject) {
+      throw new Error("Cannot fetch data");
+    }
+    return allListSubject.data;
+  } catch (error) {
+    throw new Error("Error to fetch data");
+  }
+};
+
 export const getAllListSubject = async () => {
   try {
     const allListSubject = await axios.get(

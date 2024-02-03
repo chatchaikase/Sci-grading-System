@@ -49,6 +49,12 @@ const Home = () => {
     setCurrentPage(selectedPage);
   };
 
+  const handleSearchFilter = (value) => {
+    if(value != null){
+      setFilteredItems(value);
+    }
+  };
+
   const handleSearchNormal = (value) => {
     setSearchTerm(value);
 
@@ -135,7 +141,7 @@ const Home = () => {
         onChange={(e) => handleSearchNormal(e.target.value)}
         className="input input-bordered rounded-lg pr-10 py-2 w-full max-w-sm"
       />
-      <Drawer/>
+      <Drawer onSearch={handleSearchFilter}/>
       <div className="overflow-x-auto mt-5 max-h-screen bg-gray-100 rounded-lg shadow" style={{ zIndex: 0 }}>
         <table className="w-full">
           {/* head */}

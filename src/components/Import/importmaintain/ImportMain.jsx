@@ -5,13 +5,12 @@ import React, { use, useEffect, useState } from "react";
 import { AddExcel } from "../../../function/import";
 import { toast } from "react-toastify";
 import ImportInputFields from "./ImportInputFields";
-import FileUploadSection from "./FileUploadSection"
-import ExcelDataViewer from "./ExcelDataViewer"
-import FileUploadButton from "./FileUploadButton"
+import FileUploadSection from "./FileUploadSection";
+import ExcelDataViewer from "./ExcelDataViewer";
+import FileUploadButton from "./FileUploadButton";
 import { useRouter } from "next/navigation";
 
 export default function ImportMain({ session }) {
-
   // Redirect to another page
   const router = useRouter();
 
@@ -39,30 +38,34 @@ export default function ImportMain({ session }) {
   // ExcelSubmit
   const [excelData, setExcelData] = useState(null);
   const [dataExcelFile, setDataExcelFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Drag file Excel
   const [dragging, setDragging] = useState(false);
   const [excelName, setExcelName] = useState("");
 
-  const expectedColumnPattern = ["NO", "ID", "NAME","GRADE"];
+  const expectedColumnPattern = ["NO", "ID", "NAME", "GRADE"];
 
   const validateColumnNames = (worksheet) => {
     const range = XLSX.utils.decode_range(worksheet["!ref"]);
     const columnNames = [];
-  
+
     for (let C = range.s.c; C <= range.e.c; ++C) {
       const cellAddress = { r: range.s.r, c: C }; // Assuming the column names are in the first row
       const cellRef = XLSX.utils.encode_cell(cellAddress);
       const columnName = worksheet[cellRef]?.v;
       columnNames.push(columnName);
     }
-  
-    const uppercaseColumnNames = columnNames.map((name) => name ? name.toUpperCase() : null);
-  
-    return expectedColumnPattern.every(
-      (expectedColumnName, index) => uppercaseColumnNames[index] === expectedColumnName.toUpperCase()
+
+    const uppercaseColumnNames = columnNames.map((name) =>
+      name ? name.toUpperCase() : null
     );
-  };  
+
+    return expectedColumnPattern.every(
+      (expectedColumnName, index) =>
+        uppercaseColumnNames[index] === expectedColumnName.toUpperCase()
+    );
+  };
 
   const handleFile = (e) => {
     let fileTypes = [
@@ -137,7 +140,7 @@ export default function ImportMain({ session }) {
       const formattedData = data.map((rowData) => {
         const formattedRow = {};
         for (const key in rowData) {
-          const formattedKey = key.toUpperCase(); 
+          const formattedKey = key.toUpperCase();
           formattedRow[formattedKey] = rowData[key];
         }
         return formattedRow;
@@ -153,7 +156,15 @@ export default function ImportMain({ session }) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
       return;
     }
-    
+
+    if (
+      !courseID.trim() ||
+      !courseName.trim() ||
+      (!yearEducation.trim() && !yearEducationSelect.trim())
+    ) {
+      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
 
     if (checkYearEducationSelect) {
       if (!courseID.trim() || !courseName.trim() || !yearEducation.trim()) {
@@ -172,14 +183,16 @@ export default function ImportMain({ session }) {
       term: term,
       courseName: courseName,
       semester: semester,
-      yearEducation: checkYearEducationSelect ? yearEducation : yearEducationSelect,
+      yearEducation: checkYearEducationSelect
+        ? yearEducation
+        : yearEducationSelect,
       createByUserId: session,
     };
-    
-    if(dataExcelFile == null){
+
+    if (dataExcelFile == null) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
       return;
-    }else if (dataExcelFile && dataExcelFile.length > 0) {
+    } else if (dataExcelFile && dataExcelFile.length > 0) {
       const formattedExcelData = dataExcelFile.map((item, index) => ({
         no: item.NO,
         id: item.ID,
@@ -202,16 +215,19 @@ export default function ImportMain({ session }) {
       };
 
       try {
+        await setLoading(true);
         const result = await AddExcel(payload);
         if (result === 1) {
-          toast.success("บันทึกข้อมูลสำเร็จ");
-          router.push('/import/importlist')
-
+          await setLoading(false);
+          await toast.success("บันทึกข้อมูลสำเร็จ");
+          await router.push("/import/importlist");
         } else {
-          toast.error("พบข้อผิดพลาดเกิดขึ้น");
+          await setLoading(false);
+          await toast.error("พบข้อผิดพลาดเกิดขึ้น");
           console.error("Error deleting user.");
         }
       } catch (error) {
+        await setLoading(false);
         console.error("Error saving Excel data:", error);
       }
     }
@@ -223,8 +239,8 @@ export default function ImportMain({ session }) {
       <div className="w-full h-[300px] bg-[#2F3337] rounded-lg flex flex-col md:flex-row">
         <div className="w-full md:w-[80%] h-[300px] z-1 bg-[#03A96B] rounded-tl-lg rounded-bl-lg flex items-center justify-center">
           <div className="px-5 py-10">
-          {/* เเถบ Header */}
-          <ImportInputFields
+            {/* เเถบ Header */}
+            <ImportInputFields
               courseID={courseID}
               setCourseID={setCourseID}
               courseName={courseName}
@@ -241,11 +257,14 @@ export default function ImportMain({ session }) {
           </div>
         </div>
         <div className="w-full lg:w-[20%] mt-4 mb-2 md:mt-0">
-         {/* เเถบปุ่มบันทึกไฟล์ Excel */}
-          <FileUploadButton handleFileSubmit={handleFileSubmit} saveExcel={saveExcel}/>
+          {/* เเถบปุ่มบันทึกไฟล์ Excel */}
+          <FileUploadButton
+            handleFileSubmit={handleFileSubmit}
+            saveExcel={saveExcel}
+          />
         </div>
       </div>
-       {/* เเถบอัปโหลดไฟล์ Excel */}
+      {/* เเถบอัปโหลดไฟล์ Excel */}
       <FileUploadSection
         handleFileSubmit={handleFileSubmit}
         handleFile={handleFile}
@@ -261,11 +280,12 @@ export default function ImportMain({ session }) {
         setExcelData={setExcelData}
         setUploadExcel={setUploadExcel}
         setDataExcelFile={setDataExcelFile}
+        loading={loading}
       />
-      
+
       {/* ตารางเเสดงผลในไฟล์ Excel */}
       <div className="viewer">
-        <ExcelDataViewer  excelData={excelData} />
+        <ExcelDataViewer excelData={excelData} loading={loading} />
       </div>
     </div>
   );

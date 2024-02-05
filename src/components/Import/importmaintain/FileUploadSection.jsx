@@ -15,7 +15,8 @@ export default function FileUploadSection({
   setExcelfile,
   setExcelData,
   setUploadExcel,
-  setDataExcelFile
+  setDataExcelFile,
+  loading,
 }) {
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -88,38 +89,49 @@ export default function FileUploadSection({
           {uploadExcel && <>ตรวจเช็คข้อมูลก่อนบันทึก</>} */}
         </p>
         {/*form*/}
-        {excelName ? (
-          <>
-            {excelName && uploadExcel ? (
-              <p className="text-gray-500">ตรวจเช็คข้อมูลก่อนบันทึก</p>
-            ) : excelName && !uploadExcel ? (
-              <p className="text-gray-500">ไฟล์ {excelName} กรุณากดอัปโหลด</p>
-            ) : (
-              <></>
-            )}
-
-            <button className="btn bg-red-500" onClick={handleResetFile}>
-              <Icon
-                icon="solar:trash-bin-2-bold"
-                className="text-white text-lg"
-              />
-              <p className="text-white">ยกเลิกไฟล์</p>
-            </button>
-          </>
+        {loading ? (
+          <div className="items-center justify-center flex gap-2 text-slate-600 ">
+            <p className="text-lg font-semibold">กำลังตรวจสอบข้อมูล</p>
+            <span className="loading loading-dots loading-md"></span>
+          </div>
         ) : (
           <>
-            <p className="text-gray-500">วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ</p>
-            <form
-              className="form-group costom-from"
-              onSubmit={handleFileSubmit}
-            >
-              <input
-                type="File"
-                className='form-control file-input file-input-bordered file-input-success max-w-xs"'
-                required
-                onChange={handleFile}
-              />
-              {/* <button type="Submit" className="btn btn-primary btn-md mt-5">
+            {excelName ? (
+              <>
+                {excelName && uploadExcel ? (
+                  <p className="text-gray-500">ตรวจเช็คข้อมูลก่อนบันทึก</p>
+                ) : excelName && !uploadExcel ? (
+                  <p className="text-gray-500">
+                    ไฟล์ {excelName} กรุณากดอัปโหลด
+                  </p>
+                ) : (
+                  <></>
+                )}
+
+                <button className="btn bg-red-500" onClick={handleResetFile}>
+                  <Icon
+                    icon="solar:trash-bin-2-bold"
+                    className="text-white text-lg"
+                  />
+                  <p className="text-white">ยกเลิกไฟล์</p>
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="text-gray-500">
+                  วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ
+                </p>
+                <form
+                  className="form-group costom-from"
+                  onSubmit={handleFileSubmit}
+                >
+                  <input
+                    type="File"
+                    className='form-control file-input file-input-bordered file-input-success max-w-xs"'
+                    required
+                    onChange={handleFile}
+                  />
+                  {/* <button type="Submit" className="btn btn-primary btn-md mt-5">
               UPLOAD
             </button>
             {typeError && (
@@ -127,7 +139,9 @@ export default function FileUploadSection({
                 {typeError}
               </div>
             )} */}
-            </form>
+                </form>
+              </>
+            )}
           </>
         )}
       </div>

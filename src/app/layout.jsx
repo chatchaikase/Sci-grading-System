@@ -18,12 +18,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="autumn">
+    <html lang="en" data-theme="garden">
       <body className={`bg-white${inter.className}`} suppressHydrationWarning={true}> 
         <div>
           <CheckSection>{children}</CheckSection>
         </div>
-        <ToastContainer />
+        <ToastContainer position="top-center" />
       </body>
     </html>
   )

@@ -17,6 +17,7 @@ export default function FileUploadSection({
   setUploadExcel,
   setDataExcelFile,
   loading,
+  handleResetFile,
 }) {
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -60,13 +61,13 @@ export default function FileUploadSection({
     }
   };
 
-  const handleResetFile = () => {
-    setExcelfile(null);
-    setExcelName("");
-    setExcelData(null);
-    setUploadExcel(false);
-    setDataExcelFile(null);
-  };
+  // const handleResetFile = () => {
+  //   setExcelfile(null);
+  //   setExcelName("");
+  //   setExcelData(null);
+  //   setUploadExcel(false);
+  //   setDataExcelFile(null);
+  // };
 
   return (
     <div

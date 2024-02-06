@@ -79,22 +79,22 @@ const Home = () => {
 
     return itemsToRender.map((item, index) => (
       <tr key={index}>
-        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+        <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
           <a className="font-bold text-blue-500">{index + 1}</a>
         </td>
-        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap" width="20%" >
+        <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%" >
           <Link href={"/"}><p className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">{item.importHeaderNumber}</p></Link>
         </td>
-        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap" width="20%">
+        <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
           {item.courseID}
         </td>
-        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap" width="22%">
+        <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="22%">
           {item.courseName}
         </td>
-        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap" width="20%">
+        <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
           {formatDate(item.dateCreated)}
         </td>
-        <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+        <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
           <button
             className="btn px-4 py-2 bg-red-500 text-white"
             onClick={() =>
@@ -148,22 +148,22 @@ const Home = () => {
           {/* head */}
           <thead className="bg-gray-50 border-b-2 border-gray-200">
             <tr>
-              <th className="text-center w-10 p-3 text-sm font-semibold tracking-wide">
+              <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                 No.
               </th>
-              <th className="text-center p-3 text-sm font-semibold tracking-wide">
+              <th className="text-center p-3 text-lg font-semibold tracking-wide">
                 หมายเลขอัปโหลด
               </th>
-              <th className="text-center p-3 text-sm font-semibold tracking-wide">
+              <th className="text-center p-3 text-lg font-semibold tracking-wide">
                 รหัสวิชา
               </th>
-              <th className="text-center p-3 text-sm font-semibold tracking-wide">
+              <th className="text-center p-3 text-lg font-semibold tracking-wide">
                 วิชา
               </th>
-              <th className="text-center p-3 text-sm font-semibold tracking-wide">
+              <th className="text-center p-3 text-lg font-semibold tracking-wide">
                 วันที่อัปโหลด (วัน/เดือน/ปี)
               </th>
-              <th className="text-center w-15 p-3 text-sm font-semibold tracking-wide flex justify-center items-center">
+              <th className="text-center w-15 p-3 text-lg font-semibold tracking-wide flex justify-center items-center">
                 <Icon
                   icon="fluent:options-24-regular"
                   className="text-orange-500 text-xl"

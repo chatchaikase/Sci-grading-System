@@ -2,12 +2,14 @@
 import { Fuzzy_Bubbles } from "next/font/google";
 import * as XLSX from "xlsx";
 import React, { use, useEffect, useState } from "react";
-import { AddExcel } from "../../../function/import";
+import { AddExcel, CheckImportHeader } from "../../../function/import";
 import { toast } from "react-toastify";
 import ImportInputFields from "./ImportInputFields";
 import FileUploadSection from "./FileUploadSection";
 import ExcelDataViewer from "./ExcelDataViewer";
 import FileUploadButton from "./FileUploadButton";
+import ModalConfirm from "./ModalConfirm";
+import CheckStepMain from "./checkStep/CheckStepMain";
 import { useRouter } from "next/navigation";
 
 export default function ImportMain({ session }) {
@@ -27,6 +29,11 @@ export default function ImportMain({ session }) {
   );
   const [checkYearEducationSelect, setCheckYearEducationSelect] =
     useState(false);
+
+  // chckImportHeader
+  const [importHeaderInDB, setImportHeaderInDB] = useState("");
+  const [checkImportHeaderInDB, setCheckImportHeaderInDB] = useState(false);
+  const [checkStep1, setCheckStep1] = useState(false);
 
   // Onchange
   const [excelfile, setExcelfile] = useState(null);
@@ -201,6 +208,13 @@ export default function ImportMain({ session }) {
         createByUserId: session,
       }));
 
+      const importHeaderForm = {
+        courseID: formData.courseID,
+        courseName: formData.courseName,
+        semester: formData.semester,
+        yearEducation: formData.yearEducation,
+      };
+
       const importHeader = {
         courseID: formData.courseID,
         courseName: formData.courseName,
@@ -216,15 +230,27 @@ export default function ImportMain({ session }) {
 
       try {
         await setLoading(true);
-        const result = await AddExcel(payload);
-        if (result === 1) {
-          await setLoading(false);
-          await toast.success("บันทึกข้อมูลสำเร็จ");
-          await router.push("/import/importlist");
+
+        const checkImportHeader = await CheckImportHeader(importHeaderForm);
+
+        if (
+          checkImportHeader.status == 1 &&
+          checkImportHeader.importHeaderNumber != null
+        ) {
+          setCheckImportHeaderInDB(true);
+          document.getElementById("confirm").showModal();
+          setImportHeaderInDB(checkImportHeader.importHeaderNumber);
         } else {
-          await setLoading(false);
-          await toast.error("พบข้อผิดพลาดเกิดขึ้น");
-          console.error("Error deleting user.");
+          const result = await AddExcel(payload);
+          if (result === 1) {
+            await setLoading(false);
+            await toast.success("บันทึกข้อมูลสำเร็จ");
+            await router.push("/import/importlist");
+          } else {
+            await setLoading(false);
+            await toast.error("พบข้อผิดพลาดเกิดขึ้น");
+            console.error("Error deleting user.");
+          }
         }
       } catch (error) {
         await setLoading(false);
@@ -233,60 +259,96 @@ export default function ImportMain({ session }) {
     }
   };
 
+  //ResetExcel
+  const handleResetFile = () => {
+    setExcelfile(null);
+    setExcelName("");
+    setExcelData(null);
+    setUploadExcel(false);
+    setDataExcelFile(null);
+  };
+
   return (
     <div className="px-9 py-5">
-      <h1 className="text-[40px] mb-3">ข้อมูลรายวิชา</h1>
-      <div className="w-full h-[300px] bg-[#2F3337] rounded-lg flex flex-col md:flex-row">
-        <div className="w-full md:w-[80%] h-[300px] z-1 bg-[#03A96B] rounded-tl-lg rounded-bl-lg flex items-center justify-center">
-          <div className="px-5 py-10">
-            {/* เเถบ Header */}
-            <ImportInputFields
-              courseID={courseID}
-              setCourseID={setCourseID}
-              courseName={courseName}
-              setCourseName={setCourseName}
-              semester={semester}
-              setSemester={setSemester}
-              yearEducation={yearEducation}
-              setYearEducation={setYearEducation}
-              checkYearEducationSelect={checkYearEducationSelect}
-              yearEducationSelect={yearEducationSelect}
-              setYearEducationSelect={setYearEducationSelect}
-              setCheckYearEducationSelect={setCheckYearEducationSelect}
-            />
+      {checkStep1 ? (
+        <CheckStepMain
+          checkStep1={checkStep1}
+          setCheckStep1={setCheckStep1}
+          excelData={excelData}
+          setLoading={setLoading}
+          handleResetFile={handleResetFile}
+          importHeaderInDB={importHeaderInDB}
+          setImportHeaderInDB={setCheckImportHeaderInDB}
+          session={session}
+        />
+      ) : (
+        <>
+          <h1 className="text-[40px] mb-3">ข้อมูลรายวิชา</h1>
+          <div className="w-full h-[300px] bg-base-200 rounded-lg flex flex-col md:flex-row">
+            <div className="w-full md:w-[80%] h-[300px] z-1 bg-accent rounded-tl-lg rounded-bl-lg flex items-center justify-center">
+              <div className="px-5 py-10">
+                {/* เเถบ Header */}
+                <ImportInputFields
+                  courseID={courseID}
+                  setCourseID={setCourseID}
+                  courseName={courseName}
+                  setCourseName={setCourseName}
+                  semester={semester}
+                  setSemester={setSemester}
+                  yearEducation={yearEducation}
+                  setYearEducation={setYearEducation}
+                  checkYearEducationSelect={checkYearEducationSelect}
+                  yearEducationSelect={yearEducationSelect}
+                  setYearEducationSelect={setYearEducationSelect}
+                  setCheckYearEducationSelect={setCheckYearEducationSelect}
+                />
+              </div>
+            </div>
+            <div className="w-full lg:w-[20%] mt-4 mb-2 md:mt-0">
+              {/* เเถบปุ่มบันทึกไฟล์ Excel */}
+              <FileUploadButton
+                handleFileSubmit={handleFileSubmit}
+                saveExcel={saveExcel}
+              />
+            </div>
           </div>
-        </div>
-        <div className="w-full lg:w-[20%] mt-4 mb-2 md:mt-0">
-          {/* เเถบปุ่มบันทึกไฟล์ Excel */}
-          <FileUploadButton
-            handleFileSubmit={handleFileSubmit}
-            saveExcel={saveExcel}
-          />
-        </div>
-      </div>
-      {/* เเถบอัปโหลดไฟล์ Excel */}
-      <FileUploadSection
-        handleFileSubmit={handleFileSubmit}
-        handleFile={handleFile}
-        excelName={excelName}
-        setExcelName={setExcelName}
-        uploadExcel={uploadExcel}
-        excelfile={excelfile}
-        setExcelfile={setExcelfile}
-        typeError={typeError}
-        setTypeError={setTypeError}
-        dragging={dragging}
-        setDragging={setDragging}
-        setExcelData={setExcelData}
-        setUploadExcel={setUploadExcel}
-        setDataExcelFile={setDataExcelFile}
-        loading={loading}
-      />
 
-      {/* ตารางเเสดงผลในไฟล์ Excel */}
-      <div className="viewer">
-        <ExcelDataViewer excelData={excelData} loading={loading} />
-      </div>
+          {/* เเถบอัปโหลดไฟล์ Excel */}
+          <FileUploadSection
+            handleFileSubmit={handleFileSubmit}
+            handleFile={handleFile}
+            excelName={excelName}
+            setExcelName={setExcelName}
+            uploadExcel={uploadExcel}
+            excelfile={excelfile}
+            setExcelfile={setExcelfile}
+            typeError={typeError}
+            setTypeError={setTypeError}
+            dragging={dragging}
+            setDragging={setDragging}
+            setExcelData={setExcelData}
+            setUploadExcel={setUploadExcel}
+            setDataExcelFile={setDataExcelFile}
+            loading={loading}
+            handleResetFile={handleResetFile}
+          />
+
+          {/* ตารางเเสดงผลในไฟล์ Excel */}
+          <div className="viewer">
+            <ExcelDataViewer excelData={excelData} loading={loading} />
+          </div>
+          {/* Open the modal using document.getElementById('ID').showModal() method */}
+
+          <ModalConfirm
+            importHeaderInDB={importHeaderInDB}
+            excelData={excelData}
+            setImportHeaderInDB={setImportHeaderInDB}
+            setLoading={setLoading}
+            setCheckStep1={setCheckStep1}
+            session={session}
+          />
+        </>
+      )}
     </div>
   );
 }

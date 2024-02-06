@@ -339,28 +339,28 @@ export default function AdminUserList() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b-2 border-gray-200">
                 <tr>
-                  <th className="text-center w-10 p-3 text-sm font-semibold tracking-wide">
+                  <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                     No.
                   </th>
-                  <th className="text-left p-3 text-sm font-semibold tracking-wide">
+                  <th className="text-left p-3 text-lg font-semibold tracking-wide">
                     username
                   </th>
-                  {/* <th className="text-left w-15 p-3 text-sm font-semibold tracking-wide">
+                  {/* <th className="text-left w-15 p-3 text-lg font-semibold tracking-wide">
                     password
                   </th> */}
-                  <th className="text-left w-15 p-3 text-sm font-semibold tracking-wide">
+                  <th className="text-left w-15 p-3 text-lg font-semibold tracking-wide">
                     ชื่อผู้ใช้งาน
                   </th>
-                  <th className="text-left w-15 p-3 text-sm font-semibold tracking-wide">
+                  <th className="text-left w-15 p-3 text-lg font-semibold tracking-wide">
                     นามสกุล
                   </th>
-                  <th className="text-center tw-15 p-3 text-sm font-semibold tracking-wide">
+                  <th className="text-center tw-15 p-3 text-lg font-semibold tracking-wide">
                     email
                   </th>
-                  <th className="text-center w-15 p-3 text-sm font-semibold tracking-wide">
+                  <th className="text-center w-15 p-3 text-lg font-semibold tracking-wide">
                     สถานะ
                   </th>               
-                  <th className="text-center w-15 p-3 text-sm font-semibold tracking-wide flex justify-center items-center">
+                  <th className="text-center w-15 p-3 text-lg font-semibold tracking-wide flex justify-center items-center">
                     <Icon
                       icon="fluent:options-24-regular"
                       className="text-orange-500 text-xl"
@@ -371,24 +371,24 @@ export default function AdminUserList() {
               <tbody className="divide-y divide-gray-100">
                 {currentItems.map((item, index) => (
                   <tr className="bg-white" key={`${item.accountId}-${index}`}>
-                    <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                       <a className="font-bold text-blue-500">
                         {startIndex + index + 1}
                       </a>
                     </td>
-                    <td className="text-left p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap">
                       {item.username}
                     </td>
-                    <td className="text-left p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap">
                       {item.firstname}
                     </td>
-                    <td className="text-left p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap">
                       {item.lastname}
                     </td>
-                    <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                       {item.email}
                     </td>
-                    <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                       {item.isAdmin === 1 ? (
                         <span className="p-1.5 text-xs font-medium tracking-wider uppercase text-white bg-blue-600 rounded-lg bg-opacity-50">
                           Admin
@@ -399,7 +399,7 @@ export default function AdminUserList() {
                         </span>
                       )}
                     </td>
-                    <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                       <button
                         className="btn bg-orange-500 text-white"
                         onClick={() => editUserClickHandler(item)}
@@ -635,11 +635,11 @@ export default function AdminUserList() {
           <div key={index} className="card w-70 bg-white shadow-xl">
             <div className="card-body">
               <h2 className="card-title">username : {item.username}</h2>
-              <p className="text-sm text-gray-700">
+              <p className="text-lg text-gray-700">
                 ชื่อจริง: {item.firstname}
               </p>
-              <p className="text-sm text-gray-700">นามสกุล: {item.lastname}</p>
-              <p className="text-sm text-gray-700">email: {item.email}</p>
+              <p className="text-lg text-gray-700">นามสกุล: {item.lastname}</p>
+              <p className="text-lg text-gray-700">email: {item.email}</p>
               <div className="card-actions">
                 {parseInt(item.isAdmin) === 1 ? (
                   <span className="p-1.5 text-xs font-medium tracking-wider uppercase text-white bg-blue-600 rounded-lg bg-opacity-50">

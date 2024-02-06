@@ -54,25 +54,25 @@ export default function ImportListTable() {
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>
-                <th className="text-center w-10 p-3 text-sm font-semibold tracking-wide">
+                <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                   No.
                 </th>
-                <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   รหัสไฟล์
                 </th>
-                <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   รหัสวิชา
                 </th>
-                <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   ชื่อวิชา
                 </th>
-                <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   ภาคการศึกษา
                 </th>
-                <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   ปีการศึกษา
                 </th>
-                <th className="text-center p-3 text-sm font-semibold tracking-wide">
+                <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   วันที่อัปโหลด (วัน/เดือน/ปี)
                 </th>
               </tr>
@@ -80,25 +80,25 @@ export default function ImportListTable() {
             <tbody className="divide-y bg-white divide-gray-100">
               {currentItems.map((item, index) => (
                 <tr key={index}>
-                <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                   <a className="font-bold text-blue-500">{index + 1}</a>
                 </td>
-                  <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                     {item.importHeaderNumber}
                   </td>
-                  <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                     {item.courseID}
                   </td>
-                  <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                     {item.courseName}
                   </td>
-                  <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                     {item.semester}
                   </td>
-                  <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                     {item.yearEducation}
                   </td>
-                  <td className="text-center p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                     {formatDate(item.dateCreated)}
                   </td>
                   </tr>

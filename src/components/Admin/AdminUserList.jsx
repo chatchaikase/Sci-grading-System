@@ -56,6 +56,11 @@ export default function AdminUserList() {
     resetInputPassword();
   };
 
+  const edit2CloseMode = () => {
+    const modal = document.getElementById("editUser");
+    modal.close();
+  }
+
   const resetInputPassword = () => {
     setCheckPassword(false);
     setNewPassword("");
@@ -528,7 +533,7 @@ export default function AdminUserList() {
                                       !editState ||
                                       (editState && !editState.error)
                                     ) {
-                                      editCloseModal();
+                                      edit2CloseMode();
                                     }
                                   }}
                                 >

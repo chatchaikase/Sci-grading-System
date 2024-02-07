@@ -18,7 +18,7 @@ export default function ImportListTable() {
   }, []); 
 
   if (!importlist) {
-    return <div className="flex flex-col gap-4 w-full my-2 mx-2">
+    return <div className="mt-2 flex flex-col gap-4 my-2 mx-2">
     <div className="skeleton h-4 w-full"></div>
     <div className="skeleton h-4 w-full"></div>
     <div className="skeleton h-4 w-full"></div>

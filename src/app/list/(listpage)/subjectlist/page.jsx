@@ -171,7 +171,7 @@ const Home = () => {
               </th>
             </tr>
           </thead>
-          {loading == false ? (
+          {!loading ? (
             <tbody className="divide-y divide-gray-100 bg-white">
               {/* row 1 */}
               {renderTableRows()}
@@ -180,7 +180,7 @@ const Home = () => {
             <tbody>
               <tr>
                   <td colSpan={6} className="items-center justify-center text-center ml-3">
-                    <div className="flex flex-col gap-4 w-full my-8 mx-10">
+                    <div className="flex flex-col gap-4 my-8 mx-10">
                       <div className="skeleton h-4 w-full"></div>
                       <div className="skeleton h-4 w-full"></div>
                       <div className="skeleton h-4 w-full"></div>

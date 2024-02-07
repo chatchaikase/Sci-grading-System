@@ -13,7 +13,6 @@ export default function Step3({ importHeaderInDB, setStep3, exitCheck }) {
   const [loading, setLoading] = useState(false);
 
   const RedirectToImportListPage = async () => {
-    await exitCheck();
     await toast.success("บันทึกข้อมูลสำเร็จ");
     await router.push("/import/importlist");
   };

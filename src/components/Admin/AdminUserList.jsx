@@ -57,8 +57,16 @@ export default function AdminUserList() {
   };
 
   const edit2CloseMode = () => {
-    const modal = document.getElementById("editUser");
-    modal.close();
+    if (editState) {
+      if (!editState.error) {
+        toast.error('กรุณากรอกรหัสผ่าน')
+       return ;
+      }
+      else{
+        const modal = document.getElementById("editUser");
+        modal.close();
+      }
+    }
   }
 
   const resetInputPassword = () => {
@@ -94,12 +102,16 @@ export default function AdminUserList() {
         toast.success("บันทึกผู้ใช้งานสำเร็จ");
         resetFormAddUserFields();
         fetchData();
+      }else{
+        toast.error('กรุณากรอกข้อมูลให้ครบถ้วน');
       }
     } else if (editState) {
       if (!editState.error) {
         editCloseModal();
         toast.success("บันทึกผู้ใช้งานสำเร็จ");
         fetchData();
+      }else{
+        toast.error('กรุณากรอกรหัสผ่าน')
       }
     } else if (state || editState) {
       if (!state.error || !editState.error) {

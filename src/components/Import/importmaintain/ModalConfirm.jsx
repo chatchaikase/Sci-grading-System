@@ -55,7 +55,7 @@ export default function ModalConfirm({
         </div>
         <div className="flex items-center justify-center gap-2">
           <h3 className="font-bold text-lg">เนื่องจากข้อมูลรายวิชาตรงกับ</h3>
-          <h3 className="font-bold text-lg text-warning">
+          <h3 className="font-bold text-lg text-yellow-600">
             {importHeaderInDB}
           </h3>
         </div>
@@ -64,7 +64,7 @@ export default function ModalConfirm({
         </div>
         <div className="modal-action">
           <div className="flex items-center justify-center gap-2">
-          <button className="btn btn-warning  text-white" onClick={() => setCheckStep1(true)}>ตรวจสอบ</button>
+          <button className="btn bg-yellow-600  text-white" onClick={() => setCheckStep1(true)}>ตรวจสอบ</button>
           <button className="btn bg-blue-400  text-white" onClick={SaveData}>ใช้ไฟล์ใหม่</button>
           </div>
           <form method="dialog">

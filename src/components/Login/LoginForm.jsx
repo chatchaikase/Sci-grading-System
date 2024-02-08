@@ -1,9 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { login, logout } from "../../function/loginSystem";
+import { toast } from "react-toastify";
+
 export default function LoginForm() {
   const [state, formAction] = useFormState(login, undefined);
+
+  useEffect(() => {
+    if (state?.error) {
+      toast.error(state?.error);
+    }
+  }, [state]);
 
   return (
     <div>
@@ -26,7 +34,6 @@ export default function LoginForm() {
         <button className="btn btn-success text-white w-full">
           เข้าสู่ระบบ
         </button>
-        {state?.error}
       </form>
     </div>
   );

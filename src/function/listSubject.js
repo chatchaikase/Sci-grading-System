@@ -44,6 +44,50 @@ export const getAllListSubject = async () => {
   }
 };
 
+export const getListimportheaderForPage = async (page) => {
+  const queryParams = new URLSearchParams();
+  queryParams.append('page',page);
+
+  const api = `${path}/api/List/GetlistimportheaderForPage?${queryParams.toString()}`;
+
+  try {
+    const allListSubject = await axios.get(api, {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+      }
+    );
+    if (!allListSubject) {
+      throw new Error("Cannot fetch data");
+    }
+    return allListSubject.data;
+  } catch (error) {
+    throw new Error("Error to fetch data");
+  }
+};
+
+export const CountListimportheader = async () => {
+  const apiCount = `${path}/api/List/CountListimportheader`;
+  
+  try {
+    const countPage = await axios.get(apiCount, {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+      },
+    });
+
+    if (!countPage) {
+      throw new Error("Cannot fetch data");
+    }
+
+    return countPage.data;
+  } catch (error) {
+    throw new Error("Error fetching data");
+  }
+};
+
 export const deleteImportList = async (headerNumber) => {
   try {
     const deleteIHeader = await axios.delete(

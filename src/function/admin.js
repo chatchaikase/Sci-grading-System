@@ -2,12 +2,21 @@
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 const path = process.env.LocalhostDOTNET;
 
-export const getAllUser = async () => {
+export const getAllUser = async (username, email, page) => {
+  const queryParams = new URLSearchParams();
+  if (username) queryParams.append('username', username);
+  if (email) queryParams.append('email', email);
+  queryParams.append('page', page);
+
+  const api = `${path}/api/User/GetAllUser?${queryParams.toString()}`;
+
   try {
-    const user = await axios.get(`${path}/api/User/GetAllUser`, {
+    const user = await axios.get(api, {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
@@ -19,9 +28,36 @@ export const getAllUser = async () => {
     }
     return user.data;
   } catch (error) {
-    throw new Error("Error to fetch data");
+    throw new Error("Error fetching data");
   }
 };
+
+
+export const CountUser = async (username, email, page) => {
+  const queryParams = new URLSearchParams();
+  if (username) queryParams.append('username', username);
+  if (email) queryParams.append('email', email);
+
+  const apiCount = `${path}/api/User/CountUser?${queryParams.toString()}`;
+
+  try {
+    const countPage = await axios.get(apiCount, {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+      },
+    });
+
+    if (!countPage) {
+      throw new Error("Cannot fetch data");
+    }
+
+    return countPage.data;
+  } catch (error) {
+    throw new Error("Error fetching data");
+  }
+};
+
 
 export const checkUserInDB = async (id) => {
   try {
@@ -44,7 +80,7 @@ export const checkUserInDB = async (id) => {
   }
 };
 
-export const addUser = async (previousState, formData) => {
+export const addUser = async (formData) => {
   try {
     const {
       username,
@@ -89,16 +125,15 @@ export const addUser = async (previousState, formData) => {
         },
       }
     );
-
-    revalidatePath("/admin");
-    return newUser.data;
   } catch (error) {
     console.error("Error adding user:", error);
     return { error: error.response?.data?.error || "พบข้อผิดพลาดบางอย่าง" };
   }
+  revalidatePath("/admin");
+  redirect("/admin");
 };
 
-export const editUser = async (previousState, formData) => {
+export const editUser = async (formData) => {
   try {
     const {
       userId,
@@ -109,10 +144,12 @@ export const editUser = async (previousState, formData) => {
       newPassword,
       newIsAdmin,
       checkPassword,
-    } = Object.fromEntries(formData);
+    } = formData;
     const isAdmin = parseInt(newIsAdmin);
 
-    if (checkPassword && newPassword === "") {
+    if (!userId || !newUsername || !newEmail || !newFirstname || !newLastname) {
+      return { error: "กรุณากรอกข้อมูลให้ครบถ้วน" };
+    }else if (checkPassword && newPassword === "") {
       return { error: "กรุณากรอกรหัสผ่าน" };
     }
 
@@ -147,16 +184,18 @@ export const editUser = async (previousState, formData) => {
           },
         }
       );
-      revalidatePath("/admin");
-      return updateUser.data;
+      // return updateUser.data;
     }
   } catch (error) {
     console.error("Error editing user:", error);
     return { error: error.response?.data?.error || "พบข้อผิดพลาดบางอย่าง" };
   }
+  revalidatePath("/admin");
+  redirect("/admin");
 };
 
-export const deleteUser = async (userId) => {
+export const deleteUser = async (formData) => {
+  const {userId} = formData;
   try {
     const deleteUser = await axios.post(
       `${path}/api/User/DeleteUser/${userId}`,
@@ -168,10 +207,11 @@ export const deleteUser = async (userId) => {
         },
       }
     );
-    revalidatePath("/admin");
-    return deleteUser.status;
+    // return deleteUser.status;
   } catch (error) {
     console.error("Error deleting user:", error);
     return { error: error.response?.data?.error || "พบข้อผิดพลาดบางอย่าง" };
   }
+  revalidatePath("/admin");
+  redirect("/admin");
 };

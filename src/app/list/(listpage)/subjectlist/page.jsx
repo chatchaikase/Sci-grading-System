@@ -10,12 +10,13 @@ import { Icon } from "@iconify/react";
 import {
   deleteImportList,
   getAllListSubject,
-} from "../../../../function/listSubject";
+} from "../../../../function/listSubject.js";
 import { toast } from "react-toastify";
 import ModalImportListDelete from "../../../../components/Modal/ModalImportListDelete.jsx";
-import Drawer from "../../../../components/Drawer"
-import Pagination from "../../../../components/Import/importlist/Pagination";
+import Drawer from "../../../../components/Drawer.jsx"
+import Pagination from "../../../../components/Import/importlist/Pagination.jsx";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -83,7 +84,20 @@ const Home = () => {
           <a className="font-bold text-blue-500">{index + 1}</a>
         </td>
         <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%" >
-          <Link href={"/"}><p className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">{item.importHeaderNumber}</p></Link>
+          <Link legacyBehavior 
+            href={{
+              pathname: '/list/subjectlist/[detail]/page',
+              query: {
+                importHeaderNumber: item.importHeaderNumber,
+              },
+            }}
+            as={`/list/subjectlist/detail/${item.importHeaderNumber}`}
+            passHref
+          >
+            <a className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">
+              {item.importHeaderNumber}
+            </a>
+          </Link>
         </td>
         <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
           {item.courseID}

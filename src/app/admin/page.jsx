@@ -1,11 +1,17 @@
+"use server"
 import SearchUser from "../../components/Admin/SearchUser"
 import Pageination from "../../components/Pageination/Pageination"
 import Link from "next/link";
 import IconOption from "../../components/Admin/IconOption"
-import {getAllUser} from "../../function/admin"
+import {CountUser, deleteUser, getAllUser} from "../../function/admin"
+import FormDeleteUser from "../../components/Admin/form/FormDeleteUser"
 
-export default async function AdminPage() {
-  const users = await getAllUser();
+export default async function AdminPage({searchParams}) {
+  const query = searchParams?.username || ""; 
+  const additionalQuery = searchParams?.email || ""; 
+  const page = searchParams?.page || 1;
+  const users = await getAllUser(query, additionalQuery,page);
+  const countPage = await CountUser(query, additionalQuery);
   return (
     <div className="flex flex-col p-5 h-screen bg-gray-100">
       <div className="overflow-auto rounded-lg shadow hidden md:block">
@@ -13,8 +19,7 @@ export default async function AdminPage() {
         <div className="flex-1">
             <div className="my-4 flex items-center justify-between">
               <div className="flex gap-5">
-                <SearchUser placeholder={"ค้นหาตาม username"} />
-                <SearchUser placeholder={"ค้นหาตาม email"} />
+                <SearchUser placeholder1={"ค้นหาตาม username"} placeholder2={"ค้นหาตาม email"} />
               </div>
               <div className="flex mr-2">
                 <Link href={'/admin/user/add'}>
@@ -92,6 +97,7 @@ export default async function AdminPage() {
                       )}
                     </td>
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                      <div className="flex items-center justify-center gap-2">
                       <Link href={`/admin/user/${item.userId}`}>
                       <button
                         className="btn bg-orange-500 text-white"
@@ -99,21 +105,23 @@ export default async function AdminPage() {
                       >
                         เเก้ไข
                       </button>
-                      </Link>
+                      </Link>  
+                      {/* <form action={deleteUser}>
+                        <input type="hidden" name="userId" value={item.userId} />
                       <button
                         className="btn bg-red-500 text-white"
-                        // onClick={() =>
-                        //   deleteUserClickHandler(item.username, item.userId)
-                        // }
                       >
                         ลบ
                       </button>
+                      </form>  */}
+                      <FormDeleteUser userId={item.userId} />
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <Pageination />
+            <Pageination count={countPage} />
           </div>
       </div>
     </div>

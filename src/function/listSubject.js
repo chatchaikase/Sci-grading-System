@@ -3,6 +3,49 @@ import axios from "axios";
 
 const path = process.env.LocalhostDOTNET;
 
+export const GetimportDetail = async (importHedderNumber) => {
+  try {
+    const importDetail = await axios.get(
+      `${path}/api/List/GetDetailByHeaderNo/${importHedderNumber}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+      }
+    );
+    if (!importDetail) {
+      throw new Error("Cannot fetch data");
+    }
+    return importDetail.data;
+  } catch (error) {
+    throw new Error("Error to fetch data");
+  }
+};
+
+export const GetiExcelDetail = async (importHedderNumber) => {
+  try {
+    const importDetail = await axios.get(
+      `${path}/api/List/GetExcelDetailByHeaderNo/${importHedderNumber}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+      }
+    );
+    
+    if (!importDetail) {
+      throw new Error("Cannot fetch data");
+    }
+    console.log(importDetail.data)
+    return importDetail.data;
+  } catch (error) {
+    throw new Error("Error to fetch data");
+  }
+};
+
+
 export const getListSubjectByFilter = async (importHSearch) => {
   try {
     const allListSubject = await axios.get(

@@ -8,6 +8,7 @@ import { cn } from "../../lib/utils";
 import { getUser } from "../../function/userInfo";
 import { Icon } from "@iconify/react";
 import { logout } from "../../function/loginSystem";
+import Image from "next/image";
 
 const Header = () => {
   const [user, setUser] = useState("");
@@ -39,8 +40,14 @@ const Header = () => {
             href="/"
             className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
-            <span className="h-7 w-7 bg-zinc-300 rounded-lg" />
-            <span className="font-bold text-xl flex ">Logo</span>
+            {/* <span className="h-7 w-7 bg-zinc-300 rounded-lg" /> */}
+            <Image
+              src={'/logo/Logo.png'}
+              width={120}
+              height={40}
+              className="object-cover"
+              alt="Logo"
+            />
           </Link>
         </div>
 

@@ -1,5 +1,7 @@
 "use server";
 import axios from "axios";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const path = process.env.LocalhostDOTNET;
 
@@ -66,10 +68,16 @@ export const getListSubjectByFilter = async (importHSearch) => {
   }
 };
 
-export const getAllListSubject = async () => {
+export const getAllListSubject = async (ImportHeaderNo,CourseID,page) => {
+  const queryParams = new URLSearchParams();
+  if (ImportHeaderNo) queryParams.append('ImportHeaderNo', ImportHeaderNo);
+  if (CourseID) queryParams.append('CourseID', CourseID);
+  queryParams.append('page', page);
+
+  const api = `${path}/api/List/Getlistimportheader?${queryParams.toString()}`;
+
   try {
-    const allListSubject = await axios.get(
-      `${path}/api/List/Getlistimportheader`,
+    const allListSubject = await axios.get(api,
       {
         headers: {
           "Content-Type": "application/json",
@@ -109,6 +117,32 @@ export const getListimportheaderForPage = async (page,userId) => {
   }
 };
 
+export const CountListSubject = async (ImportHeaderNo, CourseID, page) => {
+  const queryParams = new URLSearchParams();
+  if (ImportHeaderNo) queryParams.append('ImportHeaderNo', ImportHeaderNo);
+  if (CourseID) queryParams.append('CourseID', CourseID);
+
+  const apiCount = `${path}/api/List/CountListimportheader?${queryParams.toString()}`;
+
+  try {
+    const countPage = await axios.get(apiCount, {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+        "userId": userId.toString(),
+      },
+    });
+
+    if (!countPage) {
+      throw new Error("Cannot fetch data");
+    }
+
+    return countPage.data;
+  } catch (error) {
+    throw new Error("Error fetching data");
+  }
+};
+
 export const CountListimportheader = async (userId) => {
   const apiCount = `${path}/api/List/CountListimportheader`;
   
@@ -132,6 +166,7 @@ export const CountListimportheader = async (userId) => {
 };
 
 export const deleteImportList = async (headerNumber) => {
+  console.log("Function delete: " + headerNumber);
   try {
     const deleteIHeader = await axios.delete(
       `${path}/api/List/DeleteImportList?importHedderNumber=${headerNumber}`,
@@ -145,8 +180,10 @@ export const deleteImportList = async (headerNumber) => {
     if (deleteIHeader.status !== 200) {
       throw new Error("Cannot delete the importlist");
     }
-    return deleteIHeader.status;
+    //return deleteIHeader.status;
   } catch (error) {
     throw new Error("Error to delete the importlist");
   }
+  revalidatePath("/list/subjectlist");
+  redirect("/list/subjectlist");
 };

@@ -2,16 +2,19 @@
 import Image from "next/image";
 import React from "react";
 
-export default function LoginImage() {
+export default function LoginImage({
+  width,
+  height
+}) {
   return (
-    <div className="mx-auto mb-5">
       <Image
-        src={"/logo/Logo.png"}
-        width={300}
-        height={40}
+        src="/logo/Logo.png"
+        width={width || "auto"}
+        height={height || "auto"}
         className="object-cover "
         alt="Logo"
+        loading="eager"
+        priority={true} 
       />
-    </div>
   );
 }

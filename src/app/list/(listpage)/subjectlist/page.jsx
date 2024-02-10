@@ -62,32 +62,45 @@ export default async function Home ({searchParams}) {
           </thead>
             <tbody className="divide-y divide-gray-100 bg-white">
             {/* row 1 */}
-            {itemList.map((item, index) =>
-              <tr key={index}>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                  <a className="font-bold text-blue-500">{index + 1}</a>
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%" >
-                 <Link href={`/list/subjectlist/detail/${item.importHeaderNumber}`}>
-                    <p className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">
-                      {item.importHeaderNumber}
-                    </p>
-                </Link>
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
-                  {item.courseID}
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="22%">
-                  {item.courseName}
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
-                  {formatDate(item.dateCreated)}
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                  <FromDeleteList importNo={item.importHeaderNumber}/>
-                </td>
-              </tr>
-            )}
+            {itemList.length > 0 ? (
+              itemList.map((item, index) =>
+                <tr key={index}>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <a className="font-bold text-blue-500">{index + 1}</a>
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%" >
+                   <Link href={`/list/subjectlist/detail/${item.importHeaderNumber}`}>
+                      <p className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">
+                        {item.importHeaderNumber}
+                      </p>
+                  </Link>
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
+                    {item.courseID}
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="22%">
+                    {item.courseName}
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
+                    {formatDate(item.dateCreated)}
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <FromDeleteList importNo={item.importHeaderNumber}/>
+                  </td>
+                </tr>
+             )
+             ) : (
+               <tr>
+                 <td
+                   colSpan="6"
+                   className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                 >
+                   <div className="mx-4 my-2 mt-2 text-xl">
+                     ไม่มีรายการของฉัน กรุณาอัปโหลด
+                   </div>
+                 </td>
+               </tr>
+             )}
             </tbody>   
         </table>
         <Pageination count={countPage} />

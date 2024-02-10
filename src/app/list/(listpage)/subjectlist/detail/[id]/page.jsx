@@ -3,12 +3,12 @@ import {
   GetimportDetail,
   GetiExcelDetail,
 } from "../../../../../../function/listSubject";
-import formatDate from "../../../../../../function/formatDate.js"
+import {formatDate} from "../../../../../../function/formatDate.js"
 const SubjectDetailPage = async ({ params }) => {
   const { id } = params;
   const importH = await GetimportDetail(id);
   const listItem = await GetiExcelDetail(id);
-  
+
   return (
     <div>
       <h1 className="text-[40px] mb-3">ข้อมูลรายวิชา</h1>

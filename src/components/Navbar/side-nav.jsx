@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import { SIDENAV_ITEMS } from '../../constants';
 import { Icon } from '@iconify/react';
 import { getUser } from "../../function/userInfo";
-import Image from 'next/image';
+import LoginImage from '../Login/LoginImage';
 
 const SideNav = () => {
   const [user, setUser] = useState(0);
@@ -18,9 +18,11 @@ const SideNav = () => {
       const userInfo = await getUser();
       await setUser(userInfo.user.isAdmin);
     };
-
+    
     logUserInfo();
   }, []);
+
+
   return (
     <div className="md:w-60 bg-white h-screen flex-1 fixed border-r border-zinc-200 hidden md:flex">
       <div className="flex flex-col space-y-6 w-full">
@@ -29,13 +31,7 @@ const SideNav = () => {
           className="flex flex-row space-x-3 items-center justify-center md:justify-start md:px-6 border-b border-zinc-200 h-12 w-full"
         >
           {/* <span className="h-7 w-7 bg-zinc-300 rounded-lg" /> */}
-          <Image
-              src={'/logo/Logo.png'}
-              width={120}
-              height={40}
-              className="object-cover"
-              alt="Logo"
-            />
+            <LoginImage width={120} height={40} />
         </Link>
 
         <div className="flex flex-col space-y-2  md:px-6 ">

@@ -16,7 +16,7 @@ export const metadata = {
   description: 'ระบบจัดเก็บคะเเนนนิสิต',
 }
 
-export default function RootLayout({ children }) {
+export default  function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="garden">
       <body className={`bg-white${inter.className}`} suppressHydrationWarning={true}> 

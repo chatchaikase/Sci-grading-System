@@ -117,7 +117,7 @@ export const getListimportheaderForPage = async (page,userId) => {
   }
 };
 
-export const CountListSubject = async (ImportHeaderNo, CourseID, page) => {
+export const CountListSubject = async (ImportHeaderNo, CourseID,userId) => {
   const queryParams = new URLSearchParams();
   if (ImportHeaderNo) queryParams.append('ImportHeaderNo', ImportHeaderNo);
   if (CourseID) queryParams.append('CourseID', CourseID);

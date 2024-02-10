@@ -40,7 +40,6 @@ export const GetiExcelDetail = async (importHedderNumber) => {
     if (!importDetail) {
       throw new Error("Cannot fetch data");
     }
-    console.log(importDetail.data)
     return importDetail.data;
   } catch (error) {
     throw new Error("Error to fetch data");
@@ -95,17 +94,17 @@ export const getAllListSubject = async (ImportHeaderNo,CourseID,page) => {
   }
 };
 
-export const getListimportheaderForPage = async (page) => {
+export const getListimportheaderForPage = async (page,userId) => {
   const queryParams = new URLSearchParams();
   queryParams.append('page',page);
-
   const api = `${path}/api/List/GetlistimportheaderForPage?${queryParams.toString()}`;
 
   try {
-    const allListSubject = await axios.get(api, {
+    const allListSubject = await axios.get(api,{
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
+          "userId": userId.toString(),
         },
       }
     );
@@ -130,6 +129,7 @@ export const CountListSubject = async (ImportHeaderNo, CourseID, page) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        "userId": userId.toString(),
       },
     });
 
@@ -143,7 +143,7 @@ export const CountListSubject = async (ImportHeaderNo, CourseID, page) => {
   }
 };
 
-export const CountListimportheader = async () => {
+export const CountListimportheader = async (userId) => {
   const apiCount = `${path}/api/List/CountListimportheader`;
   
   try {
@@ -151,6 +151,7 @@ export const CountListimportheader = async () => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        "userId": userId.toString(),
       },
     });
 

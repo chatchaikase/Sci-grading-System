@@ -13,14 +13,17 @@ import Pageination from "../../../../components/Pageination/Pageination.jsx"
 import Link from "next/link";
 import IconOption from "../../../../components/Admin/IconOption.jsx";
 import FromDeleteList from "../../../../components/ListSubject/FromDeleteListSubject.jsx"
+import { auth } from "../../../../lib/auth.js";
 
 
 export default async function Home ({searchParams}) {
+  const session = await auth();
+  const userId = session.user.userId;
   const query = searchParams?.ImportHeaderNo || "";
   const additionalQuery = searchParams?.CourseID || "";
   const page = searchParams?.page || 1;
   const itemList = await getAllListSubject(query, additionalQuery,page);
-  const countPage = await CountListSubject(query, additionalQuery);
+  const countPage = await CountListSubject(query, additionalQuery,userId);
   const formatDate = (dateCreated) => {
     const DDMMYYYY = dateCreated.split('T')[0].split('-').reverse().join('/');
     return DDMMYYYY;

@@ -167,7 +167,6 @@ export const CountListimportheader = async (userId) => {
 };
 
 export const deleteImportList = async (headerNumber) => {
-  console.log("Function delete: " + headerNumber);
   try {
     const deleteIHeader = await axios.delete(
       `${path}/api/List/DeleteImportList?importHedderNumber=${headerNumber}`,

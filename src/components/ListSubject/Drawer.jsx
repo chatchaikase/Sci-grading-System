@@ -1,10 +1,12 @@
+"use client"
+
 import React, { useState } from 'react';
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
-import { getListSubjectByFilter, getAllListSubject } from "../function/listSubject";
+import { getListSubjectByFilter, getAllListSubject } from "../../function/listSubject";
 
 export default function Drawer({ onSearch,setLoading }) {
   const [searchTerm, setSearchTerm] = useState("");

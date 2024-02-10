@@ -22,7 +22,7 @@ export default async function Home ({searchParams}) {
   const query = searchParams?.ImportHeaderNo || "";
   const additionalQuery = searchParams?.CourseID || "";
   const page = searchParams?.page || 1;
-  const itemList = await getAllListSubject(query, additionalQuery,page);
+  const itemList = await getAllListSubject(query, additionalQuery,page,userId);
   const countPage = await CountListSubject(query, additionalQuery,userId);
   const formatDate = (dateCreated) => {
     const DDMMYYYY = dateCreated.split('T')[0].split('-').reverse().join('/');

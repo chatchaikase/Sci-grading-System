@@ -68,7 +68,7 @@ export const getListSubjectByFilter = async (importHSearch) => {
   }
 };
 
-export const getAllListSubject = async (ImportHeaderNo,CourseID,page) => {
+export const getAllListSubject = async (ImportHeaderNo,CourseID,page,userId) => {
   const queryParams = new URLSearchParams();
   if (ImportHeaderNo) queryParams.append('ImportHeaderNo', ImportHeaderNo);
   if (CourseID) queryParams.append('CourseID', CourseID);
@@ -82,6 +82,7 @@ export const getAllListSubject = async (ImportHeaderNo,CourseID,page) => {
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
+          "userId": userId.toString(),
         },
       }
     );

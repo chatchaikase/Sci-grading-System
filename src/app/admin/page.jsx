@@ -12,6 +12,7 @@ export default async function AdminPage({searchParams}) {
   const page = searchParams?.page || 1;
   const users = await getAllUser(query, additionalQuery,page);
   const countPage = await CountUser(query, additionalQuery);
+  
   return (
     <div className="flex flex-col p-5 h-screen bg-gray-100">
       <div className="overflow-auto rounded-lg shadow hidden md:block">

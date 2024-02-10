@@ -68,20 +68,11 @@ export default async function Home ({searchParams}) {
                   <a className="font-bold text-blue-500">{index + 1}</a>
                 </td>
                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%" >
-                  <Link legacyBehavior
-                    href={{
-                      pathname: '/list/subjectlist/[detail]/page',
-                      query: {
-                        importHeaderNumber: item.importHeaderNumber,
-                      },
-                    }}
-                    as={`/list/subjectlist/detail/${item.importHeaderNumber}`}
-                    passHref
-                  >
-                    <a className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">
+                 <Link href={`/list/subjectlist/detail/${item.importHeaderNumber}`}>
+                    <p className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">
                       {item.importHeaderNumber}
-                    </a>
-                  </Link>
+                    </p>
+                </Link>
                 </td>
                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
                   {item.courseID}

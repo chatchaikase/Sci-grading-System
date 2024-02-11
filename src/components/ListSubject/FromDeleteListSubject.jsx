@@ -3,64 +3,50 @@ import React, { useState } from "react";
 import ModalImportListDelete from "../../components/Modal/ModalImportListDelete";
 import { deleteImportList } from "../../function/listSubject";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
 
 export default function FromDeleteListSubject({ importNo }) {
-  // const [deleteHeaderNumber, setDeleteHeaderNumber] = useState("");
-
-  // const handleDeleteImportList = async (headerNumber) => {
-  //     try {
-  //       const res = await deleteImportList(headerNumber);
-  //       if (res?.error) {
-  //         toast.error("ไม่สามารถลบรายงานนี้ได้");
-  //       } else {
-  //         toast.success("ลบรายงานเรียบร้อย");
-  //         setDeleteHeaderNumber("");
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       toast.error("เกิดข้อผิดพลาดเกิดขึ้น");
-  //     }
-  //   };
-
-  //   const deleteImportListClickHandler = async (headerNumber) => {
-  //     console.log(headerNumber);
-  //     setDeleteHeaderNumber(headerNumber);
-  //     document.getElementById("warningDeleteUser").showModal();
-  //   };
-
-  // return (
-  //     <>
-  //         <button
-  //             className="btn px-4 py-2 bg-red-500 text-white"
-  //             onClick={() =>
-  //                 deleteImportListClickHandler(importNo)
-  //             }
-  //         >
-  //             ลบ
-  //         </button>
-  //         <ModalImportListDelete
-  //             deleteHeaderNumber={deleteHeaderNumber}
-  //             handleDeleteImportList={handleDeleteImportList}
-  //         />
-  //     </>
-
-  const handleDeleteImport = async (e) => {
-    e.preventDefault();
-    const confirmation = window.confirm("คุณต้องการลบรายงานนี้หรือไม่?");
-    if (confirmation) {
-      const result = await deleteImportList(importNo);
-      if (result?.error) {
-        toast.error(result.error);
-      } else {
-        toast.success("ลบผู้ใช้งานสำเร็จ");
+  
+  const showCustomAlert = async () => {
+    const result = await Swal.fire({
+      title: "คุณยืนยันที่จะลบ",
+      html: `<div>
+                การอัปโหลดหมายเลข 
+                <span style="color: red; font-size: 16px; font-weight: bold;">
+                  ${importNo}
+                </span>
+                หรือไม่?
+              </div>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ยืนยัน!",
+      cancelButtonText: "ยกเลิก"
+    });
+    if (result.isConfirmed) {
+      try {
+        const deleteResult = await deleteImportList(importNo);
+        Swal.fire({
+          title: "ดำเนินการลบข้อมูลเสร็จสิ้น!",
+          text: "ข้อมูลของคุณถูกลบสำเร็จแล้ว!",
+          icon: "success"
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "พบข้อผิดพลาด!",
+          text: "ไม่สามารถลบข้อมูลนี้ได้เนื่องจากมีข้อผิดพลาด",
+          icon: "error"
+        });
       }
     }
   };
 
   return (
-    <form onSubmit={(e) => handleDeleteImport(e)}>
-      <input type="hidden" name="importNo" value={importNo} />
-      <button className="btn bg-red-500 text-white">ลบ</button>
-    </form>
+    <>
+      <button className="btn bg-red-500 text-white" onClick={showCustomAlert}>
+        ลบ
+      </button>
+    </>
   );
 }

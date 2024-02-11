@@ -111,7 +111,11 @@ export default function ImportInputFields({
               disabled={!checkYearEducationSelect}
               className="ml-5 input input-bordered w-full max-w-xs"
               value={yearEducation}
-              onChange={(e) => setYearEducation(e.target.value)}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                const validatedValue = Math.max(1, parseInt(inputValue, 10)) || '';
+                setYearEducation(validatedValue);
+              }}
             />
             <input
               type="checkbox"

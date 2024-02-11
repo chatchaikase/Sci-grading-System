@@ -167,14 +167,14 @@ export default function ImportMain({ session }) {
     if (
       !courseID.trim() ||
       !courseName.trim() ||
-      (!yearEducation.trim() && !yearEducationSelect.trim())
+      (yearEducation == null && !yearEducationSelect.trim())
     ) {
       toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
 
     if (checkYearEducationSelect) {
-      if (!courseID.trim() || !courseName.trim() || !yearEducation.trim()) {
+      if (!courseID.trim() || !courseName.trim() || yearEducation == null) {
         toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
         return;
       } else if (!checkYearEducationSelect) {

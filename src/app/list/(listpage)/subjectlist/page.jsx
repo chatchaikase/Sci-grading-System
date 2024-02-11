@@ -32,9 +32,10 @@ export default async function Home({ searchParams }) {
     const DDMMYYYY = dateCreated.split("T")[0].split("-").reverse().join("/");
     return DDMMYYYY;
   };
+  const startingIndex = (page - 1) * 10;
 
   return (
-    <div>
+    <div className="mt-4">
       <div className="flex gap-5">
         <SearchList
           placeholder1={"ค้นหาตาม Import No."}
@@ -82,7 +83,7 @@ export default async function Home({ searchParams }) {
               itemList.map((item, index) => (
                 <tr key={index}>
                   <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                    <a className="font-bold text-blue-500">{index + 1}</a>
+                    <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
                   </td>
                   <td
                     className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
@@ -122,7 +123,7 @@ export default async function Home({ searchParams }) {
                   </td>
                   <td
                     className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="15%"
+                    width="16%"
                   >
                     {formatDate(item.dateCreated)}
                   </td>

@@ -12,6 +12,7 @@ export default async function AdminPage({searchParams}) {
   const page = searchParams?.page || 1;
   const users = await getAllUser(query, additionalQuery,page);
   const countPage = await CountUser(query, additionalQuery);
+  const startingIndex = (page - 1) * 10;
   
   return (
     <div className="flex flex-col p-5 h-screen bg-gray-100">
@@ -70,9 +71,7 @@ export default async function AdminPage({searchParams}) {
               {users.map((item, index) => (
                   <tr className="bg-white" key={index} >
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                      <a className="font-bold text-blue-500">
-                        {/* {startIndex + index + 1} */} {index + 1}
-                      </a>
+                      <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
                     </td>
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                     {item.username}

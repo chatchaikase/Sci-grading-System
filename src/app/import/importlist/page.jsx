@@ -23,6 +23,8 @@ export default async function ImportListPage({ searchParams }) {
     return DDMMYYYY;
   };
 
+  const startingIndex = (page - 1) * 5;
+  
   return (
     <div className="overflow-auto rounded-lg shadow hidden md:block">
       <div className="px-4 pt-2 flex items-center justify-between">
@@ -62,7 +64,7 @@ export default async function ImportListPage({ searchParams }) {
                 list.map((item, index) => (
                   <tr key={index}>
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                      <a className="font-bold text-blue-500">{index + 1}</a>
+                      <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
                     </td>
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                       {item.importHeaderNumber}

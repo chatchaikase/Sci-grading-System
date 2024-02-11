@@ -21,8 +21,8 @@ const Header = ({session}) => {
       className={cn(
         `sticky inset-x-0 top-0 w-full transition-all border-b border-gray-200`,
         {
-          "border-b border-gray-200 bg-white/75 backdrop-blur-lg": scrolled,
-          "border-b border-gray-200 bg-white": selectedLayout,
+          "border-b border-gray-200 bg-white/75 backdrop-blur-lg z-20": scrolled,
+          "border-b border-gray-200 bg-white z-20": selectedLayout,
         }
       )}
     >

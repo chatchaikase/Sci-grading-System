@@ -118,7 +118,7 @@ export default function ImportInputFields({
               name="checearEducationSelect"
               checked={checkYearEducationSelect}
               value={checkYearEducationSelect}
-              className="ml-2 checkbox checkbox-sm"
+              className="ml-2 checkbox checkbox-sm bg-white"
               onChange={() =>
                 setCheckYearEducationSelect(!checkYearEducationSelect)
               }

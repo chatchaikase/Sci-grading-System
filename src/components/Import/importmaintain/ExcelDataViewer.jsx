@@ -2,9 +2,9 @@ import React from "react";
 
 export default function ExcelDataViewer({ excelData, loading }) {
   return (
-    <div className="viewer">
+    <div className="viewer ">
       {!loading && excelData ? (
-        <div className="table-responsive mt-5 border border-solid">
+        <div className="table-responsive mt-5 border border-solid max-h-[800px] overflow-y-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>
@@ -23,7 +23,7 @@ export default function ExcelDataViewer({ excelData, loading }) {
                 <tr className="bg-white" key={index}>
                   {Object.keys(individualExcelData).map((key) => (
                     <td
-                      className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                      className="text-center p-3 text-lg text-gray-700 whitespace-nowrap "
                       key={key}
                     >
                       {key.toLowerCase().includes("date") &&

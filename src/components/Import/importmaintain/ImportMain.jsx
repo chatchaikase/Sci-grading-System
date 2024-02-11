@@ -23,7 +23,7 @@ export default function ImportMain({ session }) {
   const [term, setTerm] = useState("midterm");
   const [courseName, setCourseName] = useState("");
   const [semester, setSemester] = useState("summer");
-  const [yearEducation, setYearEducation] = useState("");
+  const [yearEducation, setYearEducation] = useState(null);
   const [yearEducationSelect, setYearEducationSelect] = useState(
     (new Date().getFullYear() + 542).toString()
   );
@@ -212,14 +212,14 @@ export default function ImportMain({ session }) {
         courseID: formData.courseID,
         courseName: formData.courseName,
         semester: formData.semester,
-        yearEducation: formData.yearEducation,
+        yearEducation: formData.yearEducation.toString(),
       };
 
       const importHeader = {
         courseID: formData.courseID,
         courseName: formData.courseName,
         semester: formData.semester,
-        yearEducation: formData.yearEducation,
+        yearEducation: formData.yearEducation.toString(),
         createByUserId: session,
       };
 

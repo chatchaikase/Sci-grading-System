@@ -106,7 +106,7 @@ export default function ImportInputFields({
             </select>
             <input
               name="yearEducation"
-              type="text"
+              type="number"
               placeholder="กรุณากรอกปี"
               disabled={!checkYearEducationSelect}
               className="ml-5 input input-bordered w-full max-w-xs"

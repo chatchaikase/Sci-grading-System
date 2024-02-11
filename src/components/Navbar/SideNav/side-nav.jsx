@@ -1,34 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-import { SIDENAV_ITEMS } from '../../constants';
+import { SIDENAV_ITEMS } from '../../../constants';
 import { Icon } from '@iconify/react';
-import { getUser } from "../../function/userInfo";
-import LoginImage from '../Login/LoginImage';
+import LoginImage from '../../Login/LoginImage';
 
-const SideNav = () => {
-  const [user, setUser] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const logUserInfo = async () => {
-      try {
-        const userInfo = await getUser();
-        setUser(userInfo.user.isAdmin);
-      } catch (error) {
-        console.error("Error fetching user information", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    logUserInfo();
-  }, []);
-
+const SideNav = ({session}) => {
+  const user = session.user.isAdmin;
   return (
     <div className="md:w-60 bg-white h-screen flex-1 fixed border-r border-zinc-200 hidden md:flex">
       <div className="flex flex-col space-y-6 w-full">
@@ -38,27 +19,13 @@ const SideNav = () => {
         >
           <LoginImage width={120} height={40} />
         </Link>
-
-        <div className="flex flex-col space-y-2 md:px-6 ">
-          {loading ? (
-             <div className="flex flex-col gap-4 ">
-             <div className="skeleton h-4 w-full"></div>
-             <div className="skeleton h-4 w-full"></div>
-             <div className="skeleton h-4 w-full"></div>
-             <div className="skeleton h-4 w-full"></div>
-             <div className="skeleton h-4 w-full"></div>
-             <div className="skeleton h-4 w-full"></div>
-             <div className="skeleton h-4 w-full"></div>
-             <div className="skeleton h-4 w-full"></div>
-           </div>
-          ) : (
-            SIDENAV_ITEMS.map((item, idx) => {
+        <div className="flex flex-col space-y-2 md:px-6 ">        
+            {SIDENAV_ITEMS.map((item, idx) => {
               const shouldShowMenuItem = user === 1 || item.isAdmin === 0;
               return shouldShowMenuItem ? (
                 <MenuItem key={idx} item={item} user={user} />
               ) : null;
-            })
-          )}
+            })}
         </div>
       </div>
     </div>

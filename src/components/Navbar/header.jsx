@@ -10,19 +10,11 @@ import { Icon } from "@iconify/react";
 import { logout } from "../../function/loginSystem";
 import Image from "next/image";
 
-const Header = () => {
-  const [user, setUser] = useState("");
+const Header = ({session}) => {
+  const userInfo = session;
+  const user = (userInfo.user.firstname + " " + userInfo.user.lastname);
   const scrolled = useScroll(5);
   const selectedLayout = useSelectedLayoutSegment();
-
-    useEffect(() => {
-    const logUserInfo = async () => {
-      const userInfo = await getUser();
-      await setUser(userInfo.user.firstname + " " + userInfo.user.lastname);
-    };
-
-    logUserInfo();
-  }, []);
 
   return (
     <div

@@ -6,18 +6,18 @@ import Header from './Navbar/header';
 import HeaderMobile from './Navbar/header-mobile';
 import MarginWidthWrapper from './Navbar/margin-width-wrapper';
 import PageWrapper from './Navbar/page-wrapper';
-import SideNav from './Navbar/side-nav';
+import SideNav from './Navbar/SideNav/side-nav';
 
-export default function CheckSection({ children }) {
+export default function CheckSection({ children,session }) {
     const pathname = usePathname()
     return (
         <div>
           {pathname !== "/login" ? (
             <div className="flex">
-              <SideNav />
+              <SideNav session={session} />
               <main className="flex-1">
                 <MarginWidthWrapper>
-                  <Header />
+                  <Header session={session}/> 
                   <HeaderMobile />
                   <PageWrapper>{children}</PageWrapper>
                 </MarginWidthWrapper>

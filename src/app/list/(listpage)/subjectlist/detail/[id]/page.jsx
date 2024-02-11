@@ -4,10 +4,21 @@ import {
   GetiExcelDetail,
 } from "../../../../../../function/listSubject";
 import {formatDate} from "../../../../../../function/formatDate.js"
+import { auth } from "../../../../../../lib/auth";
+import { redirect } from 'next/navigation'
+
 const SubjectDetailPage = async ({ params }) => {
+  const session = await auth();
+  const userId = session.user.userId;
   const { id } = params;
-  const importH = await GetimportDetail(id);
-  const listItem = await GetiExcelDetail(id);
+  const [importH] = await GetimportDetail(id, userId);
+  if (!importH) {
+    redirect('/')
+  }
+  const listItem = await GetiExcelDetail(id,userId);
+  if (!listItem) {
+    redirect('/')
+  }
 
   return (
     <div>

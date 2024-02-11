@@ -5,14 +5,15 @@ import { redirect } from "next/navigation";
 
 const path = process.env.LocalhostDOTNET;
 
-export const GetimportDetail = async (importHedderNumber) => {
+export const GetimportDetail = async (importHedderNumber,userId) => {
   try {
     const importDetail = await axios.get(
-      `${path}/api/List/GetDetailByHeaderNo/${importHedderNumber}`,
+      `${path}/api/List/GetDetailByHeaderNoByUserId/${importHedderNumber}`,
       {
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
+          "userId": userId.toString(),
         },
       }
     );
@@ -25,14 +26,15 @@ export const GetimportDetail = async (importHedderNumber) => {
   }
 };
 
-export const GetiExcelDetail = async (importHedderNumber) => {
+export const GetiExcelDetail = async (importHedderNumber,userId) => {
   try {
     const importDetail = await axios.get(
-      `${path}/api/List/GetExcelDetailByHeaderNo/${importHedderNumber}`,
+      `${path}/api/List/GetExcelDetailByHeaderNoByUserId/${importHedderNumber}`,
       {
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
+          "userId": userId.toString(),
         },
       }
     );

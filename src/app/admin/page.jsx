@@ -15,7 +15,7 @@ export default async function AdminPage({searchParams}) {
   
   return (
     <div className="flex flex-col p-5 h-screen bg-gray-100">
-      <div className="overflow-auto rounded-lg shadow hidden md:block">
+      <div className="overflow-auto rounded-lg shadow">
         <div className="flex-col">
         <div className="flex-1">
             <div className="my-4 flex items-center justify-between">
@@ -115,7 +115,7 @@ export default async function AdminPage({searchParams}) {
                         ลบ
                       </button>
                       </form>  */}
-                      <FormDeleteUser userId={item.userId} />
+                      <FormDeleteUser userId={item.userId} userName={item.username} />
                       </div>
                     </td>
                   </tr>

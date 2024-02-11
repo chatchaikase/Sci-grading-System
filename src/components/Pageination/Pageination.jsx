@@ -2,7 +2,7 @@
 import React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function Pagination({ count }) {
+export default function Pagination({ count,rows }) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -10,7 +10,7 @@ export default function Pagination({ count }) {
   const page = searchParams.get("page") || 1;
 
   const params = new URLSearchParams(searchParams);
-  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE = rows;
 
   const hasPrev = ITEM_PER_PAGE * (parseInt(page) - 1) > 0;
   const hasNext = ITEM_PER_PAGE * (parseInt(page) - 1) + ITEM_PER_PAGE < count;

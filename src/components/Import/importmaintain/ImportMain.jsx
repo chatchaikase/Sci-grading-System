@@ -23,7 +23,7 @@ export default function ImportMain({ session }) {
   const [term, setTerm] = useState("midterm");
   const [courseName, setCourseName] = useState("");
   const [semester, setSemester] = useState("summer");
-  const [yearEducation, setYearEducation] = useState(null);
+  const [yearEducation, setYearEducation] = useState(0);
   const [yearEducationSelect, setYearEducationSelect] = useState(
     (new Date().getFullYear() + 542).toString()
   );
@@ -163,18 +163,19 @@ export default function ImportMain({ session }) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
       return;
     }
-    console.log(typeof(yearEducation))
+
     if (
       !courseID.trim() ||
       !courseName.trim() ||
-      (yearEducation == null && !yearEducationSelect.trim())
+      (yearEducation == 0  && !yearEducationSelect.trim())
     ) {
+      console.log("a")
       toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
 
     if (checkYearEducationSelect) {
-      if (!courseID.trim() || !courseName.trim() || yearEducation == null) {
+      if (!courseID.trim() || !courseName.trim() || yearEducation == 0) {
         toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
         return;
       } else if (!checkYearEducationSelect) {
@@ -186,13 +187,13 @@ export default function ImportMain({ session }) {
     }
 
     let formData = {
-      courseID: courseID,
-      term: term,
-      courseName: courseName,
-      semester: semester,
+      courseID: courseID.trim(),
+      term: term.trim(),
+      courseName: courseName.trim(),
+      semester: semester.trim(),
       yearEducation: checkYearEducationSelect
-        ? yearEducation
-        : yearEducationSelect,
+        ? yearEducation.trim()
+        : yearEducationSelect.trim(),
       createByUserId: session,
     };
 

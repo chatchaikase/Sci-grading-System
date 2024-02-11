@@ -44,7 +44,7 @@ export default async function ImportListPage({ searchParams }) {
                   รหัสวิชา
                 </th>
                 <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                  ชื่อวิชา
+                  วิชา
                 </th>
                 <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   ภาคการศึกษา
@@ -98,7 +98,7 @@ export default async function ImportListPage({ searchParams }) {
               )}
             </tbody>
           </table>
-          <Pagination count={countPage} />
+          <Pagination rows={5} count={countPage} />
         </div>
       </div>
     </div>

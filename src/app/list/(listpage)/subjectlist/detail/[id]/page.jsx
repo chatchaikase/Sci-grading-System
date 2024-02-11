@@ -50,7 +50,7 @@ const SubjectDetailPage = async ({ params }) => {
               <tbody>
                 <tr>
                   <td className="w-[10%] text-white text-lg flex-shrink-0 text-left font-bold">
-                    ชื่อวิชา
+                    วิชา
                   </td>
                   <td className="w-[30%] text-left">
                     <input
@@ -108,7 +108,7 @@ const SubjectDetailPage = async ({ params }) => {
           </div>
         </div>
       </div>
-      <div className="table=responsive mt-5 border border-solid">
+      <div className="table=responsive mt-5 border border-solid max-h-[800px] overflow-y-auto">
         <table className="w-full">
           <thead className="bg-gray-50 border-b-2 border-gray-200">
             <tr>
@@ -119,7 +119,7 @@ const SubjectDetailPage = async ({ params }) => {
                 รหัสวิชา
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                ชื่อวิชา
+                วิชา
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">
                 ภาคการศึกษา

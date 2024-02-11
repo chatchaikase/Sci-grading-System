@@ -1,27 +1,50 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { deleteUser } from "../../../function/admin";
-import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
 
-export default function FormDeleteUser({ userId }) {
+export default function FormDeleteUser({ userId,userName }) {
   
-  const handleDeleteUser = async (e) => {
-    e.preventDefault();
-    const confirmation = window.confirm("คุณต้องการลบผู้ใช้งานคนนี้หรือไม่?");
-    if (confirmation) {
-      const result = await deleteUser({userId});
-      if (result?.error) {
-        toast.error(result.error);
-      } else {
-        toast.success("ลบผู้ใช้งานสำเร็จ");
+  const showCustomAlert = async () => {
+    const result = await Swal.fire({
+      title: "คุณยืนยันที่จะลบ",
+      html: `<div>
+                ผู้ใช้งาน
+                <span style="color: red; font-size: 16px; font-weight: bold;">
+                  ${userName}
+                </span>
+                หรือไม่?
+              </div>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ยืนยัน!",
+      cancelButtonText: "ยกเลิก"
+    });
+    if (result.isConfirmed) {
+      try {
+        const deleteResult = await deleteUser({userId});
+        Swal.fire({
+          title: "ดำเนินการลบข้อมูลเสร็จสิ้น!",
+          text: "ผู้ใช้งานถูกลบสำเร็จแล้ว!",
+          icon: "success"
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "พบข้อผิดพลาด!",
+          text: "ไม่สามารถลบผู้ใช้งานนี้ได้เนื่องจากมีข้อผิดพลาด",
+          icon: "error"
+        });
       }
     }
   };
 
   return (
-    <form onSubmit={(e) => handleDeleteUser(e)}>
-      <input type="hidden" name="userId" value={userId} />
-      <button className="btn bg-red-500 text-white">ลบ</button>
-    </form>
+    <>
+      <button className="btn bg-red-500 text-white" onClick={showCustomAlert}>
+        ลบ
+      </button>
+    </>
   );
 }

@@ -14,7 +14,7 @@ export default function ImportInputFields({
   yearEducationSelect,
   setCheckYearEducationSelect,
 }) {
-  //Loop Select Year
+  // Loop Select Year
   const generateYearOptions = () => {
     const startYear = new Date().getFullYear() + 541;
     const currentYear = new Date().getFullYear() + 542;
@@ -42,7 +42,7 @@ export default function ImportInputFields({
             type="text"
             placeholder="กรุณากรอกรหัสวิชา"
             className="ml-2 input input-bordered w-full max-w-xs"
-            value={courseID}
+            value={courseID || ''}
             onChange={(e) => setCourseID(e.target.value)}
           />
         </div>
@@ -58,7 +58,7 @@ export default function ImportInputFields({
             type="text"
             placeholder="กรุณากรอกชื่อวิชา"
             className="input input-bordered w-full max-w-xs"
-            value={courseName}
+            value={courseName || ''}
             onChange={(e) => setCourseName(e.target.value)}
           />
         </div>
@@ -74,7 +74,7 @@ export default function ImportInputFields({
           <select
             className="select select-bordered w-full max-w-xs"
             name="semester"
-            value={semester}
+            value={semester || ''}
             onChange={(e) => setSemester(e.target.value)}
           >
             <option value="summer">Summer</option>
@@ -89,11 +89,11 @@ export default function ImportInputFields({
           >
             ปีการศึกษา
           </label>
-          <div className="flex items-center ">
+          <div className="flex items-center">
             <select
               className="select select-bordered w-full max-w-xs"
               name="yearEducationSelect"
-              value={yearEducationSelect}
+              value={yearEducationSelect || ''}
               disabled={checkYearEducationSelect}
               onChange={(e) => setYearEducationSelect(e.target.value)}
             >
@@ -109,7 +109,7 @@ export default function ImportInputFields({
               placeholder="กรุณากรอกปี"
               disabled={!checkYearEducationSelect}
               className="ml-5 input input-bordered w-full max-w-xs"
-              value={yearEducation}
+              value={yearEducation || ''}
               onChange={(e) => {
                 const inputValue = e.target.value;
                 const validatedValue =
@@ -119,9 +119,8 @@ export default function ImportInputFields({
             />
             <input
               type="checkbox"
-              name="checearEducationSelect"
+              name="checkYearEducationSelect"
               checked={checkYearEducationSelect}
-              value={checkYearEducationSelect}
               className="ml-2 checkbox checkbox-sm bg-white"
               onChange={() =>
                 setCheckYearEducationSelect(!checkYearEducationSelect)

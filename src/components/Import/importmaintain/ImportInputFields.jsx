@@ -14,7 +14,6 @@ export default function ImportInputFields({
   yearEducationSelect,
   setCheckYearEducationSelect,
 }) {
-
   //Loop Select Year
   const generateYearOptions = () => {
     const startYear = new Date().getFullYear() + 541;
@@ -27,7 +26,7 @@ export default function ImportInputFields({
 
     return years;
   };
-  
+
   return (
     <div className="flex items-center justify-between gap-5">
       <div className="flex flex-col">
@@ -106,14 +105,15 @@ export default function ImportInputFields({
             </select>
             <input
               name="yearEducation"
-              type="number"
+              type="text"
               placeholder="กรุณากรอกปี"
               disabled={!checkYearEducationSelect}
               className="ml-5 input input-bordered w-full max-w-xs"
               value={yearEducation}
               onChange={(e) => {
                 const inputValue = e.target.value;
-                const validatedValue = Math.max(1, parseInt(inputValue, 10)) || '';
+                const validatedValue =
+                  Math.max(1, Math.floor(parseFloat(inputValue))) || "";
                 setYearEducation(validatedValue);
               }}
             />

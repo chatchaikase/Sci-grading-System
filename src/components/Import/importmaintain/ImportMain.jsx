@@ -163,7 +163,7 @@ export default function ImportMain({ session }) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
       return;
     }
-
+    console.log(typeof(yearEducation))
     if (
       !courseID.trim() ||
       !courseName.trim() ||

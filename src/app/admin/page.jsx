@@ -122,7 +122,7 @@ export default async function AdminPage({searchParams}) {
                 ))}
               </tbody>
             </table>
-            <Pageination count={countPage} />
+            <Pageination rows={10} count={countPage} />
           </div>
       </div>
     </div>

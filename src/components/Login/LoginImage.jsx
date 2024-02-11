@@ -11,10 +11,11 @@ export default function LoginImage({
         src="/logo/Logo.png"
         width={width || "auto"}
         height={height || "auto"}
-        className="object-cover "
+        className="object-cover"
         alt="Logo"
         loading="eager"
         priority={true} 
+        fill={false}
       />
   );
 }

@@ -5,8 +5,11 @@ import Link from "next/link";
 import IconOption from "../../components/Admin/IconOption"
 import {CountUser, deleteUser, getAllUser} from "../../function/admin"
 import FormDeleteUser from "../../components/Admin/form/FormDeleteUser"
+import { auth } from "../../lib/auth";
 
 export default async function AdminPage({searchParams}) {
+  const session = await auth();
+  const userId = session.user.userId;
   const query = searchParams?.username || ""; 
   const additionalQuery = searchParams?.email || ""; 
   const page = searchParams?.page || 1;
@@ -114,7 +117,11 @@ export default async function AdminPage({searchParams}) {
                         ลบ
                       </button>
                       </form>  */}
-                      <FormDeleteUser userId={item.userId} userName={item.username} />
+                      {userId == item.userId ? (
+                        <></>
+                      ) : (
+                        <FormDeleteUser userId={item.userId} userName={item.username} />
+                      )}   
                       </div>
                     </td>
                   </tr>

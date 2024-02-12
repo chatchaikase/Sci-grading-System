@@ -26,7 +26,7 @@ export default async function ImportListPage({ searchParams }) {
   const startingIndex = (page - 1) * 5;
   
   return (
-    <div className="overflow-auto rounded-lg shadow hidden md:block">
+    <div className="overflow-auto rounded-lg shadow">
       <div className="px-4 pt-2 flex items-center justify-between">
         <p className="text-[30px]">รายการอัปโหลดล่าสุด</p>
         <BtnDirectToImportListPage />

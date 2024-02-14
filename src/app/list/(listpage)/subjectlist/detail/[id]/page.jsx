@@ -127,13 +127,13 @@ const SubjectDetailPage = async ({ params }) => {
                 No.
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                รหัสวิชา
+                รหัสนิสิต
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                วิชา
+                ชื่อ-สกุล
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                ภาคการศึกษา
+                เกรด
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">
                 วันที่อัปโหลด (วัน/เดือน/ปี)
@@ -149,7 +149,7 @@ const SubjectDetailPage = async ({ params }) => {
                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                   {item.id}
                 </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap">
                   {item.name}
                 </td>
                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">

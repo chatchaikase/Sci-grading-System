@@ -58,7 +58,7 @@ export default function ImportListTable() {
                   No.
                 </th>
                 <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                  รหัสไฟล์
+                  หมายเลขอัปโหลด
                 </th>
                 <th className="text-center p-3 text-lg font-semibold tracking-wide">
                   รหัสวิชา

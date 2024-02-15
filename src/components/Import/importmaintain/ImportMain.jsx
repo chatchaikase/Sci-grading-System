@@ -10,6 +10,7 @@ import ExcelDataViewer from "./ExcelDataViewer";
 import FileUploadButton from "./FileUploadButton";
 import ModalConfirm from "./ModalConfirm";
 import CheckStepMain from "./checkStep/CheckStepMain";
+import TableCountGrade from "./TableCountGrade"
 import { useRouter } from "next/navigation";
 
 export default function ImportMain({ session }) {
@@ -337,6 +338,9 @@ export default function ImportMain({ session }) {
           {/* ตารางเเสดงผลในไฟล์ Excel */}
           <div className="viewer">
             <ExcelDataViewer excelData={excelData} loading={loading} />
+          </div>
+          <div className="viewer">
+            <TableCountGrade excelData={excelData} loading={loading} />
           </div>
           {/* Open the modal using document.getElementById('ID').showModal() method */}
 

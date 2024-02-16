@@ -44,9 +44,9 @@ export default function Step2({
       <HeaderStep2 importHeaderInDB={importHeaderInDB} />
       <div>
         {excelData ? (
-          <div className="table-responsive mt-8 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
+          <div className="table-container table-responsive mt-8 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b-2 border-gray-200">
+              <thead className="border-b-2 border-gray-200 sticky top-0 bg-white">
                 <tr>
                   {Object.keys(excelData[0]).map((key) => (
                     <th

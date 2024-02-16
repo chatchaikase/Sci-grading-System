@@ -26,7 +26,7 @@ const SubjectDetailPage = async ({ params }) => {
       <div className="w-full h-[300px] bg-base-200 rounded-lg flex flex-col md:flex-row">
         <div className="w-full md:w-[100%] h-[300px] z-1 bg-accent rounded-lg">
           <div className="px-5 py-10">
-            <table className="w-[90%] mx-auto">
+            <table className="table-container table-responsive w-[90%] mx-auto">
               <thead>
                 <tr>
                   <th className="w-[10%] text-white text-lg text-left flex-shrink-0">
@@ -121,9 +121,9 @@ const SubjectDetailPage = async ({ params }) => {
       </div>
       <div className="table=responsive mt-5 border border-solid max-h-[800px] overflow-y-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b-2 border-gray-200">
+          <thead className="border-b-2 border-gray-200 sticky top-0 bg-white">
             <tr>
-              <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
+              <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide ">
                 No.
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">

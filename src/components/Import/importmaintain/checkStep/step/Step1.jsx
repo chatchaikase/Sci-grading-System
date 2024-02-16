@@ -39,9 +39,9 @@ export default function Step({
       ) : (
         <div>
         {excelData ? (
-          <div className="table-responsive mt-8 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
+          <div className="table-container table-responsive mt-8 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b-2 border-gray-200">
+              <thead className="border-b-2 border-gray-200 sticky top-0 bg-white">
                 <tr>
                   <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                     NO

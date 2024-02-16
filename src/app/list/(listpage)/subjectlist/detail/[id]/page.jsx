@@ -3,7 +3,7 @@ import {
   GetimportDetail,
   GetiExcelDetail,
 } from "../../../../../../function/listSubject";
-import {formatDate} from "../../../../../../function/formatDate.js"
+import { formatDate } from "../../../../../../function/formatDate.js"
 import { auth } from "../../../../../../lib/auth";
 import { redirect } from 'next/navigation'
 
@@ -15,7 +15,7 @@ const SubjectDetailPage = async ({ params }) => {
   if (!importH) {
     redirect('/')
   }
-  const listItem = await GetiExcelDetail(id,userId);
+  const listItem = await GetiExcelDetail(id, userId);
   if (!listItem) {
     redirect('/')
   }
@@ -121,9 +121,9 @@ const SubjectDetailPage = async ({ params }) => {
       </div>
       <div className="table=responsive mt-5 border border-solid max-h-[800px] overflow-y-auto">
         <table className="w-full">
-          <thead className="border-b-2 border-gray-200 sticky top-0 bg-white">
+          <thead className="bg-gray-50 border-b-2 border-gray-200">
             <tr>
-              <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide ">
+              <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                 No.
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide">

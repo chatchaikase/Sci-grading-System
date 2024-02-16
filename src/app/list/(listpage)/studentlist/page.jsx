@@ -7,6 +7,7 @@ import {
 import { auth } from '../../../../lib/auth';
 import SearchData from '../../../../components/SearchData/SearchData';
 import Pageination from '../../../../components/Pageination/Pageination';
+import Link from 'next/link';
 
 export default async function StudentListPage({ searchParams }) {
   const session = await auth();
@@ -19,15 +20,15 @@ export default async function StudentListPage({ searchParams }) {
     additionalQuery,
     page,
     userId
-    );
-    const countPage = await CountListStudent(query, additionalQuery, userId);
-    const startingIndex = (page - 1) * 10;
+  );
+  const countPage = await CountListStudent(query, additionalQuery, userId);
+  const startingIndex = (page - 1) * 10;
 
 
   return (
     <div>
       <div>
-      <SearchData
+        <SearchData
           placeholder1={"ค้นหาตาม รหัสนิสิต"}
           placeholder2={"ค้นหาตาม ชื่อ"}
         />
@@ -59,7 +60,7 @@ export default async function StudentListPage({ searchParams }) {
               <tr key={index}>
                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
                   width="15%" >
-                  {startingIndex +index+1}
+                  <a className="font-bold text-blue-400">{startingIndex + index + 1}</a>
                 </td>
                 <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
                   width="20%">
@@ -69,15 +70,17 @@ export default async function StudentListPage({ searchParams }) {
                   width="25%">
                   {item.name}
                 </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                <td className="text-center p-3 text-xl font-semibold text-red-400 whitespace-nowrap"
                   width="20%">
                   {item.count}
                 </td>
                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
                   width="15%">
-                  <button className="btn bg-green-600 text-white">
-                    รายละเอียด
-                  </button>
+                  <Link href={`/list/studentlist/detail/${item.id}`}>
+                    <button className="btn bg-green-600 text-white">
+                      รายละเอียด
+                    </button>
+                  </Link>
                 </td>
               </tr>
             )}

@@ -26,7 +26,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="border-dashed border border-zinc-500 w-full h-auto rounded-lg">
-        <table className='table table-xs'>
+        {/* <table className='table table-xs'>
           <thead>
             <tr>
               <th></th>
@@ -46,7 +46,7 @@ export default async function Home() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
       </div>
       <div className="border-dashed border border-zinc-500 w-full h-64 rounded-lg">
         <div className="stats shadow">

@@ -25,9 +25,11 @@ export default async function StudentDetailPage({ params }) {
         return gradeColors[grade] || '';
     }
 
-
     return (
-        <div>
+        <div className="mt-4">
+            <div className="px-4 pt-2 mb-5">
+                <p className="text-[30px]">รายระเอียดของนิสิต</p>
+            </div>
             <div className=" h-auto w-full px-3 pt-7">
                 <div className='flex flex-col gap-2'>
                     <div className='xl:flex xl:gap-5 flex-row'>
@@ -60,33 +62,33 @@ export default async function StudentDetailPage({ params }) {
                     </div>
                 </div>
             </div>
-
             <div className="table-container table-responsive mt-5 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
                 <table className="w-full">
-                    <thead className="bg-gray-50 border-b-2 border-gray-200">
+                    <thead className="border-b-2 border-gray-200 sticky top-0 bg-gray-50">
                         <tr>
-                            <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide sticky top-0 bg-white">
+                            <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                                 No.
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide sticky top-0 bg-white">
+                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
                                 รหัสวิชา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide sticky top-0 bg-white">
+                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
                                 วิชา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide sticky top-0 bg-white">
+                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
                                 ภาคการศึกษา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide sticky top-0 bg-white">
+                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
                                 ปีการศึกษา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide sticky top-0 bg-white">
+                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
                                 เกรด
                             </th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                        {listItem.map((item, index) => (
+                    {listItem.length > 0 ? (
+                        listItem.map((item, index) => (
                             <tr className="bg-white" key={index}>
                                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap " width="10%">
                                     <a className="font-bold text-blue-500">{index + 1}</a>
@@ -108,9 +110,19 @@ export default async function StudentDetailPage({ params }) {
                                         {item.grade}
                                     </p>
                                 </td>
-
                             </tr>
-                        ))}
+                       ))) : (
+                        <tr>
+                          <td
+                            colSpan="6"
+                            className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                          >
+                            <div className="mx-4 my-2 mt-2 text-xl">
+                              ไม่มีรายการนิสิตคนนี้ กรุณาตรวจสอบอีกครั้ง
+                            </div>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                 </table>
             </div>

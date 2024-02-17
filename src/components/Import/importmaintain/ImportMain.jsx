@@ -342,8 +342,7 @@ export default function ImportMain({ session }) {
           <div className="viewer">
             <TableCountGrade excelData={excelData} loading={loading} />
           </div>
-          {/* Open the modal using document.getElementById('ID').showModal() method */}
-
+      
           <ModalConfirm
             importHeaderInDB={importHeaderInDB}
             excelData={excelData}

@@ -36,6 +36,9 @@ export default async function Home({ searchParams }) {
 
   return (
     <div className="mt-4">
+      <div className="px-4 pt-2 mb-5">
+        <p className="text-[30px]">รายวิชา</p>
+      </div>
       <div className="flex gap-5">
         <SearchList
           placeholder1={"ค้นหาตาม Import No."}

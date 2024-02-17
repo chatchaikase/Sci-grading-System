@@ -18,7 +18,11 @@ export default async function AdminPage({searchParams}) {
   const startingIndex = (page - 1) * 10;
   
   return (
-    <div className="flex flex-col p-5 h-screen bg-gray-100">
+    <div className="mt-4">
+            <div className="px-4 pt-2 mt-4 mb-5 ">
+                <p className="text-[30px]">หน้า Admin</p>
+            </div>
+    <div className="flex flex-col m-5 h-screen bg-gray-100">
       <div className="overflow-auto rounded-lg shadow">
         <div className="flex-col">
         <div className="flex-1">
@@ -131,6 +135,7 @@ export default async function AdminPage({searchParams}) {
             <Pageination rows={10} count={countPage} />
           </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -21,7 +21,7 @@ export default function TableCountGrade({ excelData, loading }) {
   if (gradeCount === null) {
     return null;
   } else {
-    const sortedGrades = ["A", "B+", "B", "C+", "C", "D+", "D"];
+    const sortedGrades = ["A", "B+", "B", "C+", "C", "D+", "D","I","W","F"];
     const gradeColorMap = {
       A: "green-600",
       B: "primary",

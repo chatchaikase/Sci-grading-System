@@ -26,7 +26,10 @@ export default async function StudentListPage({ searchParams }) {
 
 
   return (
-    <div>
+    <div className='mt-4'>
+      <div className="px-4 pt-2 mb-5">
+        <p className="text-[30px]">รายนิสิต</p>
+      </div>
       <div>
         <SearchData
           placeholder1={"ค้นหาตาม รหัสนิสิต"}
@@ -36,7 +39,7 @@ export default async function StudentListPage({ searchParams }) {
       <div className="table-container table-responsive overflow-x-auto mt-5 max-h-screen bg-gray-100 rounded-lg shadow">
         <table className="w-full">
           {/* head */}
-          <thead className="border-b-2 border-gray-200 sticky top-0 bg-white">
+          <thead className="border-b-2 border-gray-200 sticky top-0 bg-gray-50">
             <tr>
               <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide ">
                 No.
@@ -56,7 +59,8 @@ export default async function StudentListPage({ searchParams }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
-            {itemList.map((item, index) =>
+          {itemList.length > 0 ? (
+            itemList.map((item, index) =>
               <tr key={index}>
                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
                   width="15%" >
@@ -83,7 +87,18 @@ export default async function StudentListPage({ searchParams }) {
                   </Link>
                 </td>
               </tr>
-            )}
+              )) : (
+                <tr>
+                  <td
+                    colSpan="5"
+                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                  >
+                    <div className="mx-4 my-2 mt-2 text-xl">
+                    ไม่มีรายการของฉัน กรุณาอัปโหลด
+                    </div>
+                  </td>
+                </tr>
+              )}
           </tbody>
         </table>
         <Pageination rows={10} count={countPage} />

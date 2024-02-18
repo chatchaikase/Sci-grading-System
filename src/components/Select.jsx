@@ -8,6 +8,14 @@ export default function CustomSelect({ data }) {
       placeholder="Select a user"
       labelPlacement="outside"
       className="xl:w-[350px]"
+      name="CustomSelect"
+      classNames={{
+        base: "max-w-xs",
+        trigger: "h-12 bg-base-100 border border-gray-400 rounded-md px-4 flex items-center",
+        // Add your Tailwind classes here
+        // Example:
+        // menu: "bg-gray-100 border border-gray-300",
+      }}
       renderValue={(items) => {
         return items.map((item) => (
           <div key={item.key} className="flex items-center gap-2">

@@ -4,7 +4,7 @@ export default function ExcelDataViewer({ excelData, loading }) {
   return (
     <div className="viewer ">
       {!loading && excelData ? (
-        <div className="table-container table-responsive mt-5 border border-solid max-h-[800px] overflow-y-auto">
+        <div className="table-container table-responsive mt-5 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>

@@ -26,6 +26,28 @@ export const GetimportDetail = async (importHedderNumber,userId) => {
   }
 };
 
+export const GetGradeImportHeaderNumber = async(importHeaderNumber,userId) => {
+    try {
+      const sumGrade = await axios.get(
+        ` ${path}/api/List/GetGradeImportHeaderNumberByUserId/${importHeaderNumber}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+            "userId": userId.toString(),
+          },
+        }
+      );
+      if (!sumGrade) {
+        throw new Error("Cannot fetch data");
+      }
+      return sumGrade.data;
+    } catch (error) {
+      throw new Error("Error to fetch data");
+    }
+}
+
+
 export const GetiExcelDetail = async (importHedderNumber,userId) => {
   try {
     const importDetail = await axios.get(

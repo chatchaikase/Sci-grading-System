@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export default function ModalConfirm({
   importHeaderInDB,
   setImportHeaderInDB,
+  formSumGrade,
   setLoading,
   setCheckStep1,
   excelData,
@@ -29,6 +30,7 @@ export default function ModalConfirm({
     importHeader: {
       importHeaderNumber: importHeaderInDB
     },
+    sumGrade:formSumGrade
   };
   
   const result = await AddExcel(payload);

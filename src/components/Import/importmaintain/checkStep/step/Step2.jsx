@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 export default function Step2({
   importHeaderInDB,
+  formSumGrade,
   setStep1,
   setStep2,
   setStep3,
@@ -27,6 +28,7 @@ export default function Step2({
       importHeader: {
         importHeaderNumber: importHeaderInDB
       },
+      sumGrade:formSumGrade
     };
     
     const result = await AddExcel(payload);

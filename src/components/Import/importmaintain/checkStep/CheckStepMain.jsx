@@ -10,6 +10,7 @@ export default function CheckStepMain({
   handleResetFile,
   importHeaderInDB,
   setImportHeaderInDB,
+  formSumGrade,
   session,
 }) {
   const [step1, setStep1] = useState({ checkStep1 });
@@ -24,6 +25,7 @@ export default function CheckStepMain({
     setImportHeaderInDB("");
     setLoading(false);
     handleResetFile();
+    formSumGrade(null)
   };
 
   return (
@@ -40,6 +42,7 @@ export default function CheckStepMain({
       {step2 && !step1 && !step3 && (
         <Step2
           importHeaderInDB={importHeaderInDB}
+          formSumGrade={formSumGrade}
           setStep1={setStep1}
           setStep2={setStep2}
           setStep3={setStep3}

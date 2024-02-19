@@ -34,7 +34,7 @@ export default function DateCalendar() {
   const currentMonth = new Date().getMonth();
   const currentDate = new Date().getDate();
   const [startDate, setStartDate] = useState(new Date(currentYear, currentMonth, currentDate));
-  const [endDate, setEndDate] = useState(new Date(currentYear, currentMonth, currentDate + 15));
+  const [endDate, setEndDate] = useState(new Date(currentYear, currentMonth, currentDate + 30));
 
   const onDateChange = (dates) => {
     const [start, end] = dates;
@@ -46,7 +46,7 @@ export default function DateCalendar() {
     <DatePicker
       selectsRange={true}
       onChange={onDateChange}
-      dateFormat="dd MMM yyyy"
+      dateFormat="dd/MM/yyyy"
       startDate={startDate}
       endDate={endDate}
       locale={th}

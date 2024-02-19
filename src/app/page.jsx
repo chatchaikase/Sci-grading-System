@@ -6,10 +6,16 @@ import PieChart from '../components/Dashboard/PieChart'
 import { GetDataDashboard, GetCourseNameList } from '../function/dashboard.js'
 import FormSubmit from '../components/Dashboard/FormSubmit.jsx'
 
-export default async function Home() {
-  const dashBoard = await GetDataDashboard();
+export default async function Home({searchParams}) {
+  const query_CourseID = searchParams?.CourseID || "";
+  const query_DateRange = searchParams?.DateRange || "";
+  const query_CourseName = searchParams?.CourseName || "";
+
+  console.log("Test query: " + query_CourseID,query_DateRange,query_CourseName)
+
+  const dashBoard = await GetDataDashboard(query_CourseID,query_DateRange,query_CourseName);
   const courseName = await GetCourseNameList();
-  
+
   return (
     <>
       <span className="font-bold text-4xl">Home</span>

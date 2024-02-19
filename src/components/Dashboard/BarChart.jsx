@@ -40,8 +40,8 @@ export default function BarChart({ data }) {
             {
                 label: 'Percentage of Grade',
                 data: percentageData,
-                backgroundColor: "rgba(255,622,99,1)",
-                borderColor: "rgba(25,66,440,1)",
+                backgroundColor: "rgb(0, 166, 255)",
+                borderColor: "rgb(60, 60, 60)",
                 borderWidth: 1,
             },
         ],

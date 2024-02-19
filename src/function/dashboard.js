@@ -9,7 +9,6 @@ const path = process.env.LocalhostDOTNET;
 
 export const GetDataDashboard = async () => {
   const api = `${path}/api/Home/GetDataDashboard`;
-
   try {
     const dashboardData = await axios.get(api, {
       headers: {

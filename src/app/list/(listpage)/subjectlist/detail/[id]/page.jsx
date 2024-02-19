@@ -2,10 +2,12 @@
 import {
   GetimportDetail,
   GetiExcelDetail,
+  GetGradeImportHeaderNumber,
 } from "../../../../../../function/listSubject";
-import { formatDate } from "../../../../../../function/formatDate.js"
+import { formatDate } from "../../../../../../function/formatDate.js";
 import { auth } from "../../../../../../lib/auth";
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
+import React from "react";
 
 const SubjectDetailPage = async ({ params }) => {
   const session = await auth();
@@ -13,13 +15,20 @@ const SubjectDetailPage = async ({ params }) => {
   const { id } = params;
   const [importH] = await GetimportDetail(id, userId);
   if (!importH) {
-    redirect('/')
+    redirect("/");
   }
   const listItem = await GetiExcelDetail(id, userId);
   if (!listItem) {
-    redirect('/')
+    redirect("/");
   }
 
+  const listGrade = await GetGradeImportHeaderNumber(
+    importH.importHeaderNumber,
+    userId
+  );
+  if (!listGrade) {
+    redirect("/");
+  }
   return (
     <div>
       <h1 className="text-[40px] mb-3">ข้อมูลรายวิชา</h1>
@@ -119,7 +128,7 @@ const SubjectDetailPage = async ({ params }) => {
           </div>
         </div>
       </div>
-      <div className="table=responsive mt-5 border border-solid max-h-[800px] overflow-y-auto">
+      <div className="table-container table-responsive mt-5 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
         <table className="w-full">
           <thead className="bg-gray-50 border-b-2 border-gray-200">
             <tr>
@@ -141,27 +150,203 @@ const SubjectDetailPage = async ({ params }) => {
             </tr>
           </thead>
           <tbody className="divide-y bg-white divide-gray-100">
-            {listItem.map((item, index) => (
-              <tr key={index}>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                  <a className="font-bold text-blue-500">{index + 1}</a>
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                  {item.id}
-                </td>
-                <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap">
-                  {item.name}
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                  {item.grade}
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                  {formatDate(item.dateCreated)}
+            {listItem ? (
+              listItem.map((item, index) => (
+                <tr key={index}>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <a className="font-bold text-blue-500">{index + 1}</a>
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    {item.id}
+                  </td>
+                  <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap">
+                    {item.name}
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    {item.grade}
+                  </td>
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    {formatDate(item.dateCreated)}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="5"
+                  className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                >
+                  <div className="mx-4 my-2 mt-2 text-xl">ไม่มีข้อมูล</div>
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-end">
+        <div className="table-responsive mt-5 border border-solid w-[30%] max-h-[800px] overflow-y-auto rounded-lg shadow">
+          <table className="w-full">
+            <thead className="bg-gray-50 border-b-2 border-gray-200">
+              <tr>
+                <th className="text-center w-[60%] p-3 text-lg font-semibold tracking-wide">
+                  เกรด
+                </th>
+                <th className="text-center w-[40%] p-3 text-lg font-semibold tracking-wide">
+                  คน
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {listGrade ? (
+                listGrade.map((grade, index) => (
+                  <React.Fragment key={grade.gradeId}>
+                    <tr className="bg-white" key={`${grade.gradeId}_A`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        A
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.a ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_Bplus`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        B+
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.bplus ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_B`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        B
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.b ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_Cplus`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        C+
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.cplus ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_C`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        C
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.c ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_Dplus`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        D+
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.dplus ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_D`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        D
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.d ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_I`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        I
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.i ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_W`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        W
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.w ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_F`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        F
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.f ?? 0}
+                      </td>
+                    </tr>
+                    <tr className="bg-white" key={`${grade.gradeId}_Total`}>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        จำนวนทั้งหมด
+                      </td>
+                      <td
+                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                      >
+                        {grade.total}
+                      </td>
+                    </tr>
+                  </React.Fragment>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="2"
+                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                  >
+                    <div className="mx-4 my-2 mt-2 text-xl">ไม่มีข้อมูล</div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

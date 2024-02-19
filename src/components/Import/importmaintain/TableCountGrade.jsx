@@ -6,7 +6,7 @@ export default function TableCountGrade({
   sumGrade,
   setSumGrade,
 }) {
-  const [getGrade,setGetGrade] = useState(null);
+  const [getGrade, setGetGrade] = useState(null);
   useEffect(() => {
     const countGrades = () => {
       if (excelData == null) {
@@ -20,22 +20,23 @@ export default function TableCountGrade({
       excelData.forEach((student) => {
         const grade = student.GRADE;
         const mappedGrade = {
-          "A": "a",
+          A: "a",
           "B+": "bplus",
-          "B": "b",
+          B: "b",
           "C+": "cplus",
-          "C": "c",
+          C: "c",
           "D+": "dplus",
-          "D": "d",
-          "I": "i",
-          "W": "w",
-          "F": "f",
+          D: "d",
+          I: "i",
+          W: "w",
+          F: "f",
         }[grade.toUpperCase()];
 
         gradeCount[grade] = (gradeCount[grade] || 0) + 1;
-        mappedGradeCount[mappedGrade] = (mappedGradeCount[mappedGrade] || 0) + 1;
+        mappedGradeCount[mappedGrade] =
+          (mappedGradeCount[mappedGrade] || 0) + 1;
       });
-      setGetGrade(gradeCount)
+      setGetGrade(gradeCount);
       setSumGrade(mappedGradeCount);
     };
 
@@ -51,7 +52,7 @@ export default function TableCountGrade({
   return (
     <div className="flex justify-end">
       {!loading ? (
-        <div className="table-responsive mt-5 border border-solid w-[30%] max-h-[800px] overflow-y-auto">
+        <div className="table-responsive mt-5 border border-solid w-[30%] max-h-[800px] overflow-y-auto rounded-lg shadow">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>
@@ -74,7 +75,7 @@ export default function TableCountGrade({
                   <td
                     className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
                   >
-                   {(getGrade && getGrade[grade]) || 0}
+                    {(getGrade && getGrade[grade]) || 0}
                   </td>
                 </tr>
               ))}
@@ -94,7 +95,11 @@ export default function TableCountGrade({
           </table>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="flex flex-col gap-4 my-8 mx-10">
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-full"></div>
+        </div>
       )}
     </div>
   );

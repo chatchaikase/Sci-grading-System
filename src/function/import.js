@@ -54,6 +54,7 @@ export const AddExcel = async(payload) => {
            {
             ExcelData: payload.excelData,
             ImportHeader: payload.importHeader,
+            SumGrade: payload.sumGrade,
            },
            {
             headers: {

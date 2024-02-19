@@ -1,83 +1,101 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function TableCountGrade({ excelData, loading }) {
-  const countGrades = (excelData) => {
-    if (excelData == null) {
-      return null;
-    }
+export default function TableCountGrade({
+  excelData,
+  loading,
+  sumGrade,
+  setSumGrade,
+}) {
+  const [getGrade,setGetGrade] = useState(null);
+  useEffect(() => {
+    const countGrades = () => {
+      if (excelData == null) {
+        return null;
+      }
 
-    const gradeCount = {};
+      const gradeCount = {};
+      const totalStudents = excelData.length;
+      const mappedGradeCount = {};
 
-    excelData.forEach((student) => {
-      const grade = student.GRADE;
-      gradeCount[grade] = (gradeCount[grade] || 0) + 1;
-    });
+      excelData.forEach((student) => {
+        const grade = student.GRADE;
+        const mappedGrade = {
+          "A": "a",
+          "B+": "bplus",
+          "B": "b",
+          "C+": "cplus",
+          "C": "c",
+          "D+": "dplus",
+          "D": "d",
+          "I": "i",
+          "W": "w",
+          "F": "f",
+        }[grade.toUpperCase()];
 
-    return gradeCount;
-  };
-
-  const gradeCount = countGrades(excelData ?? null);
-
-  if (gradeCount === null) {
-    return null;
-  } else {
-    const sortedGrades = ["A", "B+", "B", "C+", "C", "D+", "D","I","W","F"];
-    const gradeColorMap = {
-      A: "green-600",
-      B: "primary",
-      "B+": "blue-600",
-      C: "yellow-600",
-      "C+": "orange-500",
-      "D+": "red-500",
-      D: "primary-content",
+        gradeCount[grade] = (gradeCount[grade] || 0) + 1;
+        mappedGradeCount[mappedGrade] = (mappedGradeCount[mappedGrade] || 0) + 1;
+      });
+      setGetGrade(gradeCount)
+      setSumGrade(mappedGradeCount);
     };
-    const totalStudents = excelData.length;
 
-    return (
-      <div className="flex justify-end">
-        {!loading && excelData ? (
-          <div className="table-responsive mt-5 border border-solid w-[30%] max-h-[800px] overflow-y-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b-2 border-gray-200">
-                <tr>
-                  <th
-                    className="text-center w-[60%] p-3 text-lg font-semibold tracking-wide"
-                  >
-                    เกรด
-                  </th>
-                  <th
-                    className="text-center w-[40%] p-3 text-lg font-semibold tracking-wide"
-                  >
-                    คน
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {sortedGrades.map((grade) => (
-                  <tr className="bg-white" key={grade}>
-                    <td className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}>
-                      {grade}
-                    </td>
-                    <td className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}>
-                      {gradeCount[grade] || 0}
-                    </td>
-                  </tr>
-                ))}
-                <tr className="bg-white">
-                  <td className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}>
-                    จำนวนทั้งหมด
-                  </td>
-                  <td className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}>
-                    {totalStudents}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-    );
+    countGrades();
+  }, [excelData, setSumGrade]);
+
+  if (!excelData) {
+    return null;
   }
+
+  const sortedGrades = ["A", "B+", "B", "C+", "C", "D+", "D", "I", "W", "F"];
+
+  return (
+    <div className="flex justify-end">
+      {!loading ? (
+        <div className="table-responsive mt-5 border border-solid w-[30%] max-h-[800px] overflow-y-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50 border-b-2 border-gray-200">
+              <tr>
+                <th className="text-center w-[60%] p-3 text-lg font-semibold tracking-wide">
+                  เกรด
+                </th>
+                <th className="text-center w-[40%] p-3 text-lg font-semibold tracking-wide">
+                  คน
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {sortedGrades.map((grade) => (
+                <tr className="bg-white" key={grade}>
+                  <td
+                    className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                  >
+                    {grade}
+                  </td>
+                  <td
+                    className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                  >
+                   {(getGrade && getGrade[grade]) || 0}
+                  </td>
+                </tr>
+              ))}
+              <tr className="bg-white">
+                <td
+                  className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                >
+                  จำนวนทั้งหมด
+                </td>
+                <td
+                  className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                >
+                  {excelData.length}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+  );
 }

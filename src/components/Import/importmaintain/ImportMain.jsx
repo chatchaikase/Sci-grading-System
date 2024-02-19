@@ -52,6 +52,9 @@ export default function ImportMain({ session }) {
   const [dragging, setDragging] = useState(false);
   const [excelName, setExcelName] = useState("");
 
+  //SUM Grade
+  const [sumGrade,setSumGrade] = useState({});
+  const [formSumGrade,setFormSumGrade] = useState(null);
   const expectedColumnPattern = ["NO", "ID", "NAME", "GRADE"];
 
   const validateColumnNames = (worksheet) => {
@@ -99,7 +102,7 @@ export default function ImportMain({ session }) {
       console.log("Please Select your file");
     }
   };
-
+  
   const handleFileSubmit = (e) => {
     e.preventDefault();
 
@@ -216,6 +219,13 @@ export default function ImportMain({ session }) {
         semester: formData.semester,
         yearEducation: formData.yearEducation.toString(),
       };
+      
+      const newGrade = {
+        ...sumGrade,
+        total:excelData.length,
+        createByUserId: session
+    };
+    setFormSumGrade(newGrade)
 
       const importHeader = {
         courseID: formData.courseID,
@@ -228,6 +238,7 @@ export default function ImportMain({ session }) {
       const payload = {
         excelData: formattedExcelData,
         importHeader: importHeader,
+        sumGrade:newGrade
       };
 
       try {
@@ -281,6 +292,7 @@ export default function ImportMain({ session }) {
           handleResetFile={handleResetFile}
           importHeaderInDB={importHeaderInDB}
           setImportHeaderInDB={setCheckImportHeaderInDB}
+          formSumGrade={formSumGrade}
           session={session}
         />
       ) : (
@@ -340,12 +352,13 @@ export default function ImportMain({ session }) {
             <ExcelDataViewer excelData={excelData} loading={loading} />
           </div>
           <div className="viewer">
-            <TableCountGrade excelData={excelData} loading={loading} />
+            <TableCountGrade excelData={excelData} loading={loading} setSumGrade={setSumGrade} />
           </div>
       
           <ModalConfirm
             importHeaderInDB={importHeaderInDB}
             excelData={excelData}
+            formSumGrade={formSumGrade}
             setImportHeaderInDB={setImportHeaderInDB}
             setLoading={setLoading}
             setCheckStep1={setCheckStep1}

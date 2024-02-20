@@ -11,8 +11,6 @@ export default async function Home({searchParams}) {
   const query_DateRange = searchParams?.DateRange || "";
   const query_CourseName = searchParams?.CourseName || "";
 
-  console.log("Test query: " + query_CourseID,query_DateRange,query_CourseName)
-
   const dashBoard = await GetDataDashboard(query_CourseID,query_DateRange,query_CourseName);
   const courseName = await GetCourseNameList();
 

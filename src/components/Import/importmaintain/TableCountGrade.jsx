@@ -50,9 +50,9 @@ export default function TableCountGrade({
   const sortedGrades = ["A", "B+", "B", "C+", "C", "D+", "D", "I", "W", "F"];
 
   return (
-    <div className="flex justify-end">
+    <div className="flex">
       {!loading ? (
-        <div className="table-responsive mt-5 border border-solid w-[30%] max-h-[800px] overflow-y-auto rounded-lg shadow">
+        <div className="table-responsive mt-5 border border-solid w-full max-h-[800px] overflow-y-auto rounded-lg shadow">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>

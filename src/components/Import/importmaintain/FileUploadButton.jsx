@@ -4,7 +4,7 @@ import React from "react";
 
 export default function FileUploadButton({ handleFileSubmit, saveExcel }) {
   return (
-    <div className="flex md:flex-col flex-row items-center justify-center gap-2 h-full">
+    <div className="flex items-center justify-end gap-2 h-full">
       <Link href={"/import/importlist"}>
       <button
         className="btn btn-active bg-red-500 text-white w-[120px] max-x-lg"
@@ -21,7 +21,7 @@ export default function FileUploadButton({ handleFileSubmit, saveExcel }) {
         อัปโหลด
       </button>
       <button
-        className="btn btn-active bg-green-600 text-white w-[120px] max-x-lg"
+        className="btn btn-active bg-green-600 text-white w-[120px] max-x-lg mr-5"
         onClick={saveExcel}
       >
         <Icon icon="mingcute:save-line" className="text-white text-lg"/>

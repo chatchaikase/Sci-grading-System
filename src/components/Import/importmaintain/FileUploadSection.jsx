@@ -61,92 +61,92 @@ export default function FileUploadSection({
     }
   };
 
-  // const handleResetFile = () => {
-  //   setExcelfile(null);
-  //   setExcelName("");
-  //   setExcelData(null);
-  //   setUploadExcel(false);
-  //   setDataExcelFile(null);
-  // };
-
   return (
-    <div
-      className={`w-full h-40 border-dashed border-2 border-gray-300 flex items-center justify-center ${
-        dragging ? "bg-gray-100" : ""
-      }`}
-      onDragEnter={handleDragEnter}
-      onDragOver={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      <div className="flex items-center justify-center gap-2">
-        <p className="text-gray-600">
-          {/* {excelName === "" && !uploadExcel && (
-            <>วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ</>
-          )} */}
-          {/* {excelName && !uploadExcel && (
-            <>ไฟล์ชื่อ {excelName} กรุณากดปุ่มอัปโหลดไฟล์</>
-          )}
-          {uploadExcel && <>ตรวจเช็คข้อมูลก่อนบันทึก</>} */}
-        </p>
-        {/*form*/}
-        {loading ? (
+    <div>
+      {loading && (
+        <div className="w-full mt-5 h-[350px] lg:h-[400px] flex items-center justify-center">
           <div className="items-center justify-center flex gap-2 text-slate-600 ">
             <p className="text-lg font-semibold">กำลังตรวจสอบข้อมูล</p>
             <span className="loading loading-dots loading-md"></span>
           </div>
-        ) : (
-          <>
-            {excelName ? (
-              <>
-                {excelName && uploadExcel ? (
-                  <p className="text-gray-500">ตรวจเช็คข้อมูลก่อนบันทึก</p>
-                ) : excelName && !uploadExcel ? (
-                  <p className="text-gray-500">
-                    ไฟล์ {excelName} กรุณากดอัปโหลด
-                  </p>
-                ) : (
-                  <></>
-                )}
-
-                <button className="btn bg-red-500" onClick={handleResetFile}>
-                  <Icon
-                    icon="solar:trash-bin-2-bold"
-                    className="text-white text-lg"
-                  />
-                  <p className="text-white">ยกเลิกไฟล์</p>
-                </button>
-              </>
-            ) : (
-              <>
-                <p className="text-gray-500">
-                  วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ
+        </div>
+      )}
+      <div
+        className={`w-full mt-5 h-[350px] lg:h-[400px] border-dashed border-3 border-[#2F3337] flex items-center justify-center ${
+          dragging || uploadExcel ? "hidden" : "bg-[#F5FAF4]"
+        }`}
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        <div className="flex items-center justify-center gap-2">
+          <p className="text-gray-600"></p>
+          {excelName ? (
+            <>
+              {excelName && uploadExcel ? (
+                <p className="text-gray-500">ตรวจเช็คข้อมูลก่อนบันทึก</p>
+              ) : excelName && !uploadExcel ? (
+                <p className="text-gray-500 lg:text-xl">
+                  ไฟล์ {excelName} กรุณากดอัปโหลด
                 </p>
-                <form
-                  className="form-group costom-from"
-                  onSubmit={handleFileSubmit}
-                >
-                  <input
-                    type="File"
-                    className='form-control file-input file-input-bordered file-input-success max-w-xs"'
-                    required
-                    onChange={handleFile}
+              ) : (
+                <></>
+              )}
+
+              <button
+                className="btn bg-red-500 lg:text-xl"
+                onClick={handleResetFile}
+              >
+                <Icon
+                  icon="solar:trash-bin-2-bold"
+                  className="text-white text-lg"
+                />
+                <p className="text-white">ยกเลิกไฟล์</p>
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center justify-center">
+                  <Icon
+                    icon="teenyicons:ms-excel-outline"
+                    className=" text-[#5f6468] text-7xl lg:text-8xl"
                   />
-                  {/* <button type="Submit" className="btn btn-primary btn-md mt-5">
-              UPLOAD
-            </button>
-            {typeError && (
-              <div className="alert alert-danger" role="alert">
-                {typeError}
+                </div>
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <p className="text-gray-500 lg:text-lg">
+                    วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ
+                  </p>
+                  <form
+                    className="form-group costom-from"
+                    onSubmit={handleFileSubmit}
+                  >
+                    <div className="flex items-center justify-center ">
+                      <label
+                        htmlFor="dropzone-file"
+                        className="btn text-lg lg:text-xl font-normal text-white bg-[#5f6468]"
+                      >
+                        เลือกไฟล์
+                        <Icon
+                          icon="flowbite:arrow-up-solid"
+                          className=" text-white text-xl lg:text-xl"
+                        />
+                        <input
+                          id="dropzone-file"
+                          onChange={handleFile}
+                          type="file"
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+                  </form>
+                </div>
               </div>
-            )} */}
-                </form>
-              </>
-            )}
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
-      <div></div>
     </div>
   );
 }

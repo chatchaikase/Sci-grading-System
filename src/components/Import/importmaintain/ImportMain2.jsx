@@ -10,12 +10,10 @@ import ExcelDataViewer from "./ExcelDataViewer";
 import FileUploadButton from "./FileUploadButton";
 import ModalConfirm from "./ModalConfirm";
 import CheckStepMain from "./checkStep/CheckStepMain";
-import TableCountGrade from "./TableCountGrade";
+import TableCountGrade from "./TableCountGrade"
 import { useRouter } from "next/navigation";
-import BreadCrumbsImMain from "./checkStep/BreadCrumbsImMain";
-import Loading from "../../Loading/Loading";
 
-export default function ImportMain({ session }) {
+export default function ImportMain2({ session }) {
   // Redirect to another page
   const router = useRouter();
 
@@ -55,31 +53,9 @@ export default function ImportMain({ session }) {
   const [excelName, setExcelName] = useState("");
 
   //SUM Grade
-  const [sumGrade, setSumGrade] = useState({});
-  const [formSumGrade, setFormSumGrade] = useState(null);
+  const [sumGrade,setSumGrade] = useState({});
+  const [formSumGrade,setFormSumGrade] = useState(null);
   const expectedColumnPattern = ["NO", "ID", "NAME", "GRADE"];
-
-  //Fake Loading
-  const [initialLoading, setInitialLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setInitialLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (uploadExcel) {
-      // Scroll down by 400px
-      window.scrollTo({
-        top: window.scrollY + 470,
-        behavior: "smooth",
-      });
-    }
-  }, [uploadExcel]);
 
   const validateColumnNames = (worksheet) => {
     const range = XLSX.utils.decode_range(worksheet["!ref"]);
@@ -126,7 +102,7 @@ export default function ImportMain({ session }) {
       console.log("Please Select your file");
     }
   };
-
+  
   const handleFileSubmit = (e) => {
     e.preventDefault();
 
@@ -185,6 +161,7 @@ export default function ImportMain({ session }) {
       setExcelData(formattedData);
     }
   };
+
   const saveExcel = async () => {
     if (!excelfile) {
       toast.error("กรุณาอัปโหลดไฟล์ Excel");
@@ -194,8 +171,9 @@ export default function ImportMain({ session }) {
     if (
       !courseID.trim() ||
       !courseName.trim() ||
-      (yearEducation == 0 && !yearEducationSelect.trim())
+      (yearEducation == 0  && !yearEducationSelect.trim())
     ) {
+      console.log("a")
       toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
@@ -218,7 +196,7 @@ export default function ImportMain({ session }) {
       courseName: courseName.trim(),
       semester: semester.trim(),
       yearEducation: checkYearEducationSelect
-        ? yearEducation
+        ? yearEducation.trim()
         : yearEducationSelect.trim(),
       createByUserId: session,
     };
@@ -241,13 +219,13 @@ export default function ImportMain({ session }) {
         semester: formData.semester,
         yearEducation: formData.yearEducation.toString(),
       };
-
+      
       const newGrade = {
         ...sumGrade,
-        total: excelData.length,
-        createByUserId: session,
-      };
-      setFormSumGrade(newGrade);
+        total:excelData.length,
+        createByUserId: session
+    };
+    setFormSumGrade(newGrade)
 
       const importHeader = {
         courseID: formData.courseID,
@@ -260,7 +238,7 @@ export default function ImportMain({ session }) {
       const payload = {
         excelData: formattedExcelData,
         importHeader: importHeader,
-        sumGrade: newGrade,
+        sumGrade:newGrade
       };
 
       try {
@@ -278,9 +256,9 @@ export default function ImportMain({ session }) {
         } else {
           const result = await AddExcel(payload);
           if (result === 1) {
-            await router.push("/import/importlist");
-            await toast.success("บันทึกข้อมูลสำเร็จ");
             await setLoading(false);
+            await toast.success("บันทึกข้อมูลสำเร็จ");
+            await router.push("/import/importlist");
           } else {
             await setLoading(false);
             await toast.error("พบข้อผิดพลาดเกิดขึ้น");
@@ -304,45 +282,49 @@ export default function ImportMain({ session }) {
   };
 
   return (
-    <div className="mx-auto p-3">
-      {initialLoading ? (
-        <Loading />
+    <div className="px-9 py-5">
+      {checkStep1 ? (
+        <CheckStepMain
+          checkStep1={checkStep1}
+          setCheckStep1={setCheckStep1}
+          excelData={excelData}
+          setLoading={setLoading}
+          handleResetFile={handleResetFile}
+          importHeaderInDB={importHeaderInDB}
+          setImportHeaderInDB={setCheckImportHeaderInDB}
+          formSumGrade={formSumGrade}
+          session={session}
+        />
       ) : (
         <>
-          {/*หน้าที่เปิดอยู่*/}
-          <div className="">
-            <BreadCrumbsImMain />
-          </div>
-
-          {/*ชื่อหน้า*/}
-          <div className="mt-2">
-            <p className="text-2xl font-bold">อัปโหลดรายการคะเเนนนิสิต</p>
-          </div>
-
-          {/* เเถบ Header */}
-          <div className="mt-2">
-            <ImportInputFields
-              courseID={courseID}
-              setCourseID={setCourseID}
-              courseName={courseName}
-              setCourseName={setCourseName}
-              semester={semester}
-              setSemester={setSemester}
-              yearEducation={yearEducation}
-              setYearEducation={setYearEducation}
-              checkYearEducationSelect={checkYearEducationSelect}
-              yearEducationSelect={yearEducationSelect}
-              setYearEducationSelect={setYearEducationSelect}
-              setCheckYearEducationSelect={setCheckYearEducationSelect}
-            />
-          </div>
-
-          {/* เเถบปุ่มบันทึกไฟล์ Excel */}
-          <div className="mt-3">
-            <FileUploadButton
-              handleFileSubmit={handleFileSubmit}
-              saveExcel={saveExcel}
-            />
+          <h1 className="text-[40px] mb-3">ข้อมูลรายวิชา</h1>
+          <div className="w-full h-[300px] bg-base-200 rounded-lg flex flex-col md:flex-row">
+            <div className="w-full md:w-[80%] h-[300px] z-1 bg-accent rounded-tl-lg rounded-bl-lg flex items-center justify-center">
+              <div className="px-5 py-10">
+                {/* เเถบ Header */}
+                <ImportInputFields
+                  courseID={courseID}
+                  setCourseID={setCourseID}
+                  courseName={courseName}
+                  setCourseName={setCourseName}
+                  semester={semester}
+                  setSemester={setSemester}
+                  yearEducation={yearEducation}
+                  setYearEducation={setYearEducation}
+                  checkYearEducationSelect={checkYearEducationSelect}
+                  yearEducationSelect={yearEducationSelect}
+                  setYearEducationSelect={setYearEducationSelect}
+                  setCheckYearEducationSelect={setCheckYearEducationSelect}
+                />
+              </div>
+            </div>
+            <div className="w-full lg:w-[20%] mt-4 mb-2 md:mt-0">
+              {/* เเถบปุ่มบันทึกไฟล์ Excel */}
+              <FileUploadButton
+                handleFileSubmit={handleFileSubmit}
+                saveExcel={saveExcel}
+              />
+            </div>
           </div>
 
           {/* เเถบอัปโหลดไฟล์ Excel */}
@@ -352,7 +334,6 @@ export default function ImportMain({ session }) {
             excelName={excelName}
             setExcelName={setExcelName}
             uploadExcel={uploadExcel}
-            setUploadExcel={setUploadExcel}
             excelfile={excelfile}
             setExcelfile={setExcelfile}
             typeError={typeError}
@@ -360,20 +341,29 @@ export default function ImportMain({ session }) {
             dragging={dragging}
             setDragging={setDragging}
             setExcelData={setExcelData}
+            setUploadExcel={setUploadExcel}
             setDataExcelFile={setDataExcelFile}
             loading={loading}
             handleResetFile={handleResetFile}
           />
-          
+
           {/* ตารางเเสดงผลในไฟล์ Excel */}
-          <div className="mt-10">
-            <ExcelDataViewer
-              handleResetFile={handleResetFile}
-              excelData={excelData}
-              loading={loading}
-              setSumGrade={setSumGrade}
-            />
+          <div className="viewer">
+            <ExcelDataViewer excelData={excelData} loading={loading} />
           </div>
+          <div className="viewer">
+            <TableCountGrade excelData={excelData} loading={loading} setSumGrade={setSumGrade} />
+          </div>
+      
+          <ModalConfirm
+            importHeaderInDB={importHeaderInDB}
+            excelData={excelData}
+            formSumGrade={formSumGrade}
+            setImportHeaderInDB={setImportHeaderInDB}
+            setLoading={setLoading}
+            setCheckStep1={setCheckStep1}
+            session={session}
+          />
         </>
       )}
     </div>

@@ -1,5 +1,5 @@
 import { Inter } from 'next/font/google'
-import { Noto_Sans_Thai } from '@next/font/google'
+import { Noto_Sans_Thai } from "next/font/google"
 import './globals.css'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

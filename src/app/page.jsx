@@ -29,16 +29,9 @@ export default async function Home({ searchParams }) {
     <div className='h-full w-full'>
       <span className="font-bold text-4xl">Home</span>
       <FormSubmit data={dashBoard} courseName={courseName} />
-      <div className="border-dashed border border-zinc-500 w-full h-auto rounded-lg my-5">
-        <div className="flex flex-col w-full mx-auto my-2 lg:flex-row">
-          <div className="grid flex-grow w-auto h-auto card rounded-box place-items-center shadow-sm">
-            <BarChartComponent data={dashBoard} />
-          </div>
-          <div className="divider lg:divider-horizontal"></div>
-          <div className="grid flex-grow w-auto h-auto card rounded-box place-items-center shadow-sm">
-            <PieChart data={dashBoard} />
-          </div>
-        </div>
+      <div className="border-dashed border border-zinc-500 w-full h-auto rounded-lg my-5 p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
+        <BarChartComponent data={dashBoard} />
+        <PieChart data={dashBoard} />
       </div>
       <div className="table-container table-responsive mt-5 border border-solid max-h-[6z 00px] overflow-y-auto rounded-lg shadow">
         <table className="w-full">

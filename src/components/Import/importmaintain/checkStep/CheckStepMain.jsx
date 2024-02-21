@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Step1 from "./step/Step1";
 import Step2 from "./step/Step2";
 import Step3 from "./step/Step3";
-import BreadCrumbsImMain from "./BreadCrumbsImMain";
+import BreadCrumbsImMain from "../../../BreadCrumbs/BreadCrumbsImMain";
 export default function CheckStepMain({
   checkStep1,
   setCheckStep1,

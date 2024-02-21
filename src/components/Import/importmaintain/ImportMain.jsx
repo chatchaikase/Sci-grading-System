@@ -12,7 +12,7 @@ import ModalConfirm from "./ModalConfirm";
 import CheckStepMain from "./checkStep/CheckStepMain";
 import TableCountGrade from "./TableCountGrade";
 import { useRouter } from "next/navigation";
-import BreadCrumbsImMain from "./checkStep/BreadCrumbsImMain";
+import BreadCrumbsImMain from "../../BreadCrumbs/BreadCrumbsImMain";
 import Loading from "../../Loading/Loading";
 
 export default function ImportMain({ session }) {

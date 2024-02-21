@@ -11,7 +11,7 @@ import LoginImage from '../../Login/LoginImage';
 const SideNav = ({session}) => {
   const user = session.user.isAdmin;
   return (
-    <div className="md:w-60 bg-white h-screen flex-1 fixed border-r border-zinc-200 hidden md:flex">
+    <div className="md:w-60 bg-white h-screen flex-1 fixed border-r border-zinc-200 hidden md:flex z-10">
       <div className="flex flex-col space-y-6 w-full">
         <Link
           href="/"

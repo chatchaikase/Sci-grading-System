@@ -1,82 +1,76 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement
-);
+import { Chart } from 'chart.js/auto';
 
 export default function BarChart({ data }) {
-  const [chartData, setChartData] = useState(getInitialChartData(data));
+  const [loading, setLoading] = useState(true);
+  const chartRef = useRef(null);
+
+ 
+  const backgroundColor = Array.from({ length: data.length }, () =>
+    `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.6)`
+  );
 
   useEffect(() => {
-    setChartData(getInitialChartData(data));
-  }, [data]);
+    if (chartRef.current) {
+      if (chartRef.current.chart) {
+        chartRef.current.chart.destroy()
+      }
+      const context = chartRef.current.getContext("2d");
 
-  function getInitialChartData(data) {
-  
-    return {
-      labels: data.map(item => item.gradeString),
-      datasets: [
-        {
-          label: 'Percentage of Grade',
-          data: data.map(item => item.percentage),
-          backgroundColor: 'rgb(0, 166, 255)',
-          borderColor: 'rgb(60, 60, 60)',
-          borderWidth: 1,
+      const newChart = new Chart(context, {
+        type: "bar",
+        data: {
+          labels: data.map(item => item.gradeString),
+          datasets: [{
+            label: "Info",
+            data: data.map(item => item.percentage),
+            backgroundColor: backgroundColor,
+            borderWidth: 1,
+          }]
         },
-      ],
-    };
-  }
-
-  const chartOptions = {
-    scales: {
-      x: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Grade',
-        },
-      },
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Percentage',
-        },
-      },
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            const grade = chartData.labels[context.dataIndex];
-            const percentage = context.parsed.y.toFixed(2);
-            return `Grade ${grade}: ${percentage}%`;
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Grade',
+              },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Percentage',
+              },
+            },
           },
-        },
-      },
-    },
-  };
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: (tooltipItem) => {
+                  const grade = newChart.data.labels[tooltipItem.dataIndex];
+                  const percentage = tooltipItem.parsed.y.toFixed(2);
+                  return `Grade ${grade}: ${percentage}%`;
+                },
+              },
+            },
+          },
+        }
+      }
+      )
+      chartRef.current.chart = newChart;
+    }
+  }, [])
 
   return (
-    <Bar data={chartData} options={chartOptions} />
+    <div className='w-full xl:h-full'>
+      <canvas ref={chartRef} ></canvas>
+    </div>
   )
   
 }

@@ -74,7 +74,7 @@ export default function ExcelDataViewer({
             </div>
           </div>
           {showGrade == false ? (
-            <div className="table-container table-responsive mt-5 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
+            <div className="table-container table-responsive mt-5 border border-solid max-h-[650px] overflow-y-auto rounded-lg shadow">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b-2 border-gray-200">
                   <tr>

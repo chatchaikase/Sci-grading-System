@@ -84,11 +84,11 @@ export default async function ImportListPage({ searchParams }) {
                       {item.semester}
                     </td>
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="8%">
+                    width="5%">
                       {item.yearEducation}
                     </td>
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="10%">
+                    width="13%">
                       {formatDate(item.dateCreated)}
                     </td>
                   </tr>

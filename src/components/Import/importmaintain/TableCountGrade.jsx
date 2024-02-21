@@ -48,7 +48,7 @@ export default function TableCountGrade({
   return (
     <div className="flex">
       {!loading ? (
-        <div className="table-responsive mt-5 border border-solid w-full max-h-[800px] overflow-y-auto rounded-lg shadow">
+        <div className="table-responsive mt-5 border border-solid w-full max-h-[650px] overflow-y-auto rounded-lg shadow">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>

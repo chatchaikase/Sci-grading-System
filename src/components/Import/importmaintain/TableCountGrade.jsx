@@ -28,8 +28,8 @@ export default function TableCountGrade({
           "D+": "dplus",
           D: "d",
           I: "i",
-          W: "w",
           F: "f",
+          W: "w",
         }[grade.toUpperCase()];
 
         gradeCount[grade] = (gradeCount[grade] || 0) + 1;
@@ -47,7 +47,7 @@ export default function TableCountGrade({
     return null;
   }
 
-  const sortedGrades = ["A", "B+", "B", "C+", "C", "D+", "D", "I", "W", "F"];
+  const sortedGrades = ["A", "B+", "B", "C+", "C", "D+", "D", "I", "F", "W"];
 
   return (
     <div className="flex">

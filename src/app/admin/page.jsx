@@ -77,22 +77,28 @@ export default async function AdminPage({searchParams}) {
               <tbody className="divide-y divide-gray-100">
               {users.map((item, index) => (
                   <tr className="bg-white" key={index} >
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="5%">
                       <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="10%">
                     {item.username}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="10%">
                     {item.firstname}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="10%">
                     {item.lastname}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="15%">
                     {item.email}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="10%">
                       {item.isAdmin === 1 ? (
                         <span className="p-1.5 text-xs font-medium tracking-wider uppercase text-white bg-blue-600 rounded-lg bg-opacity-50">
                           Admin
@@ -103,7 +109,8 @@ export default async function AdminPage({searchParams}) {
                         </span>
                       )}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="15%">
                       <div className="flex items-center justify-center gap-2">
                       <Link href={`/admin/user/${item.userId}`}>
                       <button

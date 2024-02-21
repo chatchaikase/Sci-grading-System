@@ -63,25 +63,32 @@ export default async function ImportListPage({ searchParams }) {
               {list.length > 0 ? (
                 list.map((item, index) => (
                   <tr key={index}>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="5%">
                       <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="15%">
                       {item.importHeaderNumber}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="10%">
                       {item.courseID}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="15%">
                       {item.courseName}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="8%">
                       {item.semester}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="8%">
                       {item.yearEducation}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="10%">
                       {formatDate(item.dateCreated)}
                     </td>
                   </tr>

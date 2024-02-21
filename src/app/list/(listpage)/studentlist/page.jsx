@@ -44,10 +44,10 @@ export default async function StudentListPage({ searchParams }) {
               <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide ">
                 No.
               </th>
-              <th className="text-left p-3 text-lg font-semibold tracking-wide ">
+              <th className="text-center p-3 text-lg font-semibold tracking-wide ">
                 รหัสนิสิต
               </th>
-              <th className="text-left p-3 text-lg font-semibold tracking-wide ">
+              <th className="text-center p-3 text-lg font-semibold tracking-wide ">
                 ชื่อ
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide ">
@@ -66,7 +66,7 @@ export default async function StudentListPage({ searchParams }) {
                   width="15%" >
                   <a className="font-bold text-blue-400">{startingIndex + index + 1}</a>
                 </td>
-                <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
                   width="20%">
                   {item.id}
                 </td>

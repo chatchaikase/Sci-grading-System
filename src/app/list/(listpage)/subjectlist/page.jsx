@@ -85,12 +85,13 @@ export default async function Home({ searchParams }) {
             {itemList.length > 0 ? (
               itemList.map((item, index) => (
                 <tr key={index}>
-                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                  width="3%">
                     <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
                   </td>
                   <td
-                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="14%"
+                    className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="18%"
                   >
                     <Link
                       href={`/list/subjectlist/detail/${item.importHeaderNumber}`}
@@ -101,26 +102,26 @@ export default async function Home({ searchParams }) {
                     </Link>
                   </td>
                   <td
-                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="15%"
+                    className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="12%"
                   >
                     {item.courseID}
                   </td>
                   <td
-                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="15%"
+                    className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="18%"
                   >
                     {item.courseName}
                   </td>
                   <td
-                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="14%"
+                    className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="10%"
                   >
                     {item.semester}
                   </td>
                   <td
                     className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="13%"
+                    width="8%"
                   >
                     {item.yearEducation}
                   </td>

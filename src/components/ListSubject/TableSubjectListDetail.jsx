@@ -212,24 +212,24 @@ export default function TableSubjectListDetail({ listItem, listGrade }) {
                             <td
                               className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
                             >
-                              W
-                            </td>
-                            <td
-                              className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                            >
-                              {grade.w ?? 0}
-                            </td>
-                          </tr>
-                          <tr className="bg-white" key={`${grade.gradeId}_F`}>
-                            <td
-                              className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                            >
                               F
                             </td>
                             <td
                               className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
                             >
                               {grade.f ?? 0}
+                            </td>
+                          </tr>
+                          <tr className="bg-white" key={`${grade.gradeId}_F`}>
+                            <td
+                              className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                            >
+                              W
+                            </td>
+                            <td
+                              className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
+                            >
+                              {grade.w ?? 0}
                             </td>
                           </tr>
                           <tr

@@ -69,19 +69,19 @@ export default async function StudentDetailPage({ params }) {
                             <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                                 No.
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
+                            <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                                 รหัสวิชา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
+                            <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                                 วิชา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
+                            <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                                 ภาคการศึกษา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
+                            <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                                 ปีการศึกษา
                             </th>
-                            <th className="text-left w-10 p-3 text-lg font-semibold tracking-wide">
+                            <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                                 เกรด
                             </th>
                         </tr>
@@ -93,7 +93,7 @@ export default async function StudentDetailPage({ params }) {
                                 <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap " width="10%">
                                     <a className="font-bold text-blue-500">{index + 1}</a>
                                 </td>
-                                <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
+                                <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap" width="15%">
                                     {item.courseID}
                                 </td>
                                 <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap" width="20%">
@@ -102,10 +102,10 @@ export default async function StudentDetailPage({ params }) {
                                 <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap" width="15%">
                                     {item.semester}
                                 </td>
-                                <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap" width="15%">
+                                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap" width="15%">
                                     {item.yearEducation}
                                 </td>
-                                <td className="text-left p-3 whitespace-nowrap" width="15%">
+                                <td className="text-center p-3 whitespace-nowrap" width="15%">
                                     <p className={`text-lg ${gradeStudent(item.grade)}`}>
                                         {item.grade}
                                     </p>

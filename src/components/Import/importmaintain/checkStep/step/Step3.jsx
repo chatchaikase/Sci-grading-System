@@ -13,7 +13,6 @@ export default function Step3({ importHeaderInDB, setStep3, exitCheck }) {
   const [loading, setLoading] = useState(false);
 
   const RedirectToImportListPage = async () => {
-    await toast.success("บันทึกข้อมูลสำเร็จ");
     await router.push("/import/importlist");
   };
 
@@ -36,8 +35,9 @@ export default function Step3({ importHeaderInDB, setStep3, exitCheck }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowCompletion(true);
+      toast.success("บันทึกข้อมูลสำเร็จ");
     }, 2000);
-
+  
     return () => clearTimeout(timer);
   }, []);
 
@@ -57,12 +57,9 @@ export default function Step3({ importHeaderInDB, setStep3, exitCheck }) {
               {itemList ? (
                 <div>
                   <HeaderStep3 importHeaderInDB={importHeaderInDB} />
-                  <p className="mt-5 text-[40px] font-semibold text-neutral">
-                    บันทึกข้อมูลสำเร็จ
-                  </p>
-                  <div className="table-container table-responsive mt-8 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
+                  <div className="table-container table-responsive mt-8 border border-solid max-h-[650px] overflow-y-auto rounded-lg shadow">
                     <table className="w-full">
-                      <thead className="border-b-2 border-gray-200 sticky top-0 bg-white">
+                      <thead className="border-b-2 border-gray-200 sticky top-0 bg-gray-50">
                         <tr>
                           <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
                             NO
@@ -100,10 +97,10 @@ export default function Step3({ importHeaderInDB, setStep3, exitCheck }) {
                   </div>
                   <div className="mt-10 text-xl flex items-center justify-end gap-2">
                     <button
-                      className="btn btn-neutral text-lg"
+                      className="btn bg-blue-500 text-white text-lg"
                       onClick={RedirectToImportListPage}
                     >
-                      เสร็จสิ้น
+                      หน้าเเรก
                     </button>
                   </div>
                 </div>

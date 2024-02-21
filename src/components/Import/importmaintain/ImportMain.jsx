@@ -309,6 +309,21 @@ export default function ImportMain({ session }) {
         <Loading />
       ) : (
         <>
+         {checkStep1 ? (
+          <CheckStepMain
+          checkStep1={checkStep1}
+          setCheckStep1={setCheckStep1}
+          excelData={excelData}
+          setLoading={setLoading}
+          handleResetFile={handleResetFile}
+          importHeaderInDB={importHeaderInDB}
+          setImportHeaderInDB={setCheckImportHeaderInDB}
+          formSumGrade={formSumGrade}
+          setFormSumGrade={setFormSumGrade}
+          session={session}
+        />
+         ):(
+          <>
           {/*หน้าที่เปิดอยู่*/}
           <div className="">
             <BreadCrumbsImMain />
@@ -374,6 +389,19 @@ export default function ImportMain({ session }) {
               setSumGrade={setSumGrade}
             />
           </div>
+
+          {/* ModalConfirm สำหรับ file ซ้ำ */}
+          <ModalConfirm
+            importHeaderInDB={importHeaderInDB}
+            excelData={excelData}
+            formSumGrade={formSumGrade}
+            setImportHeaderInDB={setImportHeaderInDB}
+            setLoading={setLoading}
+            setCheckStep1={setCheckStep1}
+            session={session}
+          />
+          </>
+         )}
         </>
       )}
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderStep2 from "../headerStep/headerStep2";
+import HeaderStep2 from "../headerStep/HeaderStep2";
 import { AddExcel } from "../../../../../function/import";
 import { toast } from "react-toastify";
 
@@ -42,13 +42,13 @@ export default function Step2({
 }
 
   return (
-    <div>
+    <div className="mt-4">
       <HeaderStep2 importHeaderInDB={importHeaderInDB} />
       <div>
         {excelData ? (
-          <div className="table-container table-responsive mt-8 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
+          <div className="table-container table-responsive mt-8 border border-solid max-h-[650px] overflow-y-auto rounded-lg shadow">
             <table className="w-full">
-              <thead className="border-b-2 border-gray-200 sticky top-0 bg-white">
+              <thead className="border-b-2 border-gray-200 sticky top-0 bg-gray-50">
                 <tr>
                   {Object.keys(excelData[0]).map((key) => (
                     <th

@@ -6,9 +6,9 @@ export default function HeaderStep1({
     const importHeaderNumber = importHeaderInDB;
     
   return (
-    <div className="text-center text-2xl font-semibold">
+    <div className="text-center text-xl font-semibold">
     <ul className="steps">
-      <li className="step step-neutral text-neutral">
+      <li className="step step-secondary text-neutral">
         {importHeaderNumber} ข้อมูลเก่า
       </li>
       <li className="step">ตรวจสอบข้อมูลใหม่</li>

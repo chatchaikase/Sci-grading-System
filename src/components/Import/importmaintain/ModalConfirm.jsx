@@ -62,7 +62,7 @@ export default function ModalConfirm({
           </h3>
         </div>
         <div className="flex items-center px-7">
-          <span className="font-bold text-lg">ต้องการตรวจสอบก่อนหรือไม่</span>
+          <span className="ml-1.5 font-bold text-lg">ต้องการตรวจสอบข้อมูลเดิมก่อนหรือไม่</span>
         </div>
         <div className="modal-action">
           <div className="flex items-center justify-center gap-2">

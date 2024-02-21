@@ -1,76 +1,111 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart } from 'chart.js/auto';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function BarChart({ data }) {
   const [loading, setLoading] = useState(true);
-  const chartRef = useRef(null);
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [],
+  });
 
- 
-  const backgroundColor = Array.from({ length: data.length }, () =>
-    `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.6)`
-  );
+  const [chartOptions, setChartOptions] = useState({
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Daily Revenue',
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            const grade = tooltipItem.chart.data.labels[tooltipItem.dataIndex];
+            const percentage = tooltipItem.parsed.y.toFixed(2);
+            return `Grade ${grade}: ${percentage}%`;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Grade',
+        },
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Percentage',
+        },
+        ticks: {
+          callback: (value) => {
+            return value.toFixed(2) + '%';
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    responsive: true,
+  
+  });
 
   useEffect(() => {
-    if (chartRef.current) {
-      if (chartRef.current.chart) {
-        chartRef.current.chart.destroy()
-      }
-      const context = chartRef.current.getContext("2d");
-
-      const newChart = new Chart(context, {
-        type: "bar",
-        data: {
-          labels: data.map(item => item.gradeString),
-          datasets: [{
-            label: "Info",
-            data: data.map(item => item.percentage),
-            backgroundColor: backgroundColor,
-            borderWidth: 1,
-          }]
+    setChartData((prevChartData) => ({
+      ...prevChartData,
+      labels: data.map(item => item.gradeString),
+      datasets: [
+        {
+          label: 'Percentage of Grade',
+          data: data.map(item => item.percentage),
+          borderColor: 'rgb(53, 162, 235)',
+          backgroundColor: 'rgb(53, 162, 235, 0.4)',
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            x: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Grade',
-              },
-            },
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Percentage',
-              },
-            },
+      ]
+    }))
+  }, [data]);
+
+  useEffect(() => {
+    setChartOptions((prevChartOptions) => ({
+      ...prevChartOptions,
+      tooltips: {
+        callbacks: {
+          label: (tooltipItem) => {
+            const grade = tooltipItem.chart.data.labels[tooltipItem.dataIndex];
+            const percentage = tooltipItem.parsed.y.toFixed(2);
+            return `Grade ${grade}: ${percentage}%`;
           },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                label: (tooltipItem) => {
-                  const grade = newChart.data.labels[tooltipItem.dataIndex];
-                  const percentage = tooltipItem.parsed.y.toFixed(2);
-                  return `Grade ${grade}: ${percentage}%`;
-                },
-              },
-            },
-          },
-        }
-      }
-      )
-      chartRef.current.chart = newChart;
-    }
-  }, [])
+        },
+      },
+    }));
+  }, [chartData]);
 
   return (
-    <div className='w-full xl:h-full'>
-      <canvas ref={chartRef} ></canvas>
+    <div className='w-full md:col-span-2 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white'>
+      <Bar data={chartData} options={chartOptions} />
     </div>
   )
-  
+
 }

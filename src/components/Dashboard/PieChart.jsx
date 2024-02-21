@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Bar, Pie } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -22,25 +22,46 @@ ChartJS.register(
     ArcElement
 );
 
-export default function PieChart() {
-    const dataList = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
+export default function PieChart({ data }) {
+    const [chartData, setChartData] = useState(getInitialChartData(data));
+    useEffect(() => {
+        // Update chart data when the data prop changes
+        setChartData(getInitialChartData(data));
+      }, [data]);
+    
+      function getInitialChartData(data) {
+          const backgroundColor = Array.from({ length: data.length }, () =>
+              `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.6)`
+          );
+    
+        return {
+          labels: data.map(item => item.gradeString),
+          datasets: [
             {
-                label: 'Example Pie Chart',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
-                ],
+              label: 'Percentage of Grade',
+              data: data.map(item => item.percentage),
+              backgroundColor: backgroundColor,
             },
-        ],
-    };
+          ],
+        };
+      }
+    
+      const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const label = context.label || '';
+                  const value = context.parsed || 0;
+                  return `${label}: ${value.toFixed(2)}%`;
+                },
+              },
+            },
+          },
+      };
     return (
-        <Pie data={dataList} />
+        <Pie data={chartData} options={chartOptions} />
     )
 }

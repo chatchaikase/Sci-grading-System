@@ -10,16 +10,7 @@ module.exports = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   daisyui: {
-    themes: ["light", "dark", "garden", {
-      mytheme: {
-        "primary": "#a991f7",
-        "secondary": "#f6d860",
-        "accent": "#37cdbe",
-        "neutral": "#3d4451",
-        "base-100": "#ffffff",
-        "bg-Select": "#9ca3af"
-      },
-    },],
+    themes: ["light", "dark", "corporate"],
   },
   darkMode: "class",
   plugins: [

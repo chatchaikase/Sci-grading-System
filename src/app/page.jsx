@@ -14,43 +14,25 @@ export default async function Home({searchParams}) {
   const dashBoard = await GetDataDashboard(query_CourseID,query_DateRange,query_CourseName);
   const courseName = await GetCourseNameList();
 
+  console.log(dashBoard);
+
   return (
-    <>
+    <div className='h-full w-full'>
       <span className="font-bold text-4xl">Home</span>
       <FormSubmit data={dashBoard} courseName={courseName}/>
       <div className="border-dashed border border-zinc-500 w-full h-auto rounded-lg">
-        <div className="flex flex-col w-[90%] mx-auto my-2 lg:flex-row">
+        <div className="flex flex-col w-full mx-auto my-2 lg:flex-row">
           <div className="grid flex-grow h-auto card rounded-box place-items-center shadow-sm">
             <BarChartComponent data={dashBoard} />
           </div>
           <div className="divider lg:divider-horizontal"></div>
           <div className="grid flex-grow h-auto card rounded-box place-items-center shadow-sm">
-            <PieChart />
+            <PieChart data={dashBoard} />
           </div>
         </div>
       </div>
       <div className="border-dashed border border-zinc-500 w-full h-auto rounded-lg">
-        {/* <table className='table table-xs'>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>company</th>
-              <th>location</th>
-              <th>Last Login</th>
-              <th>Favorite Color</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dashBoard.map((item, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{item.id}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
+        
       </div>
       <div className="border-dashed border border-zinc-500 w-full h-64 rounded-lg">
         <div className="stats shadow">
@@ -75,6 +57,6 @@ export default async function Home({searchParams}) {
 
         </div>
       </div>
-    </>
+    </div>
   );
 }

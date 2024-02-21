@@ -12,7 +12,7 @@ export default function CustomSelect({ data }) {
       classNames={{
         base: "max-w-xs",
         trigger:
-          "h-12 bg-base-100 border border-gray-400 rounded-md px-4 flex items-center",
+          "h-12 bg-base-100 border border-gray-400 rounded-md px-4 flex items-center xl:w-full",
         // Add your Tailwind classes here
         // Example:
         // menu: "bg-gray-100 border border-gray-300",

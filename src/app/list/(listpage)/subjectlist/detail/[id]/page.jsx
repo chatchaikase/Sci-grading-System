@@ -8,6 +8,8 @@ import { formatDate } from "../../../../../../function/formatDate.js";
 import { auth } from "../../../../../../lib/auth";
 import { redirect } from "next/navigation";
 import React from "react";
+import BreadCrumbsSubDetail from "../../../../../../components/BreadCrumbs/BreadCrumbsSubDetail.jsx";
+import TableSubjectListDetail from "../../../../../../components/ListSubject/TableSubjectListDetail.jsx";
 
 const SubjectDetailPage = async ({ params }) => {
   const session = await auth();
@@ -30,323 +32,122 @@ const SubjectDetailPage = async ({ params }) => {
     redirect("/");
   }
   return (
-    <div>
-      <h1 className="text-[40px] mb-3">ข้อมูลรายวิชา</h1>
-      <div className="w-full h-[300px] bg-base-200 rounded-lg flex flex-col md:flex-row">
-        <div className="w-full md:w-[100%] h-[300px] z-1 bg-accent rounded-lg">
-          <div className="px-5 py-10">
-            <table className="table-container table-responsive w-[90%] mx-auto">
-              <thead>
-                <tr>
-                  <th className="w-[10%] text-white text-lg text-left flex-shrink-0">
+    <div className="h-full mx-auto p-3">
+      {/*หน้าที่เปิดอยู่*/}
+      <BreadCrumbsSubDetail />
+
+      {/*ชื่อหน้า*/}
+      <div className="mt-2">
+        <p className="text-2xl font-bold">รายระเอียดวิชา </p>
+      </div>
+
+      {/* เเถบ Header */}
+      <div className="mt-2">
+        <div className="mt-5 p-5">
+          <div className="lg:flex lg:justify-center lg:items-center">
+            <div className="lg:w-1/3">
+              <div className="hidden lg:block lg:text-center">
+                <p className="text-xl font-semibold">รายระเอียดข้อมูลรายวิชา</p>
+              </div>
+            </div>
+            <div className="lg:w-2/3 border-b-1 bg-white rounded-md shadow p-5">
+              <div className="flex flex-col lg:flex-row lg:justify-center">
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
+                  <label
+                    htmlFor="Importnumber"
+                    className="text-black text-lg flex-shrink-0"
+                  >
                     หมายเลขอัปโหลด
-                  </th>
-                  <th className="w-[30%] text-left">
+                  </label>
+                  <div className="flex items-center">
                     <input
                       name="Importnumber"
                       type="text"
-                      className="input input-bordered text-center w-[60%]"
+                      className="ml-2 input input-bordered w-full lg:max-w-sm xl:max-w-lg"
                       value={importH.importHeaderNumber}
                       readOnly={true}
                     />
-                  </th>
-                  <th className="w-[10%] text-white text-lg text-left flex-shrink-0">
+                  </div>
+                </div>
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
+                  <label
+                    htmlFor="courseID"
+                    className="text-black text-lg flex-shrink-0"
+                  >
                     รหัสวิชา
-                  </th>
-                  <th className="w-[30%] text-left">
+                  </label>
+                  <div className="flex items-center">
                     <input
-                      name="Importnumber"
+                      name="courseID"
                       type="text"
-                      className="input input-bordered text-center w-[60%]"
+                      className="ml-2 input input-bordered w-full lg:max-w-sm xl:max-w-lg"
                       value={importH.courseID}
                       readOnly={true}
                     />
-                  </th>
-                </tr>
-                <tr>
-                  <th className="h-4"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="w-[10%] text-white text-lg flex-shrink-0 text-left font-bold">
-                    วิชา
-                  </td>
-                  <td className="w-[30%] text-left">
+                  </div>
+                </div>
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
+                  <label
+                    htmlFor="courseName"
+                    className="text-black text-lg flex-shrink-0"
+                  >
+                    ชื่อวิชา
+                  </label>
+                  <div className="flex items-center">
                     <input
-                      name="Importnumber"
+                      name="courseName"
                       type="text"
-                      className="input input-bordered text-center font-bold w-[60%]"
+                      className="ml-2 input input-bordered w-full lg:max-w-sm xl:max-w-lg"
                       value={importH.courseName}
                       readOnly={true}
                     />
-                  </td>
-                  <td className="w-[10%] text-white text-lg flex-shrink-0 text-left font-bold">
-                    ปีการศึกษา
-                  </td>
-                  <td className="w-[30%] text-left">
-                    <input
-                      name="Importnumber"
-                      type="text"
-                      className="input input-bordered text-center font-bold w-[60%]"
-                      value={importH.yearEducation}
-                      readOnly={true}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="h-4"></td>
-                </tr>
-                <tr>
-                  <td className="w-[10%] text-white text-lg flex-shrink-0 text-left font-bold">
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col mt-4 lg:flex-row lg:justify-start">
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[31.5%]">
+                  <label
+                    htmlFor="semester"
+                    className="text-black text-lg flex-shrink-0"
+                  >
                     ภาคการศึกษา
-                  </td>
-                  <td className="w-[30%] text-left">
+                  </label>
+                  <div className="flex items-center">
                     <input
-                      name="Importnumber"
+                      name="semester"
                       type="text"
-                      className="input input-bordered text-center font-bold w-[60%]"
+                      className="ml-2 input input-bordered w-full lg:max-w-sm xl:max-w-lg"
                       value={importH.semester}
                       readOnly={true}
                     />
-                  </td>
-                  <td className="w-[10%] text-white text-lg flex-shrink-0 text-left font-bold">
-                    อัปโหลดเมื่อ
-                  </td>
-                  <td className="w-[30%] text-left">
+                  </div>
+                </div>
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[31.5%]">
+                  <label
+                    htmlFor="yearEducation"
+                    className="text-black text-lg flex-shrink-0"
+                  >
+                    ปีการศึกษา
+                  </label>
+                  <div className="flex items-center">
                     <input
-                      name="Importnumber"
+                      name="yearEducation"
                       type="text"
-                      className="input input-bordered text-center font-bold w-[60%]"
-                      value={formatDate(importH.dateCreated)}
+                      className="ml-2 input input-bordered w-full lg:max-w-sm xl:max-w-lg"
+                      value={importH.yearEducation}
                       readOnly={true}
                     />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="table-container table-responsive mt-5 border border-solid max-h-[800px] overflow-y-auto rounded-lg shadow">
-        <table className="w-full">
-          <thead className="bg-gray-50 border-b-2 border-gray-200">
-            <tr>
-              <th className="text-center w-10 p-3 text-lg font-semibold tracking-wide">
-                No.
-              </th>
-              <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                รหัสนิสิต
-              </th>
-              <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                ชื่อ-สกุล
-              </th>
-              <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                เกรด
-              </th>
-              <th className="text-center p-3 text-lg font-semibold tracking-wide">
-                วันที่อัปโหลด (วัน/เดือน/ปี)
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y bg-white divide-gray-100">
-            {listItem ? (
-              listItem.map((item, index) => (
-                <tr key={index}>
-                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                    <a className="font-bold text-blue-500">{index + 1}</a>
-                  </td>
-                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                    {item.id}
-                  </td>
-                  <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap">
-                    {item.name}
-                  </td>
-                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                    {item.grade}
-                  </td>
-                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                    {formatDate(item.dateCreated)}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan="5"
-                  className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                >
-                  <div className="mx-4 my-2 mt-2 text-xl">ไม่มีข้อมูล</div>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-      <div className="flex justify-end">
-        <div className="table-responsive mt-5 border border-solid w-[30%] max-h-[800px] overflow-y-auto rounded-lg shadow">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b-2 border-gray-200">
-              <tr>
-                <th className="text-center w-[60%] p-3 text-lg font-semibold tracking-wide">
-                  เกรด
-                </th>
-                <th className="text-center w-[40%] p-3 text-lg font-semibold tracking-wide">
-                  คน
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {listGrade ? (
-                listGrade.map((grade, index) => (
-                  <React.Fragment key={grade.gradeId}>
-                    <tr className="bg-white" key={`${grade.gradeId}_A`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        A
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.a ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_Bplus`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        B+
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.bplus ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_B`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        B
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.b ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_Cplus`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        C+
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.cplus ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_C`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        C
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.c ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_Dplus`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        D+
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.dplus ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_D`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        D
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.d ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_I`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        I
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.i ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_W`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        W
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.w ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_F`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        F
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.f ?? 0}
-                      </td>
-                    </tr>
-                    <tr className="bg-white" key={`${grade.gradeId}_Total`}>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        จำนวนทั้งหมด
-                      </td>
-                      <td
-                        className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
-                      >
-                        {grade.total}
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="2"
-                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                  >
-                    <div className="mx-4 my-2 mt-2 text-xl">ไม่มีข้อมูล</div>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+
+      {/* ตารางเเสดงผลในไฟล์ Excel */}
+      <div className="mt-5">
+        <TableSubjectListDetail listItem={listItem} listGrade={listGrade} />
       </div>
     </div>
   );

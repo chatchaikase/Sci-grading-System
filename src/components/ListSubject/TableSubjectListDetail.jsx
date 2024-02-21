@@ -1,18 +1,24 @@
 "use client";
 import React, { useState } from "react";
-import TableCountGrade from "../Import/importmaintain/TableCountGrade";
 import { Icon } from "@iconify/react";
-import { formatDate } from "../../function/formatDate";
+import FromDeleteListSubject from "../ListSubject/FromDeleteListSubject";
+import BtnPrintSubject from "../ListSubject/BtnPrintSubject"
+import BtnPrintGrade from "../ListSubject/BtnPrintGrade"
 
-export default function TableSubjectListDetail({ listItem, listGrade }) {
+export default function TableSubjectListDetail({ id, listItem, listGrade }) {
   const [showGrade, setShowGrade] = useState(false);
+
   return (
     <div>
       {listItem && listGrade ? (
         <div className="border-b-1 bg-base-100 rounded-md shadow p-5 ">
           <div className="flex items-center justify-between">
-            <div>
-              <button
+            <div className="flex items-center">
+              <BtnPrintSubject id={id} listItem={listItem} />
+              <BtnPrintGrade id={id} listGrade={listGrade} />
+            </div>
+            <div className="flex items-center">
+            <button
                 onClick={() => setShowGrade(!showGrade)}
                 className={`btn btn-active text-white w-[220px] max-x-lg mr-5  ${
                   showGrade ? "bg-orange-500" : "bg-green-600"
@@ -28,24 +34,21 @@ export default function TableSubjectListDetail({ listItem, listGrade }) {
             </div>
           </div>
           {showGrade == false ? (
-            <div className="table-responsive mt-5 border border-solid w-full max-h-[800px] overflow-y-auto rounded-lg shadow">
+            <div className="table-responsive mt-5 border border-solid w-full max-h-[650px] overflow-y-auto rounded-lg shadow">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b-2 border-gray-200">
                   <tr>
-                    <th className="text-center w-1/6 p-3 text-lg font-semibold tracking-wide">
+                    <th className="text-center w-1/4 p-3 text-lg font-semibold tracking-wide">
                       No.
                     </th>
-                    <th className="text-center w-1/6  p-3 text-lg font-semibold tracking-wide">
+                    <th className="text-center w-1.7/4  p-3 text-lg font-semibold tracking-wide">
                       รหัสนิสิต
                     </th>
-                    <th className="text-center w-1/6 p-3 text-lg font-semibold tracking-wide">
+                    <th className="text-center w-1.5/4 p-3 text-lg font-semibold tracking-wide">
                       ชื่อ-สกุล
                     </th>
-                    <th className="text-center w-1/6 p-3 text-lg font-semibold tracking-wide">
+                    <th className="text-center w-1/4 p-3 text-lg font-semibold tracking-wide">
                       เกรด
-                    </th>
-                    <th className="text-center w-1/6 p-3 text-lg font-semibold tracking-wide">
-                      วันที่อัปโหลด (วัน/เดือน/ปี)
                     </th>
                   </tr>
                 </thead>
@@ -64,9 +67,6 @@ export default function TableSubjectListDetail({ listItem, listGrade }) {
                         </td>
                         <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
                           {item.grade}
-                        </td>
-                        <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                          {formatDate(item.dateCreated)}
                         </td>
                       </tr>
                     ))
@@ -87,7 +87,7 @@ export default function TableSubjectListDetail({ listItem, listGrade }) {
             </div>
           ) : (
             <>
-              <div className="table-responsive mt-5 border border-solid w-full max-h-[800px] overflow-y-auto rounded-lg shadow">
+              <div className="table-responsive mt-5 border border-solid w-full max-h-[650px] overflow-y-auto rounded-lg shadow">
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b-2 border-gray-200">
                     <tr>
@@ -266,6 +266,9 @@ export default function TableSubjectListDetail({ listItem, listGrade }) {
               </div>
             </>
           )}
+          <div className="flex justify-end mt-4">
+            <FromDeleteListSubject importNo={id} />
+          </div>
         </div>
       ) : (
         <></>

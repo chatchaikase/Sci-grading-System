@@ -52,7 +52,7 @@ const SubjectDetailPage = async ({ params }) => {
             </div>
             <div className="lg:w-2/3 border-b-1 bg-white rounded-md shadow p-5">
               <div className="flex flex-col lg:flex-row lg:justify-center">
-                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
+                <div className="flex-col items-start mt-2 mb-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
                   <label
                     htmlFor="Importnumber"
                     className="text-black text-lg flex-shrink-0"
@@ -104,8 +104,8 @@ const SubjectDetailPage = async ({ params }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col mt-4 lg:flex-row lg:justify-start">
-                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[31.5%]">
+              <div className="flex flex-col lg:flex-row lg:justify-center">
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
                   <label
                     htmlFor="semester"
                     className="text-black text-lg flex-shrink-0"
@@ -122,7 +122,7 @@ const SubjectDetailPage = async ({ params }) => {
                     />
                   </div>
                 </div>
-                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[31.5%]">
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
                   <label
                     htmlFor="yearEducation"
                     className="text-black text-lg flex-shrink-0"
@@ -139,6 +139,23 @@ const SubjectDetailPage = async ({ params }) => {
                     />
                   </div>
                 </div>
+                <div className="flex-col items-start mt-2 lg:flex-row gap-4 lg:ml-2 xl:ml-5 xl:w-[40%]">
+                  <label
+                    htmlFor="dateCreated"
+                    className="text-black text-lg flex-shrink-0"
+                  >
+                    วันที่อัปโหลด
+                  </label>
+                  <div className="flex items-center">
+                    <input
+                      name="dateCreated"
+                      type="text"
+                      className="ml-2 input input-bordered w-full lg:max-w-sm xl:max-w-lg"
+                      value={formatDate(importH.dateCreated)}
+                      readOnly={true}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -147,7 +164,7 @@ const SubjectDetailPage = async ({ params }) => {
 
       {/* ตารางเเสดงผลในไฟล์ Excel */}
       <div className="mt-5">
-        <TableSubjectListDetail listItem={listItem} listGrade={listGrade} />
+        <TableSubjectListDetail id={id} listItem={listItem} listGrade={listGrade} />
       </div>
     </div>
   );

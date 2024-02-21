@@ -309,99 +309,99 @@ export default function ImportMain({ session }) {
         <Loading />
       ) : (
         <>
-         {checkStep1 ? (
-          <CheckStepMain
-          checkStep1={checkStep1}
-          setCheckStep1={setCheckStep1}
-          excelData={excelData}
-          setLoading={setLoading}
-          handleResetFile={handleResetFile}
-          importHeaderInDB={importHeaderInDB}
-          setImportHeaderInDB={setCheckImportHeaderInDB}
-          formSumGrade={formSumGrade}
-          setFormSumGrade={setFormSumGrade}
-          session={session}
-        />
-         ):(
-          <>
-          {/*หน้าที่เปิดอยู่*/}
-          <div className="">
-            <BreadCrumbsImMain />
-          </div>
-
-          {/*ชื่อหน้า*/}
-          <div className="mt-2">
-            <p className="text-2xl font-bold">อัปโหลดรายการคะเเนนนิสิต</p>
-          </div>
-
-          {/* เเถบ Header */}
-          <div className="mt-2">
-            <ImportInputFields
-              courseID={courseID}
-              setCourseID={setCourseID}
-              courseName={courseName}
-              setCourseName={setCourseName}
-              semester={semester}
-              setSemester={setSemester}
-              yearEducation={yearEducation}
-              setYearEducation={setYearEducation}
-              checkYearEducationSelect={checkYearEducationSelect}
-              yearEducationSelect={yearEducationSelect}
-              setYearEducationSelect={setYearEducationSelect}
-              setCheckYearEducationSelect={setCheckYearEducationSelect}
-            />
-          </div>
-
-          {/* เเถบปุ่มบันทึกไฟล์ Excel */}
-          <div className="mt-3">
-            <FileUploadButton
-              handleFileSubmit={handleFileSubmit}
-              saveExcel={saveExcel}
-            />
-          </div>
-
-          {/* เเถบอัปโหลดไฟล์ Excel */}
-          <FileUploadSection
-            handleFileSubmit={handleFileSubmit}
-            handleFile={handleFile}
-            excelName={excelName}
-            setExcelName={setExcelName}
-            uploadExcel={uploadExcel}
-            setUploadExcel={setUploadExcel}
-            excelfile={excelfile}
-            setExcelfile={setExcelfile}
-            typeError={typeError}
-            setTypeError={setTypeError}
-            dragging={dragging}
-            setDragging={setDragging}
-            setExcelData={setExcelData}
-            setDataExcelFile={setDataExcelFile}
-            loading={loading}
-            handleResetFile={handleResetFile}
-          />
-          
-          {/* ตารางเเสดงผลในไฟล์ Excel */}
-          <div className="mt-10">
-            <ExcelDataViewer
-              handleResetFile={handleResetFile}
+          {checkStep1 ? (
+            <CheckStepMain
+              checkStep1={checkStep1}
+              setCheckStep1={setCheckStep1}
               excelData={excelData}
-              loading={loading}
-              setSumGrade={setSumGrade}
+              setLoading={setLoading}
+              handleResetFile={handleResetFile}
+              importHeaderInDB={importHeaderInDB}
+              setImportHeaderInDB={setCheckImportHeaderInDB}
+              formSumGrade={formSumGrade}
+              setFormSumGrade={setFormSumGrade}
+              session={session}
             />
-          </div>
+          ) : (
+            <>
+              {/*หน้าที่เปิดอยู่*/}
+              <div className="">
+                <BreadCrumbsImMain />
+              </div>
 
-          {/* ModalConfirm สำหรับ file ซ้ำ */}
-          <ModalConfirm
-            importHeaderInDB={importHeaderInDB}
-            excelData={excelData}
-            formSumGrade={formSumGrade}
-            setImportHeaderInDB={setImportHeaderInDB}
-            setLoading={setLoading}
-            setCheckStep1={setCheckStep1}
-            session={session}
-          />
-          </>
-         )}
+              {/*ชื่อหน้า*/}
+              <div className="mt-2">
+                <p className="text-2xl font-bold">อัปโหลดรายการคะเเนนนิสิต</p>
+              </div>
+
+              {/* เเถบ Header */}
+              <div className="mt-2">
+                <ImportInputFields
+                  courseID={courseID}
+                  setCourseID={setCourseID}
+                  courseName={courseName}
+                  setCourseName={setCourseName}
+                  semester={semester}
+                  setSemester={setSemester}
+                  yearEducation={yearEducation}
+                  setYearEducation={setYearEducation}
+                  checkYearEducationSelect={checkYearEducationSelect}
+                  yearEducationSelect={yearEducationSelect}
+                  setYearEducationSelect={setYearEducationSelect}
+                  setCheckYearEducationSelect={setCheckYearEducationSelect}
+                />
+              </div>
+
+              {/* เเถบปุ่มบันทึกไฟล์ Excel */}
+              <div className="mt-3">
+                <FileUploadButton
+                  handleFileSubmit={handleFileSubmit}
+                  saveExcel={saveExcel}
+                />
+              </div>
+
+              {/* เเถบอัปโหลดไฟล์ Excel */}
+              <FileUploadSection
+                handleFileSubmit={handleFileSubmit}
+                handleFile={handleFile}
+                excelName={excelName}
+                setExcelName={setExcelName}
+                uploadExcel={uploadExcel}
+                setUploadExcel={setUploadExcel}
+                excelfile={excelfile}
+                setExcelfile={setExcelfile}
+                typeError={typeError}
+                setTypeError={setTypeError}
+                dragging={dragging}
+                setDragging={setDragging}
+                setExcelData={setExcelData}
+                setDataExcelFile={setDataExcelFile}
+                loading={loading}
+                handleResetFile={handleResetFile}
+              />
+
+              {/* ตารางเเสดงผลในไฟล์ Excel */}
+              <div className="mt-10">
+                <ExcelDataViewer
+                  handleResetFile={handleResetFile}
+                  excelData={excelData}
+                  loading={loading}
+                  setSumGrade={setSumGrade}
+                />
+              </div>
+
+              {/* ModalConfirm สำหรับ file ซ้ำ */}
+              <ModalConfirm
+                importHeaderInDB={importHeaderInDB}
+                excelData={excelData}
+                formSumGrade={formSumGrade}
+                setImportHeaderInDB={setImportHeaderInDB}
+                setLoading={setLoading}
+                setCheckStep1={setCheckStep1}
+                session={session}
+              />
+            </>
+          )}
         </>
       )}
     </div>

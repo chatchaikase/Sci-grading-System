@@ -26,7 +26,6 @@ export default function BarChart({ data }) {
   const [chartData, setChartData] = useState(getInitialChartData(data));
 
   useEffect(() => {
-    // Update chart data when the data prop changes
     setChartData(getInitialChartData(data));
   }, [data]);
 
@@ -47,7 +46,6 @@ export default function BarChart({ data }) {
   }
 
   const chartOptions = {
-    responsive: true, // Make the chart responsive
     scales: {
       x: {
         beginAtZero: true,
@@ -77,5 +75,8 @@ export default function BarChart({ data }) {
     },
   };
 
-  return <Bar data={chartData} options={chartOptions} />;
+  return (
+    <Bar data={chartData} options={chartOptions} />
+  )
+  
 }

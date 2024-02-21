@@ -47,8 +47,6 @@ export default function PieChart({ data }) {
       }
     
       const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
         plugins: {
             tooltip: {
               callbacks: {
@@ -62,6 +60,6 @@ export default function PieChart({ data }) {
           },
       };
     return (
-        <Pie data={chartData} options={chartOptions} />
+        <Pie data={chartData} options={chartOptions} className="w-full"/>
     )
 }

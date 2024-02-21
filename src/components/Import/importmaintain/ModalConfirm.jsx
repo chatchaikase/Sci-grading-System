@@ -56,13 +56,13 @@ export default function ModalConfirm({
           />
         </div>
         <div className="flex items-center justify-center gap-2">
-          <h3 className="font-bold text-lg">เนื่องจากข้อมูลรายวิชาตรงกับ</h3>
+          <h3 className="ml-3.5 font-bold text-lg">เนื่องจากข้อมูลตรงกับ</h3>
           <h3 className="font-bold text-lg text-yellow-600">
             {importHeaderInDB}
           </h3>
         </div>
         <div className="flex items-center px-7">
-          <span className="ml-1.5 font-bold text-lg">ต้องการตรวจสอบข้อมูลเดิมก่อนหรือไม่</span>
+          <span className="font-bold text-lg">ต้องการตรวจสอบข้อมูลเดิมก่อนหรือไม่</span>
         </div>
         <div className="modal-action">
           <div className="flex items-center justify-center gap-2">

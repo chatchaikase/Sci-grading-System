@@ -4,7 +4,6 @@ export default function TableCountGrade({
   excelData,
   loading,
   sumGrade,
-  setSumGrade,
 }) {
   const [getGrade, setGetGrade] = useState(null);
   useEffect(() => {
@@ -14,8 +13,6 @@ export default function TableCountGrade({
       }
 
       const gradeCount = {};
-      const totalStudents = excelData.length;
-      const mappedGradeCount = {};
 
       excelData.forEach((student) => {
         const grade = student.GRADE;
@@ -33,15 +30,14 @@ export default function TableCountGrade({
         }[grade.toUpperCase()];
 
         gradeCount[grade] = (gradeCount[grade] || 0) + 1;
-        mappedGradeCount[mappedGrade] =
-          (mappedGradeCount[mappedGrade] || 0) + 1;
+       
       });
       setGetGrade(gradeCount);
-      setSumGrade(mappedGradeCount);
+    
     };
 
     countGrades();
-  }, [excelData, setSumGrade]);
+  }, [excelData]);
 
   if (!excelData) {
     return null;

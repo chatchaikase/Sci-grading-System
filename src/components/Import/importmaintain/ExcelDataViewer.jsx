@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TableCountGrade from "./TableCountGrade";
 
 export default function ExcelDataViewer({
@@ -9,6 +9,40 @@ export default function ExcelDataViewer({
   setSumGrade,
 }) {
   const [showGrade, setShowGrade] = useState(false);
+  
+  useEffect(() => {
+    const countGrades = () => {
+      if (excelData == null) {
+        return null;
+      }
+
+      const gradeCount = {};
+      const mappedGradeCount = {};
+
+      excelData.forEach((student) => {
+        const grade = student.GRADE;
+        const mappedGrade = {
+          A: "a",
+          "B+": "bplus",
+          B: "b",
+          "C+": "cplus",
+          C: "c",
+          "D+": "dplus",
+          D: "d",
+          I: "i",
+          W: "w",
+          F: "f",
+        }[grade.toUpperCase()];
+
+      
+        mappedGradeCount[mappedGrade] =
+          (mappedGradeCount[mappedGrade] || 0) + 1;
+      });
+      setSumGrade(mappedGradeCount);
+    };
+
+    countGrades();
+  }, [excelData, setSumGrade]);
   return (
     <div>
       {!loading && excelData ? (

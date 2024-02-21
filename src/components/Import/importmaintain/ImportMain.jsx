@@ -58,7 +58,7 @@ export default function ImportMain({ session }) {
   const [sumGrade, setSumGrade] = useState({});
   const [formSumGrade, setFormSumGrade] = useState(null);
   const expectedColumnPattern = ["NO", "ID", "NAME", "GRADE"];
-
+    console.log(sumGrade)
   //Fake Loading
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -301,6 +301,7 @@ export default function ImportMain({ session }) {
     setExcelData(null);
     setUploadExcel(false);
     setDataExcelFile(null);
+    setSumGrade({});
   };
 
   return (

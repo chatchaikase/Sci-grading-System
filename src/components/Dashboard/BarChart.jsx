@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import {Spinner} from "@nextui-org/react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,7 +22,7 @@ ChartJS.register(
 );
 
 export default function BarChart({ data }) {
-  const [loading, setLoading] = useState(true);
+  const [isloading, setLoading] = useState(true);
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [],
@@ -72,19 +73,28 @@ export default function BarChart({ data }) {
   
   });
 
+  
+
   useEffect(() => {
-    setChartData((prevChartData) => ({
-      ...prevChartData,
-      labels: data.map(item => item.gradeString),
-      datasets: [
-        {
-          label: 'Percentage of Grade',
-          data: data.map(item => item.percentage),
-          borderColor: 'rgb(53, 162, 235)',
-          backgroundColor: 'rgb(53, 162, 235, 0.4)',
-        },
-      ]
-    }))
+    setLoading(true); // Set loading to true when data is being fetched
+
+    // Simulating an asynchronous data fetch (you should replace this with your actual data fetching logic)
+    setTimeout(() => {
+      setChartData((prevChartData) => ({
+        ...prevChartData,
+        labels: data.map((item) => item.gradeString),
+        datasets: [
+          {
+            label: 'Percentage of Grade',
+            data: data.map((item) => item.percentage),
+            borderColor: 'rgb(53, 162, 235)',
+            backgroundColor: 'rgb(53, 162, 235, 0.5)',
+            borderWidth: 2
+          },
+        ],
+      }));
+      setLoading(false); // Set loading to false when data fetching is complete
+    }, 1000); // Simulating a 1-second delay (adjust as needed)
   }, [data]);
 
   useEffect(() => {
@@ -103,8 +113,12 @@ export default function BarChart({ data }) {
   }, [chartData]);
 
   return (
-    <div className='w-full md:col-span-2 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white'>
-      <Bar data={chartData} options={chartOptions} />
+    <div className='w-full md:col-span-2 relative lg:h-[70vh] h-[50vh] p-4 border rounded-lg bg-white text-center content-center flex items-center justify-center'>
+      {isloading ? (
+        <Spinner label="Loading..." color="primary" size='lg'/>
+      ) : (
+        <Bar data={chartData} options={chartOptions} />
+      )}
     </div>
   )
 

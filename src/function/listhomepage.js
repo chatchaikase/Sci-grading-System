@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 
 const path = process.env.LocalhostDOTNET;
 
-export const GetHomePageList = async (userId) => {
+export const GetHomePageList = async (query_DateRange,userId) => {
     const queryParams = new URLSearchParams();
-
+    if (query_DateRange) queryParams.append('DateRange', query_DateRange);
   
     const api = `${path}/api/Home/GetDataTableByUserId`;
   

@@ -31,10 +31,8 @@ const ForwardedCustomInput = forwardRef(CustomInput);
 
 export default function DateCalendar() {
   const currentYear = new Date().getFullYear() + 543;
-  const currentMonth = new Date().getMonth();
-  const currentDate = new Date().getDate();
-  const [startDate, setStartDate] = useState(new Date(currentYear, currentMonth, currentDate));
-  const [endDate, setEndDate] = useState(new Date(currentYear, currentMonth, currentDate + 30));
+  const [startDate, setStartDate] = useState(new Date(currentYear - 5,0,0));
+  const [endDate, setEndDate] = useState(new Date(currentYear,0,0));
 
   const onDateChange = (dates) => {
     const [start, end] = dates;
@@ -44,13 +42,17 @@ export default function DateCalendar() {
 
   return (
     <DatePicker
-      selectsRange={true}
-      onChange={onDateChange}
-      dateFormat="dd/MM/yyyy"
-      startDate={startDate}
-      endDate={endDate}
-      locale={th}
-      customInput={<ForwardedCustomInput />}
-    />
+    selectsRange={true}
+    onChange={onDateChange}
+    dateFormat="yyyy"
+    placeholderText='เลือกปีการศึกษา'
+    startDate={startDate}
+    endDate={endDate}
+    locale='th'
+    yearDropdownItemNumber={10} // Optional: Number of years to display in the year dropdown
+    customInput={<ForwardedCustomInput />}
+    showYearPicker={true}
+    showYearDropdown={true} // Optional: Display a dropdown for selecting the year
+  />
   );
 }

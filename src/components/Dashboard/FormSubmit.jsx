@@ -7,10 +7,8 @@ import { useDebouncedCallback } from "use-debounce";
 import {Button} from "@nextui-org/react";
 
 export default function FormSubmit({ data, courseName }) {
-    const [searchCourseID, setsearchCourseID] = useState("");
     const [searchCourseName, setsearchCourseName] = useState("");
-    const [searchDatePicker, setsearchDatePicker] = useState("");
-
+    
     const serchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
@@ -25,34 +23,18 @@ export default function FormSubmit({ data, courseName }) {
             setIsLoading(false);
         }, 2000); 
 
-        setsearchCourseID("");
         setsearchCourseName("");
-        setsearchDatePicker("");
-        const { courseID, courseName, DatePicker } = Object.fromEntries(formData);
-        setsearchCourseID(courseID);
+        const { courseName } = Object.fromEntries(formData);
         setsearchCourseName(courseName);
-        setsearchDatePicker(DatePicker);
     };
     
 
     useEffect(() => {
         handleSearch();
-    }, [searchCourseID, searchCourseName, searchDatePicker]);
+    }, [searchCourseName]);
 
     const handleSearch = useDebouncedCallback(() => {
         const params = new URLSearchParams(serchParams);
-
-        if (searchCourseID) {
-            params.set("CourseID", searchCourseID);
-        } else {
-            params.delete("CourseID");
-        }
-
-        if (searchDatePicker) {
-            params.set("DateRange", searchDatePicker);
-        } else {
-            params.delete("DateRange");
-        }
 
         if (searchCourseName) {
             params.set("CourseName", searchCourseName);
@@ -63,14 +45,14 @@ export default function FormSubmit({ data, courseName }) {
     }, 400);
 
     return (
-        <div className="border-dashed p-3 border h-auto w-full border-zinc-500 rounded-lg">
+        <div className="p-3 h-auto w-full border border-gray-200 border-opacity-50 rounded-lg bg-base-100 shadow-sm">
             <form action={handleFormSubmit}>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 mt-2">
                     <div className="xl:flex xl:gap-5 flex-row">
                         <div className="flex items-center mb-2 gap-4">
                             <label
                                 htmlFor="courseName"
-                                className="text-black text-lg flex-shrink-0"
+                                className="text-black text-lg flex-shrink-0 ml-5"
                             >
                                 ชื่อวิชา
                             </label>

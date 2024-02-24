@@ -35,21 +35,4 @@ export const SIDENAV_ITEMS = [
     icon: <Icon icon="ic:outline-admin-panel-settings" width="24" height="24" />,   
     isAdmin: 1
   },
-  {
-    title: 'Settings',
-    path: '/settings',
-    icon: <Icon icon="lucide:settings" width="24" height="24" />,
-    submenu: true,
-    subMenuItems: [
-      { title: 'Account', path: '/settings/account' },
-      { title: 'Privacy', path: '/settings/privacy' },
-    ],
-    isAdmin: 0
-  },
-  {
-    title: 'Help',
-    path: '/help',
-    icon: <Icon icon="lucide:help-circle" width="24" height="24" />,
-    isAdmin: 0
-  },
 ];

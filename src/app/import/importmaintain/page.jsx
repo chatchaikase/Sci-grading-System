@@ -4,7 +4,7 @@ import { auth } from '../../../lib/auth';
 export default async function ImportPage() {
   const session = await auth();
   return (
-    <div className='h-full'>
+    <div className=''>
         <ImportMain session={session.user.userId}/>
     </div>
   )

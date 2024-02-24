@@ -58,7 +58,7 @@ export default function ImportMain({ session }) {
   const [sumGrade, setSumGrade] = useState({});
   const [formSumGrade, setFormSumGrade] = useState(null);
   const expectedColumnPattern = ["NO", "ID", "NAME", "GRADE"];
-    console.log(sumGrade)
+
   //Fake Loading
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -305,11 +305,11 @@ export default function ImportMain({ session }) {
   };
 
   return (
-    <div className="mx-auto p-3">
+    <div>
       {initialLoading ? (
         <Loading />
       ) : (
-        <>
+        <div className="h-full mx-auto p-3">
           {checkStep1 ? (
             <CheckStepMain
               checkStep1={checkStep1}
@@ -325,17 +325,17 @@ export default function ImportMain({ session }) {
             />
           ) : (
             <>
-              {/*หน้าที่เปิดอยู่*/}
+              {/*Breadcrumb Section*/}
               <div className="">
                 <BreadCrumbsImMain />
               </div>
-
-              {/*ชื่อหน้า*/}
+  
+              {/*Page Title*/}
               <div className="mt-2">
-                <p className="text-2xl font-bold">อัปโหลดรายการคะเเนนนิสิต</p>
+                <p className="text-2xl font-bold">อัปโหลดรายการคะแนนนิสิต</p>
               </div>
-
-              {/* เเถบ Header */}
+  
+              {/*Header Section*/}
               <div className="mt-2">
                 <ImportInputFields
                   courseID={courseID}
@@ -352,16 +352,16 @@ export default function ImportMain({ session }) {
                   setCheckYearEducationSelect={setCheckYearEducationSelect}
                 />
               </div>
-
-              {/* เเถบปุ่มบันทึกไฟล์ Excel */}
+  
+              {/*Excel File Upload Section*/}
               <div className="mt-3">
                 <FileUploadButton
                   handleFileSubmit={handleFileSubmit}
                   saveExcel={saveExcel}
                 />
               </div>
-
-              {/* เเถบอัปโหลดไฟล์ Excel */}
+  
+              {/*File Upload Section*/}
               <FileUploadSection
                 handleFileSubmit={handleFileSubmit}
                 handleFile={handleFile}
@@ -380,8 +380,8 @@ export default function ImportMain({ session }) {
                 loading={loading}
                 handleResetFile={handleResetFile}
               />
-
-              {/* ตารางเเสดงผลในไฟล์ Excel */}
+  
+              {/*Excel Data Viewer Section*/}
               <div className="mt-10">
                 <ExcelDataViewer
                   handleResetFile={handleResetFile}
@@ -390,8 +390,8 @@ export default function ImportMain({ session }) {
                   setSumGrade={setSumGrade}
                 />
               </div>
-
-              {/* ModalConfirm สำหรับ file ซ้ำ */}
+  
+              {/*Modal Confirm for Duplicate Files*/}
               <ModalConfirm
                 importHeaderInDB={importHeaderInDB}
                 excelData={excelData}
@@ -403,8 +403,8 @@ export default function ImportMain({ session }) {
               />
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   );
-}
+}  

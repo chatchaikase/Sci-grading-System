@@ -1,13 +1,11 @@
 "use server";
-import IconOption from '../../../../components/Admin/IconOption';
-import {
-  CountListStudent,
-  GetStudent,
-} from '../../../../function/listStudent';
-import { auth } from '../../../../lib/auth';
-import SearchData from '../../../../components/SearchData/SearchData';
-import Pageination from '../../../../components/Pageination/Pageination';
-import Link from 'next/link';
+import IconOption from "../../../../components/Admin/IconOption";
+import { CountListStudent, GetStudent } from "../../../../function/listStudent";
+import { auth } from "../../../../lib/auth";
+import SearchData from "../../../../components/SearchData/SearchData";
+import Pageination from "../../../../components/Pageination/Pageination";
+import Link from "next/link";
+import BreadCrumbsStudent from "../../../../components/BreadCrumbs/BreadCrumbsStudent";
 
 export default async function StudentListPage({ searchParams }) {
   const session = await auth();
@@ -15,27 +13,31 @@ export default async function StudentListPage({ searchParams }) {
   const query = searchParams?.id || "";
   const additionalQuery = searchParams?.name || "";
   const page = searchParams?.page || 1;
-  const itemList = await GetStudent(
-    query,
-    additionalQuery,
-    page,
-    userId
-  );
+  const itemList = await GetStudent(query, additionalQuery, page, userId);
   const countPage = await CountListStudent(query, additionalQuery, userId);
   const startingIndex = (page - 1) * 10;
 
-
   return (
-    <div className='mt-4'>
-      <div className="px-4 pt-2 mb-5">
-        <p className="text-[30px]">รายนิสิต</p>
+    <div className="h-full mx-auto p-3">
+      {/*Breadcrumb Section*/}
+      <div className="">
+        <BreadCrumbsStudent />
       </div>
-      <div>
+
+      {/*Page Title*/}
+      <div className="mt-2">
+        <p className="text-2xl font-bold">รายนิสิต</p>
+      </div>
+
+      {/*Search Table*/}
+      <div className="mt-2">
         <SearchData
           placeholder1={"ค้นหาตาม รหัสนิสิต"}
           placeholder2={"ค้นหาตาม ชื่อ"}
         />
       </div>
+
+       {/*Table Student*/}
       <div className="table-container table-responsive overflow-x-auto mt-5 max-h-screen bg-gray-100 rounded-lg shadow">
         <table className="w-full">
           {/* head */}
@@ -59,50 +61,65 @@ export default async function StudentListPage({ searchParams }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
-          {itemList.length > 0 ? (
-            itemList.map((item, index) =>
-              <tr key={index}>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                  width="15%" >
-                  <a className="font-bold text-blue-400">{startingIndex + index + 1}</a>
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                  width="20%">
-                  {item.id}
-                </td>
-                <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                  width="25%">
-                  {item.name}
-                </td>
-                <td className="text-center p-3 text-xl font-semibold text-red-400 whitespace-nowrap"
-                  width="20%">
-                  {item.count}
-                </td>
-                <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                  width="15%">
-                  <Link href={`/list/studentlist/detail/${item.id}`}>
-                    <button className="btn bg-green-600 text-white">
-                      รายละเอียด
-                    </button>
-                  </Link>
-                </td>
-              </tr>
-              )) : (
-                <tr>
+            {itemList.length > 0 ? (
+              itemList.map((item, index) => (
+                <tr key={index}>
                   <td
-                    colSpan="5"
                     className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="15%"
                   >
-                    <div className="mx-4 my-2 mt-2 text-xl">
-                    ไม่มีรายการของฉัน กรุณาอัปโหลด
-                    </div>
+                    <a className="font-bold text-blue-400">
+                      {startingIndex + index + 1}
+                    </a>
+                  </td>
+                  <td
+                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="20%"
+                  >
+                    {item.id}
+                  </td>
+                  <td
+                    className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="25%"
+                  >
+                    {item.name}
+                  </td>
+                  <td
+                    className="text-center p-3 text-xl font-semibold text-red-400 whitespace-nowrap"
+                    width="20%"
+                  >
+                    {item.count}
+                  </td>
+                  <td
+                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="15%"
+                  >
+                    <Link href={`/list/studentlist/detail/${item.id}`}>
+                      <button className="btn bg-green-600 text-white">
+                        รายละเอียด
+                      </button>
+                    </Link>
                   </td>
                 </tr>
-              )}
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="5"
+                  className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                >
+                  <div className="mx-4 my-2 mt-2 text-xl">
+                    ไม่มีรายการของฉัน กรุณาอัปโหลด
+                  </div>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
+
+        {/*Pageination*/}
         <Pageination rows={10} count={countPage} />
       </div>
     </div>
-  )
+  );
 }

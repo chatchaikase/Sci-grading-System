@@ -1,50 +1,58 @@
-"use server"
-import SearchUser from "../../components/Admin/SearchUser"
-import Pageination from "../../components/Pageination/Pageination"
+"use server";
+import SearchUser from "../../components/Admin/SearchUser";
+import Pageination from "../../components/Pageination/Pageination";
 import Link from "next/link";
-import IconOption from "../../components/Admin/IconOption"
-import {CountUser, deleteUser, getAllUser} from "../../function/admin"
-import FormDeleteUser from "../../components/Admin/form/FormDeleteUser"
+import IconOption from "../../components/Admin/IconOption";
+import { CountUser, deleteUser, getAllUser } from "../../function/admin";
+import FormDeleteUser from "../../components/Admin/form/FormDeleteUser";
 import { auth } from "../../lib/auth";
+import BreadCrumbImportList from "../../components/BreadCrumbs/BreadCrumbsAdmin";
 
-export default async function AdminPage({searchParams}) {
+export default async function AdminPage({ searchParams }) {
   const session = await auth();
   const userId = session.user.userId;
-  const query = searchParams?.username || ""; 
-  const additionalQuery = searchParams?.email || ""; 
+  const query = searchParams?.username || "";
+  const additionalQuery = searchParams?.email || "";
   const page = searchParams?.page || 1;
-  const users = await getAllUser(query, additionalQuery,page);
+  const users = await getAllUser(query, additionalQuery, page);
   const countPage = await CountUser(query, additionalQuery);
   const startingIndex = (page - 1) * 10;
-  
+
   return (
-    <div className="mt-4">
-            <div className="px-4 pt-2 mt-4 mb-5 ">
-                <p className="text-[30px]">หน้า Admin</p>
-            </div>
-    <div className="flex flex-col m-5 h-screen bg-gray-100">
-      <div className="overflow-auto rounded-lg shadow">
-        <div className="flex-col">
+    <div className="h-full mx-auto p-3">
+      {/*Breadcrumb Section*/}
+      <div className="">
+        <BreadCrumbImportList />
+      </div>
+
+      {/*Page Title*/}
+      <div className="mt-2">
+        <p className="text-2xl font-bold">จัดการผู้ใช้งาน</p>
+      </div>
+
+      {/*Search Table*/}
+      <div className="flex-col mt-2">
         <div className="flex-1">
-            <div className="my-4 flex items-center justify-between">
-              <div className="flex gap-5">
-                <SearchUser placeholder1={"ค้นหาตาม username"} placeholder2={"ค้นหาตาม email"} />
-              </div>
-              <div className="flex mr-2">
-                <Link href={'/admin/user/add'}>
+          <div className="my-4 flex items-center justify-between">
+            <div className="flex gap-5">
+              <SearchUser
+                placeholder1={"ค้นหาตาม username"}
+                placeholder2={"ค้นหาตาม email"}
+              />
+            </div>
+            <div className="flex mr-2">
+              <Link href={"/admin/user/add"}>
                 <div>
-                  <button
-                    className="btn bg-green-600 text-white"
-                  >
+                  <button className="btn bg-green-600 text-white">
                     เพิ่มผู้ใช้งาน
                   </button>
                 </div>
-                </Link>
-              </div>
+              </Link>
             </div>
           </div>
-        </div>
-        <div className="flex-1">
+
+          {/*User Table*/}
+          <div className="table-container table-responsive mt-5 border border-solid overflow-y-auto rounded-lg shadow">
             <table className="w-full">
               <thead className="bg-gray-50 border-b-2 border-gray-200">
                 <tr>
@@ -68,37 +76,51 @@ export default async function AdminPage({searchParams}) {
                   </th>
                   <th className="text-center w-15 p-3 text-lg font-semibold tracking-wide">
                     สถานะ
-                  </th>               
+                  </th>
                   <th className="text-center w-15 p-3 text-lg font-semibold tracking-wide flex justify-center items-center">
-                   <IconOption />
+                    <IconOption />
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-              {users.map((item, index) => (
-                  <tr className="bg-white" key={index} >
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="5%">
-                      <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
+                {users.map((item, index) => (
+                  <tr className="bg-white" key={index}>
+                    <td
+                      className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="5%"
+                    >
+                      <a className="font-bold text-blue-500">
+                        {startingIndex + index + 1}
+                      </a>
                     </td>
-                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="10%">
-                    {item.username}
+                    <td
+                      className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="10%"
+                    >
+                      {item.username}
                     </td>
-                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="10%">
-                    {item.firstname}
+                    <td
+                      className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="10%"
+                    >
+                      {item.firstname}
                     </td>
-                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="10%">
-                    {item.lastname}
+                    <td
+                      className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="10%"
+                    >
+                      {item.lastname}
                     </td>
-                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="15%">
-                    {item.email}
+                    <td
+                      className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="15%"
+                    >
+                      {item.email}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="10%">
+                    <td
+                      className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="10%"
+                    >
                       {item.isAdmin === 1 ? (
                         <span className="p-1.5 text-xs font-medium tracking-wider uppercase text-white bg-blue-600 rounded-lg bg-opacity-50">
                           Admin
@@ -109,18 +131,20 @@ export default async function AdminPage({searchParams}) {
                         </span>
                       )}
                     </td>
-                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                    width="15%">
+                    <td
+                      className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="15%"
+                    >
                       <div className="flex items-center justify-center gap-2">
-                      <Link href={`/admin/user/${item.userId}`}>
-                      <button
-                        className="btn bg-orange-500 text-white"
-                        // onClick={() => editUserClickHandler(item)}
-                      >
-                        เเก้ไข
-                      </button>
-                      </Link>  
-                      {/* <form action={deleteUser}>
+                        <Link href={`/admin/user/${item.userId}`}>
+                          <button
+                            className="btn bg-orange-500 text-white"
+                            // onClick={() => editUserClickHandler(item)}
+                          >
+                            เเก้ไข
+                          </button>
+                        </Link>
+                        {/* <form action={deleteUser}>
                         <input type="hidden" name="userId" value={item.userId} />
                       <button
                         className="btn bg-red-500 text-white"
@@ -128,21 +152,26 @@ export default async function AdminPage({searchParams}) {
                         ลบ
                       </button>
                       </form>  */}
-                      {userId == item.userId ? (
-                        <></>
-                      ) : (
-                        <FormDeleteUser userId={item.userId} userName={item.username} />
-                      )}   
+                        {userId == item.userId ? (
+                          <></>
+                        ) : (
+                          <FormDeleteUser
+                            userId={item.userId}
+                            userName={item.username}
+                          />
+                        )}
                       </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            {/*Pageination*/}
             <Pageination rows={10} count={countPage} />
           </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

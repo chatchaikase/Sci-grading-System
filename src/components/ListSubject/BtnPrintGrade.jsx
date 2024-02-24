@@ -7,25 +7,26 @@ export default function BtnPrintGrade({
     id,
     listGrade
 }) {
+
   const handleGradeCSV = () => {
-    const customHeader = ['A', 'B+', 'B', 'C+','C','D+','D','I','W','F','จำนวนทั้งหมด'];
+    const customHeader = ['A', 'B+', 'B', 'C+','C','D+','D','I','W','F','Total'];
   
     const csvData =
       "\ufeff" +
       Papa.unparse({
         fields: customHeader,
         data: listGrade.map((grade, index) => [
-          grade.a ?? 0 ,
-          grade.bplus ?? 0,
-          grade.b ?? 0,
-          grade.cplus ?? 0,
-          grade.c ?? 0,
-          grade.dplus ?? 0,
-          grade.d ?? 0,
-          grade.i ?? 0,
-          grade.w ?? 0,
-          grade.f ?? 0,
-          grade.total ?? 0
+          grade.a ?? "0" ,
+          grade.bplus ?? "0",
+          grade.b ?? "0",
+          grade.cplus ?? "0",
+          grade.c ?? "0",
+          grade.dplus ?? "0",
+          grade.d ?? "0",
+          grade.i ?? "0",
+          grade.w ?? "0",
+          grade.f ?? "0",
+          grade.total ?? "0"
         ]),
       }, {
         quotes: true,
@@ -38,7 +39,7 @@ export default function BtnPrintGrade({
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `รายการเกรดนิสิต ${id}.csv`;
+    a.download = `รายการผลรวมเกรดวิชา ${id}.csv`;
     a.click();
     window.URL.revokeObjectURL(url);
   };
@@ -52,7 +53,7 @@ export default function BtnPrintGrade({
       icon="pepicons-pop:file"
       className="text-white text-lg"
     />
-    <>พิมพ์รายการเกรดนิสิต</>
+    <>พิมพ์ผลรวมเกรดวิชา</>
   </button>
   );
 }

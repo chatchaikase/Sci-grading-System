@@ -80,3 +80,24 @@ export const GetGradeStudent = async (id, userId) => {
     throw new Error("Error to fetch data");
   }
 };
+
+export const GetSumGradeStudent = async(id,userId) => {
+  try {
+    const SumGrade = await axios.get(`${path}/api/List/SumGradeStudentByUserId/${id}`,
+    {
+      headers:{
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+        "userId": userId.toString(),
+      }
+    }
+    );
+
+    if (!SumGrade) {
+      throw new Error("Cannot fetch data");
+    }
+    return SumGrade.data;
+  } catch (error) {
+    throw new Error("Error to fetch data");
+  }
+}

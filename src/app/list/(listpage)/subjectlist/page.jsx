@@ -14,6 +14,7 @@ import Link from "next/link";
 import IconOption from "../../../../components/Admin/IconOption.jsx";
 import FromDeleteList from "../../../../components/ListSubject/FromDeleteListSubject.jsx";
 import { auth } from "../../../../lib/auth.js";
+import BreadCrumbsSubject from "../../../../components/BreadCrumbs/BreadCrumbsSubject.jsx";
 
 export default async function Home({ searchParams }) {
   const session = await auth();
@@ -35,19 +36,34 @@ export default async function Home({ searchParams }) {
   const startingIndex = (page - 1) * 10;
 
   return (
-    <div className="mt-4">
-      <div className="px-4 pt-2 mb-5">
-        <p className="text-[30px]">รายวิชา</p>
+    <div className="h-full mx-auto p-3">
+      {/*Breadcrumb Section*/}
+      <div className="">
+        <BreadCrumbsSubject />
       </div>
-      <div className="flex gap-5">
-        <SearchList
-          placeholder1={"ค้นหาตาม Import No."}
-          placeholder2={"ค้นหาตาม Course ID"}
-        />
+
+      {/*Page Title*/}
+      <div className="mt-2">
+        <p className="text-2xl font-bold">รายวิชา</p>
       </div>
-      <Drawer />
+
+      {/*Search Table*/}
+      <div className="mt-2 flex justify-between">
+        <div>
+          <SearchList
+            placeholder1={"ค้นหาตาม Import No."}
+            placeholder2={"ค้นหาตาม Course ID"}
+          />
+        </div>
+        <div>
+          {/*Drawer*/}
+          <Drawer />
+        </div>
+      </div>
+
+      {/*Table Student*/}
       <div
-        className="overflow-x-auto mt-5 max-h-screen bg-gray-100 rounded-lg shadow"
+        className="table-container table-responsive overflow-x-auto mt-5 max-h-screen bg-gray-100 rounded-lg shadow"
         style={{ zIndex: 0 }}
       >
         <table className="w-full">
@@ -85,9 +101,13 @@ export default async function Home({ searchParams }) {
             {itemList.length > 0 ? (
               itemList.map((item, index) => (
                 <tr key={index}>
-                  <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                  width="3%">
-                    <a className="font-bold text-blue-500">{startingIndex + index + 1}</a>
+                  <td
+                    className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                    width="3%"
+                  >
+                    <a className="font-bold text-blue-500">
+                      {startingIndex + index + 1}
+                    </a>
                   </td>
                   <td
                     className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
@@ -132,7 +152,17 @@ export default async function Home({ searchParams }) {
                     {formatDate(item.dateCreated)}
                   </td>
                   <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
+                  <div className="flex gap-2 justify-center items-center">
+                  <Link
+                      href={`/list/subjectlist/detail/${item.importHeaderNumber}`}
+                    >
+                      <button className="btn bg-green-600 text-white">
+                        รายละเอียด
+                      </button>
+                    </Link>
                     <FromDeleteList importNo={item.importHeaderNumber} />
+                  </div>
+                  
                   </td>
                 </tr>
               ))
@@ -150,6 +180,7 @@ export default async function Home({ searchParams }) {
             )}
           </tbody>
         </table>
+        {/*Pageination*/}
         <Pageination rows={10} count={countPage} />
       </div>
     </div>

@@ -168,7 +168,7 @@ export default async function Home({ searchParams }) {
                 )) : (
                 <tr>
                   <td
-                    colSpan="5"
+                    colSpan="17"
                     className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
                   >
                     <div className="mx-4 my-2 mt-2 text-xl">

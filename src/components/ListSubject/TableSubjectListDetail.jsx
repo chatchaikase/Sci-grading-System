@@ -208,7 +208,7 @@ export default function TableSubjectListDetail({ id, listItem, listGrade }) {
                               {grade.i ?? 0}
                             </td>
                           </tr>
-                          <tr className="bg-white" key={`${grade.gradeId}_W`}>
+                          <tr className="bg-white" key={`${grade.gradeId}_F`}>
                             <td
                               className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
                             >
@@ -220,7 +220,7 @@ export default function TableSubjectListDetail({ id, listItem, listGrade }) {
                               {grade.f ?? 0}
                             </td>
                           </tr>
-                          <tr className="bg-white" key={`${grade.gradeId}_F`}>
+                          <tr className="bg-white" key={`${grade.gradeId}_W`}>
                             <td
                               className={`text-center p-3 text-lg text-gray-700 whitespace-nowrap`}
                             >

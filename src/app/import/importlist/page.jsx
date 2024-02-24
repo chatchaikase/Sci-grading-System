@@ -9,6 +9,7 @@ import {
 } from "../../../function/listSubject";
 import Pagination from "../../../components/Pageination/Pageination";
 import { auth } from "../../../lib/auth";
+import BreadCrumbImportList from "../../../components/BreadCrumbs/BreadCrumbImportList"
 
 export default async function ImportListPage({ searchParams }) {
   const session = await auth();
@@ -26,13 +27,23 @@ export default async function ImportListPage({ searchParams }) {
   const startingIndex = (page - 1) * 5;
   
   return (
-    <div className="overflow-auto rounded-lg shadow">
-      <div className="px-4 pt-2 flex items-center justify-between">
-        <p className="text-[30px]">รายการอัปโหลดล่าสุด</p>
+    <div className="h-full mx-auto p-3">
+     {/*Breadcrumb Section*/}
+     <div className="">
+        <BreadCrumbImportList />
+      </div>
+
+      {/*Page Title*/}
+      <div className="mt-2">
+        <p className="text-2xl font-bold">รายการอัปโหลดล่าสุด</p>
+      </div>
+   
+    <div className="">
+      <div className="flex items-center justify-end">
         <BtnDirectToImportListPage />
       </div>
       <div>
-        <div className="table=responsive mt-5 border border-solid">
+        <div className="table-container table-responsive mt-5 border border-solid max-h-[650px] overflow-y-auto rounded-lg shadow">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>
@@ -110,6 +121,7 @@ export default async function ImportListPage({ searchParams }) {
           <Pagination rows={5} count={countPage} />
         </div>
       </div>
+    </div>
     </div>
   );
 }

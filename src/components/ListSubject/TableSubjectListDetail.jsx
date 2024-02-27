@@ -14,8 +14,7 @@ export default function TableSubjectListDetail({ id, listItem, listGrade }) {
         <div className="border-b-1 bg-base-100 rounded-md shadow p-5 ">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <BtnPrintSubject id={id} listItem={listItem} />
-              <BtnPrintGrade id={id} listGrade={listGrade} />
+              <BtnPrintSubject id={id} listItem={listItem} listGrade={listGrade}/>
             </div>
             <div className="flex items-center">
             <button

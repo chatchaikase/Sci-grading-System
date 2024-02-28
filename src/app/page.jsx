@@ -26,7 +26,6 @@ export default async function Home({ searchParams }) {
 
   return (
     <div className='h-full w-full'>
-      <span className="font-bold text-4xl">Home</span>
       <FormSubmit data={dashBoard} courseName={courseName} />
       <div className="border border-gray-200 border-opacity-50 shadow-sm bg-base-100 w-full h-auto rounded-lg my-5 p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
         <BarChartComponent data={dashBoard} />

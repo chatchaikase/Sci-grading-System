@@ -35,7 +35,7 @@ export default function TableSubjectListDetail({ id, listItem, listGrade }) {
           {showGrade == false ? (
             <div className="table-responsive mt-5 border border-solid w-full max-h-[650px] overflow-y-auto rounded-lg shadow">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b-2 border-gray-200">
+                <thead className="border-b-2 border-gray-200 sticky top-0 bg-gray-50">
                   <tr>
                     <th className="text-center w-1/4 p-3 text-lg font-semibold tracking-wide">
                       No.

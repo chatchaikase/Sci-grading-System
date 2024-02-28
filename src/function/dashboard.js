@@ -7,10 +7,8 @@ import { toast } from "react-toastify";
 
 const path = process.env.LocalhostDOTNET;
 
-export const GetDataDashboard = async (query_CourseID,query_DateRange,query_CourseName) => {
+export const GetDataDashboard = async (query_CourseName) => {
   const queryParams = new URLSearchParams();
-  if (query_DateRange) queryParams.append('DateRange', query_DateRange);
-  if (query_CourseID) queryParams.append('CourseID', query_CourseID);
   if (query_CourseName) queryParams.append('CourseName', query_CourseName);
 
   const api = `${path}/api/Home/GetDataDashboard?${queryParams.toString()}`;

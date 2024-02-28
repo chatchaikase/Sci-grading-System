@@ -29,9 +29,6 @@ export const authConfig = {
       const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
       const isOnSubjectListPanel = request.nextUrl?.pathname.startsWith("/list/subjectlist");
       const isOnStudentListtPanel = request.nextUrl?.pathname.startsWith("/list/studentlist");
-      const isOnSettingAccountPanel = request.nextUrl?.pathname.startsWith("/settings/account");
-      const isOnSettingPrivacyPanel = request.nextUrl?.pathname.startsWith("/settings/privacy");
-      const isOnHelpPanel = request.nextUrl?.pathname.startsWith("/help");
       const isOnImportMaintainPanel = request.nextUrl?.pathname.startsWith("/import/importmaintain");
       const isOnImportListPanel = request.nextUrl?.pathname.startsWith("/import/importlist");
 
@@ -44,18 +41,6 @@ export const authConfig = {
       }
 
       if (isOnStudentListtPanel && !user) {
-        return false;
-      }
-
-      if (isOnSettingAccountPanel && !user) {
-        return false;
-      }
-
-      if (isOnSettingPrivacyPanel && !user) {
-        return false;
-      }
-
-      if (isOnHelpPanel && !user) {
         return false;
       }
 

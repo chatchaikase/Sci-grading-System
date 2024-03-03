@@ -11,6 +11,7 @@ import {
   GetHomePageList,
 } from '../function/listhomepage';
 import { formatDate } from '../function/formatDate';
+import Graph  from '../components/Dashboard/Graph.jsx'
 
 
 export default async function Home({ searchParams }) {
@@ -27,6 +28,7 @@ export default async function Home({ searchParams }) {
   return (
     <div className='h-full w-full'>
       <FormSubmit data={dashBoard} courseName={courseName} />
+      <Graph/>
       <div className="border border-gray-200 border-opacity-50 shadow-sm bg-base-100 w-full h-auto rounded-lg my-5 p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
         <BarChartComponent data={dashBoard} />
         <PieChart data={dashBoard} />
@@ -100,7 +102,7 @@ export default async function Home({ searchParams }) {
                       <a className="font-bold text-blue-400">{index + 1}</a>
                     </td>
                     <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                      width="">
+                      width="15%">
                       {item.importHeaderNumber}
                     </td>
                     <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
@@ -112,15 +114,15 @@ export default async function Home({ searchParams }) {
                       {item.courseName}
                     </td>
                     <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                      width="8%">
+                      width="10%">
                       {item.semester}
                     </td>
                     <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
-                      width="7%">
+                      width="10%">
                       {item.total}
                     </td>
-                    <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"
-                      width="7%">
+                    <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
+                      width="10%">
                       {formatDate(item.dateCreated)}
                     </td>
                     <td className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"

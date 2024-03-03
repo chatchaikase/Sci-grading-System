@@ -73,12 +73,6 @@ export default function FormSubmit({ data, courseName }) {
                                     'Search'
                                 )}
                             </button>
-                            {/* <button
-                                type="submit"
-                                className="btn btn-circle w-full text-white px-4 py-2 rounded-lg xl:w-32 xl:max-w-md"
-                            >
-                                Submit
-                            </button> */}
                         </div>
                     </div>
                 </div>

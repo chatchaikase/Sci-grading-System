@@ -11,7 +11,6 @@ import {
   GetHomePageList,
 } from '../function/listhomepage';
 import { formatDate } from '../function/formatDate';
-import Graph  from '../components/Dashboard/Graph.jsx'
 
 
 export default async function Home({ searchParams }) {
@@ -28,7 +27,6 @@ export default async function Home({ searchParams }) {
   return (
     <div className='h-full w-full'>
       <FormSubmit data={dashBoard} courseName={courseName} />
-      <Graph/>
       <div className="border border-gray-200 border-opacity-50 shadow-sm bg-base-100 w-full h-auto rounded-lg my-5 p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
         <BarChartComponent data={dashBoard} />
         <PieChart data={dashBoard} />

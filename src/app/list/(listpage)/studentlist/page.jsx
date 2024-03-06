@@ -76,7 +76,13 @@ export default async function StudentListPage({ searchParams }) {
                     className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
                     width="20%"
                   >
-                    {item.id}
+                    <Link
+                      href={`/list/studentlist/detail/${item.id}`}
+                    >
+                      <p className="text-blue-400 cursor-pointer hover:scale-105 hover:text-blue-600">
+                        {item.id}
+                      </p>
+                    </Link>
                   </td>
                   <td
                     className="text-left p-3 text-lg text-gray-700 whitespace-nowrap"

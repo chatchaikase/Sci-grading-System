@@ -13,7 +13,6 @@ export default function BtnPrintSubject({
 }) {
   const handleSubjectExport = async () => {
     try {
-      console.log(typeof(listGrade));
       const response = await GenExcel(listItem,listGrade,id);
 
       // Create a Blob from the array buffer received in the response

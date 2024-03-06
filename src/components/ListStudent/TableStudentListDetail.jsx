@@ -28,8 +28,7 @@ export default function TableStudentListDetail({ id, listItem, listSumGrade }) {
         <div className="border-b-1 bg-base-100 rounded-md shadow p-5 ">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <BtnPrintStudentDetail id={id} listItem={listItem} />
-              <BtnPrintSumStudent id={id} listSumGrade={listSumGrade} />
+              <BtnPrintStudentDetail id={id} listItem={listItem} listSumGrade={listSumGrade} />
             </div>
             <div className="flex items-center">
               <button

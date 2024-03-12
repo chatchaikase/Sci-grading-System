@@ -51,8 +51,8 @@ export default async function Home({ searchParams }) {
       <div className="mt-2 flex justify-between">
         <div>
           <SearchList
-            placeholder1={"ค้นหาตาม Import No."}
-            placeholder2={"ค้นหาตาม Course ID"}
+            placeholder1={"ค้นหาตาม หมายเลขอัปโหลด"}
+            placeholder2={"ค้นหาตาม รหัสวิชา"}
           />
         </div>
         <div>

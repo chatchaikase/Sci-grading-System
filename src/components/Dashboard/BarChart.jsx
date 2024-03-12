@@ -35,7 +35,7 @@ export default function BarChart({ data }) {
       },
       title: {
         display: true,
-        text: 'Daily Revenue',
+        text: 'เปอร์เซ็นต์คะแนนในแต่ละเกรด',
       },
       tooltip: {
         callbacks: {

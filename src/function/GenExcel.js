@@ -46,3 +46,21 @@ export const GenStudentDeatailExcel = async(listItem,listSumGrade,id) => {
     throw new Error(`Error: ${error.message}`);
   }
 }
+
+export const GenExcelHome = async (itemList) => {
+  console.log(itemList)
+  try {
+    const response = await axios.post(`http://localhost:5084/api/Home/GenerateHomeExcel`,
+    itemList,
+      {
+        responseType: 'arraybuffer',   
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+      });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error: ${error.message}`);
+  }
+};

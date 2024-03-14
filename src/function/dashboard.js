@@ -7,9 +7,12 @@ import { toast } from "react-toastify";
 
 const path = process.env.LocalhostDOTNET;
 
-export const GetDataDashboard = async (query_CourseName) => {
+export const GetDataDashboard = async (query_CourseName,query_CourseID,query_YearEducation,query_Semester,userId) => {
   const queryParams = new URLSearchParams();
   if (query_CourseName) queryParams.append('CourseName', query_CourseName);
+  if (query_CourseID) queryParams.append('CourseID', query_CourseID);
+  if (query_YearEducation) queryParams.append('YearEducation', query_YearEducation);
+  if (query_Semester) queryParams.append('Semester', query_Semester);
 
   const api = `${path}/api/Home/GetDataDashboard?${queryParams.toString()}`;
   try {
@@ -17,6 +20,7 @@ export const GetDataDashboard = async (query_CourseName) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        "userId": userId.toString(),
       },
     });
     if (!dashboardData) {
@@ -28,7 +32,7 @@ export const GetDataDashboard = async (query_CourseName) => {
   }
 };
 
-export const GetCourseNameList = async () => {
+export const GetCourseNameList = async (userId) => {
   const api = `${path}/api/Home/GetCourseNameList`;
 
   try {
@@ -36,6 +40,7 @@ export const GetCourseNameList = async () => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        "userId": userId.toString(),
       },
     });
     if (!CourseName) {

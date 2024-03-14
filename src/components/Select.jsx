@@ -1,13 +1,14 @@
 import React from "react";
 import { Select, SelectItem } from "@nextui-org/react";
 
-export default function CustomSelect({ data }) {
+export default function CustomSelect({handleOnChange, data }) {
   return (
     <Select
       id="courseName"
       items={data}
       placeholder="เลือกวิชา"
       className="xl:w-[350px]"
+      onChange={handleOnChange}
       labelPlacement="outside"
       classNames={{
         base: "max-w-xs",
@@ -24,22 +25,16 @@ export default function CustomSelect({ data }) {
           <div key={item.key} className="flex items-center gap-2">
             <div className="flex flex-col">
               <span>{item.data.courseName}</span>
-              <span className="text-default-500 text-tiny">
-                ({item.data.courseID + " - " + item.data.yearEducation})
-              </span>
             </div>
           </div>
         ));
       }}
     >
       {(user) => (
-        <SelectItem key={user.importHeaderNumber} textValue={user.courseName}>
+        <SelectItem key={user.courseName} textValue={user.courseName}>
           <div className="flex gap-2 items-center">
             <div className="flex flex-col">
               <span className="text-small">{user.courseName}</span>
-              <span className="text-tiny text-default-400">
-                {user.courseID + " - " + user.yearEducation}
-              </span>
             </div>
           </div>
         </SelectItem>

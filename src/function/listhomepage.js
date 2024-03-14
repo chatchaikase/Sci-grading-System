@@ -5,9 +5,12 @@ import { redirect } from "next/navigation";
 
 const path = process.env.LocalhostDOTNET;
 
-export const GetHomePageList = async (query_DateRange,userId) => {
+export const GetHomePageList = async (query_CourseName,query_CourseID,query_YearEducation,query_Semester,userId) => {
     const queryParams = new URLSearchParams();
-    if (query_DateRange) queryParams.append('DateRange', query_DateRange);
+    if (query_CourseName) queryParams.append("CourseName", query_CourseName);
+    if (query_CourseID) queryParams.append("CourseID", query_CourseID);
+    if (query_YearEducation)queryParams.append("YearEducation", query_YearEducation);
+    if (query_Semester) queryParams.append("Semester", query_Semester);
   
     const api = `${path}/api/Home/GetDataTableByUserId?${queryParams.toString()}`;
   

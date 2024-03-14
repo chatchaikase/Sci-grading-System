@@ -13,14 +13,17 @@ import BtnPrintHomepage from "../app/ฺBtnPrintHomepage"
 
 export default async function Home({ searchParams }) {
   const query_DateRange = searchParams?.DateRange || "";
-  const query_CourseName = searchParams?.CourseName || "";
+  const query_CourseName = searchParams?.courseName || "";
+  const query_CourseID = searchParams?.courseID || "";
+  const query_YearEducation = searchParams?.YearEducation || "";
+  const query_Semester = searchParams?.Semester || "";
 
-  const dashBoard = await GetDataDashboard(query_CourseName);
-  const courseName = await GetCourseNameList();
-
+  
   const session = await auth();
   const userId = session.user.userId;
-  const itemList = await GetHomePageList(query_DateRange, userId);
+  const dashBoard = await GetDataDashboard(query_CourseName,query_CourseID,query_YearEducation,query_Semester,userId);
+  const courseName = await GetCourseNameList(userId);
+  const itemList = await GetHomePageList(query_CourseName,query_CourseID,query_YearEducation,query_Semester, userId);
 
   return (
     <div className="h-full w-full">
@@ -30,10 +33,7 @@ export default async function Home({ searchParams }) {
         <PieChart data={dashBoard} />
       </div>
       <div className="p-3 h-auto w-full border border-gray-200 border-opacity-50 rounded-lg bg-base-100 shadow-sm mt-5">
-        <FormDate />
-      </div>
-      <div className="flex items-center">
-        <BtnPrintHomepage itemList={itemList}
+      <BtnPrintHomepage itemList={itemList}
         />
       </div>
       <div className="table-container table-responsive mt-5 border border-solid max-h-[6z 00px] overflow-y-auto rounded-lg shadow">

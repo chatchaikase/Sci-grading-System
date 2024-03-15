@@ -13,6 +13,7 @@ export default function FileUploadSection({
   setDragging,
   excelfile,
   setExcelfile,
+  excelData,
   setExcelData,
   setUploadExcel,
   setDataExcelFile,
@@ -71,82 +72,86 @@ export default function FileUploadSection({
           </div>
         </div>
       )}
-      <div
-        className={`w-full mt-5 h-[350px] lg:h-[400px] border-dashed border-3 border-[#2F3337] flex items-center justify-center ${
-          dragging || uploadExcel ? "hidden" : "bg-[#F5FAF4]"
-        }`}
-        onDragEnter={handleDragEnter}
-        onDragOver={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        <div className="flex items-center justify-center gap-2">
-          <p className="text-gray-600"></p>
-          {excelName ? (
-            <>
-              {excelName && uploadExcel ? (
-                <p className="text-gray-500">ตรวจเช็คข้อมูลก่อนบันทึก</p>
-              ) : excelName && !uploadExcel ? (
-                <p className="text-gray-500 lg:text-xl">
-                  ไฟล์ {excelName} กรุณากดอัปโหลด
-                </p>
-              ) : (
-                <></>
-              )}
-
-              <button
-                className="btn bg-red-500 lg:text-xl"
-                onClick={handleResetFile}
-              >
-                <Icon
-                  icon="solar:trash-bin-2-bold"
-                  className="text-white text-lg"
-                />
-                <p className="text-white">ยกเลิกไฟล์</p>
-              </button>
-            </>
-          ) : (
-            <>
-              <div className="flex flex-col space-y-4">
-                <div className="flex items-center justify-center">
-                  <Icon
-                    icon="teenyicons:ms-excel-outline"
-                    className=" text-[#5f6468] text-7xl lg:text-8xl"
-                  />
-                </div>
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <p className="text-gray-500 lg:text-lg">
-                    วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ
+      {excelData != null ? (
+        <></>
+      ) : (
+        <div
+          className={`w-full mt-5 h-[350px] lg:h-[400px] border-dashed border-3 border-[#2F3337] flex items-ceter justify-center ${
+            dragging || uploadExcel ? "opacity-50" : "opacity-100"
+          }`}
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-gray-600"></p>
+            {excelName ? (
+              <>
+                {excelName && uploadExcel ? (
+                  <p className="text-gray-500">ตรวจเช็คข้อมูลก่อนบันทึก</p>
+                ) : excelName && !uploadExcel ? (
+                  <p className="text-gray-500 lg:text-xl">
+                    ไฟล์ {excelName} กรุณากดอัปโหลด
                   </p>
-                  <form
-                    className="form-group costom-from"
-                    onSubmit={handleFileSubmit}
-                  >
-                    <div className="flex items-center justify-center ">
-                      <label
-                        htmlFor="dropzone-file"
-                        className="btn text-lg lg:text-xl font-normal text-white bg-[#5f6468]"
-                      >
-                        เลือกไฟล์
-                        <Icon
-                          icon="flowbite:arrow-up-solid"
-                          className=" text-white text-xl lg:text-xl"
-                        />
-                        <input
-                          id="dropzone-file"
-                          onChange={handleFile}
-                          type="file"
-                          className="hidden"
-                        />
-                      </label>
-                    </div>
-                  </form>
+                ) : (
+                  <></>
+                )}
+
+                <button
+                  className="btn bg-red-500 lg:text-xl"
+                  onClick={handleResetFile}
+                >
+                  <Icon
+                    icon="solar:trash-bin-2-bold"
+                    className="text-white text-lg"
+                  />
+                  <p className="text-white">ยกเลิกไฟล์</p>
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="flex flex-col space-y-4">
+                  <div className="flex items-center justify-center">
+                    <Icon
+                      icon="teenyicons:ms-excel-outline"
+                      className=" text-[#5f6468] text-7xl lg:text-8xl"
+                    />
+                  </div>
+                  <div className="flex flex-col items-center justify-center gap-2">
+                    <p className="text-gray-500 lg:text-lg">
+                      วางไฟล์ เพื่อ อัปโหลดที่นี่ หรือ
+                    </p>
+                    <form
+                      className="form-group costom-from"
+                      onSubmit={handleFileSubmit}
+                    >
+                      <div className="flex items-center justify-center ">
+                        <label
+                          htmlFor="dropzone-file"
+                          className="btn text-lg lg:text-xl font-normal text-white bg-[#5f6468]"
+                        >
+                          เลือกไฟล์
+                          <Icon
+                            icon="flowbite:arrow-up-solid"
+                            className=" text-white text-xl lg:text-xl"
+                          />
+                          <input
+                            id="dropzone-file"
+                            onChange={handleFile}
+                            type="file"
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

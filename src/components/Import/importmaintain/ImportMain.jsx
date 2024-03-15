@@ -44,7 +44,7 @@ export default function ImportMain({ session }) {
 
   // Upload
   const [uploadExcel, setUploadExcel] = useState(false);
-
+   
   // ExcelSubmit
   const [excelData, setExcelData] = useState(null);
   const [dataExcelFile, setDataExcelFile] = useState(null);
@@ -375,6 +375,7 @@ export default function ImportMain({ session }) {
                 setTypeError={setTypeError}
                 dragging={dragging}
                 setDragging={setDragging}
+                excelData={excelData}
                 setExcelData={setExcelData}
                 setDataExcelFile={setDataExcelFile}
                 loading={loading}

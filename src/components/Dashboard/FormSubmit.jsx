@@ -133,7 +133,8 @@ export default function FormSubmit({ data, courseName }) {
               >
                 ชื่อวิชา
               </label>
-              <select
+              {nameCourse.length >= 1 ? (
+                <select
                 id="courseName"
                 value={nameSelect ?? ""}
                 onChange={(e) => handleOnChangeCourseName(e.target.value)}
@@ -147,6 +148,16 @@ export default function FormSubmit({ data, courseName }) {
                   </option>
                 ))}
               </select>
+              ) : (
+                <select
+                id="courseName"
+                className="select select-secondary w-full max-w-xs"
+                name="courseName"
+                disabled
+              >
+                <option value="" >กรุณาเลือกชื่อวิชา</option>
+              </select>
+              )}
             </div>
             <div className="flex items-center mb-2 gap-4">
               <label

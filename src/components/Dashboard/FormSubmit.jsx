@@ -88,8 +88,6 @@ export default function FormSubmit({ data, courseName }) {
     }));
   };
 
-  console.log(searchCourse);
-
   useEffect(() => {
     handleSearch();
   }, [searchCourse]);
@@ -126,7 +124,7 @@ export default function FormSubmit({ data, courseName }) {
   return (
     <div className="p-3 h-auto w-full border border-gray-200 border-opacity-50 rounded-lg bg-base-100 shadow-sm">
       <form action={handleFormSubmit}>
-        <div className="flex flex-col gap-2 mt-2">
+        <div className="flex flex-row gap-2 mt-2 justify-between mx-3">
           <div className="xl:flex xl:gap-5 flex-row">
             <div className="flex items-center mb-2 gap-4">
               <label
@@ -142,7 +140,7 @@ export default function FormSubmit({ data, courseName }) {
                 className="select select-secondary w-full max-w-xs"
                 name="courseName"
               >
-                <option value="">Select a course</option>
+                <option value="" >กรุณาเลือกชื่อวิชา</option>
                 {nameCourse.map((course, index) => (
                   <option key={index} value={course.courseName}>
                     {course.courseName}
@@ -165,7 +163,7 @@ export default function FormSubmit({ data, courseName }) {
                   className="select select-secondary w-full max-w-xs"
                   name="courseID"
                 >
-                  <option value="">Select a course</option>
+                  <option value="">กรุณาเลือกรหัสวิชา</option>
                   {idCourse.map((option, index) => (
                     <option key={index} value={option.courseID}>
                       {option.courseID}
@@ -178,7 +176,7 @@ export default function FormSubmit({ data, courseName }) {
                   className="select w-full max-w-xs"
                   disabled
                 >
-                  <option value="">Select a course</option>
+                  <option value="">กรุณาเลือกรหัสวิชา</option>
                 </select>
               )}
             </div>
@@ -197,7 +195,7 @@ export default function FormSubmit({ data, courseName }) {
                   className="select select-secondary w-full max-w-xs"
                   name="yearEducation"
                 >
-                  <option value="" selected>Select a year</option>
+                  <option value="" selected>กรุณาเลือกปี</option>
                   {yearCourse.map((option, index) => (
                     <option key={index} value={option.yearEducation}>
                       {option.yearEducation}
@@ -210,7 +208,7 @@ export default function FormSubmit({ data, courseName }) {
                   className="select w-full max-w-xs"
                   disabled
                 >
-                  <option value="">Select a year</option>
+                  <option value="">กรุณาเลือกปี</option>
                 </select>
               )}
             </div>
@@ -229,7 +227,7 @@ export default function FormSubmit({ data, courseName }) {
                   className="select select-secondary w-full max-w-xs"
                   name="semester"
                 >
-                  <option value="" selected>Select a semester</option>
+                  <option value="" selected>กรุณาเลือกเทอม</option>
                   {semesterCourse.map((option, index) => (
                     <option key={index} value={option.semester}>
                       {option.semester}
@@ -242,7 +240,7 @@ export default function FormSubmit({ data, courseName }) {
                   className="select w-full max-w-xs"
                   disabled
                 >
-                  <option value="">Select a semester</option>
+                  <option value="">กรุณาเลือกเทอม</option>
                 </select>
               )}
             </div>

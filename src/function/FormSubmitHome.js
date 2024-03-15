@@ -41,7 +41,7 @@ export const SearchFilterYear = async (idSelect, nameSelect) => {
         "Cache-Control": "no-store",
       },
     });
-    console.log(courseNameFilter.data)
+
     if (!courseNameFilter) {
       throw new Error("Cannot fetch data");
     }
@@ -52,7 +52,6 @@ export const SearchFilterYear = async (idSelect, nameSelect) => {
 };
 
 export const SearchFilterSemester = async (value,idSelect,nameSelect) => {
-  console.log(nameSelect,value,idSelect);
   const api = `${path}/api/Home/FilterSerchSemester`;
   try {
     const courseNameFilter = await axios.get(api, {
@@ -66,7 +65,6 @@ export const SearchFilterSemester = async (value,idSelect,nameSelect) => {
         "Cache-Control": "no-store",
       },
     });
-    console.log(courseNameFilter.data)
     if (!courseNameFilter) {
       throw new Error("Cannot fetch data");
     }

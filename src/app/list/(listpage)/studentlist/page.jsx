@@ -91,7 +91,7 @@ export default async function StudentListPage({ searchParams }) {
                     {item.name}
                   </td>
                   <td
-                    className="text-center p-3 text-xl font-semibold text-red-400 whitespace-nowrap"
+                    className="text-center p-3 text-xl font-semibold text-gray-700 whitespace-nowrap"
                     width="20%"
                   >
                     {item.count}

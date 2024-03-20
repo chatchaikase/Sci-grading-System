@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import React from "react";
 
 export default function ImportInputFields({
@@ -32,7 +33,11 @@ export default function ImportInputFields({
       <div className="lg:flex lg:justify-center lg:items-center">
         <div className="lg:w-1/3">
           <div className="hidden lg:block lg:text-center">
+            <div className="flex flex-col gap-2 items-center justify-center">
+            <Icon icon="f7:doc-text" className="text-gray-700 text-6xl"/>
+
             <p className="text-xl font-semibold">กรอกรายระเอียดการอัปโหลด</p>
+            </div>
           </div>
         </div>
         <div className="lg:w-2/3 border-b-1 bg-white rounded-md shadow p-5">

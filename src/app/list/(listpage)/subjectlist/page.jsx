@@ -7,7 +7,6 @@ import {
 } from "../../../../function/listSubject.js";
 import { toast } from "react-toastify";
 import ModalImportListDelete from "../../../../components/Modal/ModalImportListDelete.jsx";
-import Drawer from "../../../../components/ListSubject/Drawer.jsx";
 import SearchList from "../../../../components/ListSubject/SearchList.jsx";
 import Pageination from "../../../../components/Pageination/Pageination.jsx";
 import Link from "next/link";
@@ -15,6 +14,7 @@ import IconOption from "../../../../components/Admin/IconOption.jsx";
 import FromDeleteList from "../../../../components/ListSubject/FromDeleteListSubject.jsx";
 import { auth } from "../../../../lib/auth.js";
 import BreadCrumbsSubject from "../../../../components/BreadCrumbs/BreadCrumbsSubject.jsx";
+
 
 export default async function Home({ searchParams }) {
   const session = await auth();
@@ -55,9 +55,12 @@ export default async function Home({ searchParams }) {
             placeholder2={"ค้นหาตาม รหัสวิชา"}
           />
         </div>
+      </div>
+
+      {/*filter search*/}
+      <div className="mt-2">
         <div>
-          {/*Drawer*/}
-          <Drawer />
+          
         </div>
       </div>
 
@@ -152,17 +155,16 @@ export default async function Home({ searchParams }) {
                     {formatDate(item.dateCreated)}
                   </td>
                   <td className="text-center p-3 text-lg text-gray-700 whitespace-nowrap">
-                  <div className="flex gap-2 justify-center items-center">
-                  <Link
-                      href={`/list/subjectlist/detail/${item.importHeaderNumber}`}
-                    >
-                      <button className="btn bg-green-600 text-white">
-                        รายละเอียด
-                      </button>
-                    </Link>
-                    <FromDeleteList importNo={item.importHeaderNumber} />
-                  </div>
-                  
+                    <div className="flex gap-2 justify-center items-center">
+                      <Link
+                        href={`/list/subjectlist/detail/${item.importHeaderNumber}`}
+                      >
+                        <button className="btn bg-green-600 text-white">
+                          รายละเอียด
+                        </button>
+                      </Link>
+                      <FromDeleteList importNo={item.importHeaderNumber} />
+                    </div>
                   </td>
                 </tr>
               ))

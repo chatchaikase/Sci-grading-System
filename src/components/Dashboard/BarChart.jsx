@@ -11,6 +11,8 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 
 ChartJS.register(
   CategoryScale,
@@ -18,7 +20,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
 export default function BarChart({ data }) {
@@ -44,6 +47,19 @@ export default function BarChart({ data }) {
             const percentage = tooltipItem.parsed.y.toFixed(2);
             return `Grade ${grade}: ${percentage}%`;
           },
+        },
+      },
+      datalabels: {
+        color: '#000',
+        display: true,
+        formatter: (value, context) => {
+          if (value > 0) {
+            // Format value to percentage with 2 decimal places
+            return `${value.toFixed(2)}%`;
+        } else {
+            // Return an empty string if value is less than or equal to 0
+            return '';
+        }
         },
       },
     },

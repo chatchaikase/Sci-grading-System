@@ -92,13 +92,39 @@ export const getListSubjectByFilter = async (importHSearch) => {
   }
 };
 
-export const getAllListSubject = async (ImportHeaderNo,CourseID,page,userId) => {
+export const getAllListSubject = async (ImportHeaderNo,CourseID,selectedYear,page,userId) => {
   const queryParams = new URLSearchParams();
   if (ImportHeaderNo) queryParams.append('ImportHeaderNo', ImportHeaderNo);
   if (CourseID) queryParams.append('CourseID', CourseID);
+  if (selectedYear) queryParams.append('YearEducation',selectedYear);
   queryParams.append('page', page);
 
   const api = `${path}/api/List/Getlistimportheader?${queryParams.toString()}`;
+
+  try {
+    const allListSubject = await axios.get(api,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+          "userId": userId.toString(),
+        },
+      }
+    );
+    if (!allListSubject) {
+      throw new Error("Cannot fetch data");
+    }
+    return allListSubject.data;
+  } catch (error) {
+    throw new Error("Error to fetch data");
+  }
+};
+
+export const GetDropdownYearEducation = async (page,userId) => {
+  const queryParams = new URLSearchParams();
+  queryParams.append('page', page);
+
+  const api = `${path}/api/List/GetDropdownYearEducation?${queryParams.toString()}`;
 
   try {
     const allListSubject = await axios.get(api,

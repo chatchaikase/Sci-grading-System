@@ -4,6 +4,7 @@ import {
   deleteImportList,
   getAllListSubject,
   CountListSubject,
+  GetDropdownYearEducation
 } from "../../../../function/listSubject.js";
 import { toast } from "react-toastify";
 import ModalImportListDelete from "../../../../components/Modal/ModalImportListDelete.jsx";
@@ -15,16 +16,21 @@ import FromDeleteList from "../../../../components/ListSubject/FromDeleteListSub
 import { auth } from "../../../../lib/auth.js";
 import BreadCrumbsSubject from "../../../../components/BreadCrumbs/BreadCrumbsSubject.jsx";
 
-
 export default async function Home({ searchParams }) {
   const session = await auth();
   const userId = session.user.userId;
   const query = searchParams?.ImportHeaderNo || "";
   const additionalQuery = searchParams?.CourseID || "";
+  const selectedYear = searchParams?.YearEducation || "";
   const page = searchParams?.page || 1;
   const itemList = await getAllListSubject(
     query,
     additionalQuery,
+    selectedYear,
+    page,
+    userId
+  );
+  const yearEducation = await GetDropdownYearEducation(
     page,
     userId
   );
@@ -48,20 +54,12 @@ export default async function Home({ searchParams }) {
       </div>
 
       {/*Search Table*/}
-      <div className="mt-2 flex justify-between">
-        <div>
+      <div className="mt-2 flex">
           <SearchList
             placeholder1={"ค้นหาตาม หมายเลขอัปโหลด"}
             placeholder2={"ค้นหาตาม รหัสวิชา"}
+            yearEducation={yearEducation}
           />
-        </div>
-      </div>
-
-      {/*filter search*/}
-      <div className="mt-2">
-        <div>
-          
-        </div>
       </div>
 
       {/*Table Student*/}

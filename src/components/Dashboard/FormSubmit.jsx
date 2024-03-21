@@ -268,7 +268,7 @@ export default function FormSubmit({ data, courseName }) {
                   <p className="text-black">loading</p>
                 </>
               ) : (
-                "Search"
+                "ค้นหา"
               )}
             </button>
           </div>

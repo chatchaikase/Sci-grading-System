@@ -6,13 +6,10 @@ import * as XLSX from "xlsx";
 import { GenExcelHome } from "../function/GenExcel";
 import axios from "axios";
 
-export default function BtnPrintHomepage({ itemList
-}) {
+export default function BtnPrintHomepage({ itemList }) {
   const handleHomepageExport = async () => {
     try {
-      const response = await GenExcelHome(
-        itemList
-      );
+      const response = await GenExcelHome(itemList);
 
       // Create a Blob from the array buffer received in the response
       const blob = new Blob([response], {
@@ -39,15 +36,30 @@ export default function BtnPrintHomepage({ itemList
   };
 
   return (
-    <button
-      onClick={handleHomepageExport}
-      className="btn bg-blue-500 text-white w-[220px] max-x-lg mr-5"
-    >
-      <Icon
-        icon="material-symbols:print-outline"
-        className="text-white text-lg"
-      />
-      <>พิมพ์ข้อมูลตาราง</>
-    </button>
+    <>
+      {itemList.length >= 1 ? (
+        <button
+          onClick={handleHomepageExport}
+          className="btn bg-blue-500 text-white w-[220px] max-x-lg mr-5"
+        >
+          <Icon
+            icon="material-symbols:print-outline"
+            className="text-white text-lg"
+          />
+          <>พิมพ์ข้อมูลตาราง</>
+        </button>
+      ) : (
+        <button
+          disabled={true}
+          className="btn bg-blue-500 text-white w-[220px] max-x-lg mr-5"
+        >
+          <Icon
+            icon="material-symbols:print-outline"
+            className="text-gray-500 text-lg"
+          />
+          <>พิมพ์ข้อมูลตาราง</>
+        </button>
+      )}
+    </>
   );
 }

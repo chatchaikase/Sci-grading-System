@@ -40,10 +40,9 @@ export default function SearchKist({
       params.delete("CourseID");
     }
 
-    if(selectedYear){
+    if (selectedYear) {
       params.set("YearEducation", selectedYear);
-    }
-    else{
+    } else {
       params.delete("YearEducation");
     }
 
@@ -85,22 +84,22 @@ export default function SearchKist({
           />
         </div>
         <div className="relative ml-2">
-          <select
-            id="yearEducation"
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-            className="select select-bordered rounded-lg pr-10 py-2 w-full max-w-sm"
-            name="yearEducation"
-          >
-            <option selected value="">
-              ทุกปีการศึกษา
-            </option>
-            {uniqueYears.map((year, index) => (
-              <option key={index} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+          <div className="relative ml-2">
+            <select
+              id="yearEducation"
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="select select-bordered rounded-lg pr-10 py-2 w-full max-w-sm"
+              name="yearEducation"
+            >
+              <option value={""}>ทุกปีการศึกษา</option>
+              {uniqueYears.map((year, index) => (
+                <option key={index} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>

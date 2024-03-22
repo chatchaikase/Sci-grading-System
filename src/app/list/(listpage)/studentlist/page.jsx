@@ -15,7 +15,7 @@ export default async function StudentListPage({ searchParams }) {
   const page = searchParams?.page || 1;
   const itemList = await GetStudent(query, additionalQuery, page, userId);
   const countPage = await CountListStudent(query, additionalQuery, userId);
-  const startingIndex = (page - 1) * 10;
+  const startingIndex = (page - 1) * 8;
 
   return (
     <div className="h-full mx-auto p-3">
@@ -124,7 +124,7 @@ export default async function StudentListPage({ searchParams }) {
         </table>
 
         {/*Pageination*/}
-        <Pageination rows={10} count={countPage} />
+        <Pageination rows={8} count={countPage} />
       </div>
     </div>
   );

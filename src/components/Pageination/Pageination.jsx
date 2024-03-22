@@ -21,7 +21,7 @@ export default function Pagination({ count,rows }) {
       : params.set("page", parseInt(page) + 1);
     replace(`${pathname}?${params}`);
   };
-
+  
   return (
     <div className="flex justify-end gap-2 px-5 py-2">
       <button
@@ -29,10 +29,10 @@ export default function Pagination({ count,rows }) {
         disabled={!hasPrev}
         onClick={() => handleChangePage("prev")}
       >
-        {hasNext ? (
-          <>ย้อนกลับ</>
-        ) : (
+        {!hasNext && page == 1 ?  (
           <>ถัดไป</>
+        ) : (
+          <>ย้อนกลับ</>
         )}
       </button>
       {hasNext && (

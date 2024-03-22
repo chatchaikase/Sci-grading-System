@@ -39,7 +39,7 @@ export default async function Home({ searchParams }) {
     const DDMMYYYY = dateCreated.split("T")[0].split("-").reverse().join("/");
     return DDMMYYYY;
   };
-  const startingIndex = (page - 1) * 10;
+  const startingIndex = (page - 1) * 8;
 
   return (
     <div className="h-full mx-auto p-3">
@@ -181,7 +181,7 @@ export default async function Home({ searchParams }) {
           </tbody>
         </table>
         {/*Pageination*/}
-        <Pageination rows={10} count={countPage} />
+        <Pageination rows={8} count={countPage} />
       </div>
     </div>
   );

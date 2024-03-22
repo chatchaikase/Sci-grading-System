@@ -16,7 +16,7 @@ export default async function AdminPage({ searchParams }) {
   const page = searchParams?.page || 1;
   const users = await getAllUser(query, additionalQuery, page);
   const countPage = await CountUser(query, additionalQuery);
-  const startingIndex = (page - 1) * 10;
+  const startingIndex = (page - 1) * 8;
 
   return (
     <div className="h-full mx-auto p-3">
@@ -83,7 +83,8 @@ export default async function AdminPage({ searchParams }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {users.map((item, index) => (
+              {users.length > 0 ? (
+                 users.map((item, index) => (
                   <tr className="bg-white" key={index}>
                     <td
                       className="text-center p-3 text-lg text-gray-700 whitespace-nowrap"
@@ -163,12 +164,25 @@ export default async function AdminPage({ searchParams }) {
                       </div>
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <tr>
+                <td
+                  colSpan="8"
+                  className="text-center p-3 text-lg text-gray-700 whitespace-nowrap bg-white"
+                >
+                  <div className="mx-4 my-2 mt-2 text-xl">
+                    ไม่มีรายการของฉัน กรุณาอัปโหลด
+                  </div>
+                </td>
+              </tr>
+              )}
+               
               </tbody>
             </table>
 
             {/*Pageination*/}
-            <Pageination rows={10} count={countPage} />
+            <Pageination rows={8} count={countPage} />
           </div>
         </div>
       </div>

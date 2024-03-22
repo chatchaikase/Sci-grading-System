@@ -84,7 +84,6 @@ export default function SearchKist({
           />
         </div>
         <div className="relative ml-2">
-          <div className="relative ml-2">
             <select
               id="yearEducation"
               value={selectedYear}
@@ -99,7 +98,6 @@ export default function SearchKist({
                 </option>
               ))}
             </select>
-          </div>
         </div>
       </div>
     </div>

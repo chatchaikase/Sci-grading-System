@@ -6,6 +6,7 @@ import SearchData from "../../../../components/SearchData/SearchData";
 import Pageination from "../../../../components/Pageination/Pageination";
 import Link from "next/link";
 import BreadCrumbsStudent from "../../../../components/BreadCrumbs/BreadCrumbsStudent";
+import BtnDetail from "../../../../components/ListStudent/BtnDetail";
 
 export default async function StudentListPage({ searchParams }) {
   const session = await auth();
@@ -101,9 +102,7 @@ export default async function StudentListPage({ searchParams }) {
                     width="15%"
                   >
                     <Link href={`/list/studentlist/detail/${item.id}`}>
-                      <button className="btn bg-green-600 text-white">
-                        รายละเอียด
-                      </button>
+                      <BtnDetail/>
                     </Link>
                   </td>
                 </tr>

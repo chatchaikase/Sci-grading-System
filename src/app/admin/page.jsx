@@ -7,6 +7,8 @@ import { CountUser, deleteUser, getAllUser } from "../../function/admin";
 import FormDeleteUser from "../../components/Admin/form/FormDeleteUser";
 import { auth } from "../../lib/auth";
 import BreadCrumbImportList from "../../components/BreadCrumbs/BreadCrumbsAdmin";
+import BtnAddUser from "../../components/Admin/BtnAddUser";
+import BtnEditUser from "../../components/Admin/BtnEditUser";
 
 export default async function AdminPage({ searchParams }) {
   const session = await auth();
@@ -42,11 +44,7 @@ export default async function AdminPage({ searchParams }) {
             </div>
             <div className="flex mr-2">
               <Link href={"/admin/user/add"}>
-                <div>
-                  <button className="btn bg-green-600 text-white">
-                    เพิ่มผู้ใช้งาน
-                  </button>
-                </div>
+                  <BtnAddUser/>
               </Link>
             </div>
           </div>
@@ -138,21 +136,8 @@ export default async function AdminPage({ searchParams }) {
                     >
                       <div className="flex items-center justify-center gap-2">
                         <Link href={`/admin/user/${item.userId}`}>
-                          <button
-                            className="btn bg-orange-500 text-white"
-                            // onClick={() => editUserClickHandler(item)}
-                          >
-                            เเก้ไข
-                          </button>
+                         <BtnEditUser/>
                         </Link>
-                        {/* <form action={deleteUser}>
-                        <input type="hidden" name="userId" value={item.userId} />
-                      <button
-                        className="btn bg-red-500 text-white"
-                      >
-                        ลบ
-                      </button>
-                      </form>  */}
                         {userId == item.userId ? (
                           <></>
                         ) : (

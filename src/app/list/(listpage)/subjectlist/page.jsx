@@ -15,6 +15,7 @@ import IconOption from "../../../../components/Admin/IconOption.jsx";
 import FromDeleteList from "../../../../components/ListSubject/FromDeleteListSubject.jsx";
 import { auth } from "../../../../lib/auth.js";
 import BreadCrumbsSubject from "../../../../components/BreadCrumbs/BreadCrumbsSubject.jsx";
+import BtnDetail from "../../../../components/ListSubject/BtnDetail.jsx";
 
 export default async function Home({ searchParams }) {
   const session = await auth();
@@ -157,9 +158,7 @@ export default async function Home({ searchParams }) {
                       <Link
                         href={`/list/subjectlist/detail/${item.importHeaderNumber}`}
                       >
-                        <button className="btn bg-green-600 text-white">
-                          รายละเอียด
-                        </button>
+                        <BtnDetail />
                       </Link>
                       <FromDeleteList importNo={item.importHeaderNumber} />
                     </div>

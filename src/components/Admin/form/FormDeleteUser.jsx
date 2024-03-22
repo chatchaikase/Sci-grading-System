@@ -2,6 +2,7 @@
 import React from "react";
 import { deleteUser } from "../../../function/admin";
 import Swal from 'sweetalert2';
+import { Icon } from "@iconify/react";
 
 export default function FormDeleteUser({ userId,userName }) {
   
@@ -43,8 +44,10 @@ export default function FormDeleteUser({ userId,userName }) {
   return (
     <>
       <button className="btn bg-red-500 text-white" onClick={showCustomAlert}>
-        ลบ
+      <Icon icon="mdi:bin" className="text-white text-lg" />
+      ลบ
       </button>
     </>
   );
 }
+

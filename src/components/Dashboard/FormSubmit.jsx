@@ -257,20 +257,31 @@ export default function FormSubmit({ data, courseName }) {
             </div>
           </div>
           <div className="xl:flex xl:gap-5 flex-row">
-            <button
+            {data.length >=1 ? (
+                <button
+                className="btn btn-primary w-full text-white px-4 py-2 rounded-lg xl:w-32 xl:max-w-md"
+                type="submit"
+                disabled={isLoading} // Disable the button while loading
+              >
+                {isLoading ? (
+                  <>
+                    <span className="loading loading-spinner bg-black"></span>
+                    <p className="text-black">loading</p>
+                  </>
+                ) : (
+                  "ค้นหา"
+                )}
+              </button>
+            ) : (
+              <button
               className="btn btn-primary w-full text-white px-4 py-2 rounded-lg xl:w-32 xl:max-w-md"
               type="submit"
-              disabled={isLoading} // Disable the button while loading
+              disabled={true} // Disable the button while loading
             >
-              {isLoading ? (
-                <>
-                  <span className="loading loading-spinner bg-black"></span>
-                  <p className="text-black">loading</p>
-                </>
-              ) : (
-                "ค้นหา"
-              )}
+              ค้นหา
             </button>
+            )}
+          
           </div>
         </div>
       </form>

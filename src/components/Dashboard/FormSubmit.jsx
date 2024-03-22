@@ -124,9 +124,9 @@ export default function FormSubmit({ data, courseName }) {
   return (
     <div className="p-3 h-auto w-full border border-gray-200 border-opacity-50 rounded-lg bg-base-100 shadow-sm">
       <form action={handleFormSubmit}>
-        <div className="flex flex-row gap-2 mt-2 justify-between mx-3">
-          <div className="xl:flex xl:gap-5 flex-row">
-            <div className="flex items-center mb-2 gap-4">
+        <div className="flex flex-col gap-2 mt-2 2xl:flex-row 2xl:justify-between mx-3">
+          <div className="2xl:flex 2xl:gap-5 flex-row">
+            <div className="flex items-center mb-2 gap-10 2xl:gap-4">
               <label
                 htmlFor="courseName"
                 className="text-black text-lg flex-shrink-0 ml-5"
@@ -138,7 +138,7 @@ export default function FormSubmit({ data, courseName }) {
                 id="courseName"
                 value={nameSelect ?? ""}
                 onChange={(e) => handleOnChangeCourseName(e.target.value)}
-                className="select select-secondary w-full max-w-xs"
+                className="select select-secondary w-full 2xl:max-w-xs"
                 name="courseName"
               >
                 <option value="" >กรุณาเลือกชื่อวิชา</option>
@@ -151,7 +151,7 @@ export default function FormSubmit({ data, courseName }) {
               ) : (
                 <select
                 id="courseName"
-                className="select select-secondary w-full max-w-xs"
+                className="select select-secondary w-full 2xl:max-w-xs"
                 name="courseName"
                 disabled
               >
@@ -159,7 +159,7 @@ export default function FormSubmit({ data, courseName }) {
               </select>
               )}
             </div>
-            <div className="flex items-center mb-2 gap-4">
+            <div className="flex items-center mb-2 gap-8 2xl:gap-4">
               <label
                 htmlFor="idCourse"
                 className="text-black text-lg flex-shrink-0 ml-5"
@@ -171,7 +171,7 @@ export default function FormSubmit({ data, courseName }) {
                   id="courseID"
                   value={idSelect}
                   onChange={(e) => handleOnChangeCourseID(e.target.value)}
-                  className="select select-secondary w-full max-w-xs"
+                  className="select select-secondary w-full 2xl:max-w-xs"
                   name="courseID"
                 >
                   <option value="">กรุณาเลือกรหัสวิชา</option>
@@ -184,14 +184,14 @@ export default function FormSubmit({ data, courseName }) {
               ) : (
                 <select
                   id="courseID"
-                  className="select w-full max-w-xs"
+                  className="select w-full 2xl:max-w-xs"
                   disabled
                 >
                   <option value="">กรุณาเลือกรหัสวิชา</option>
                 </select>
               )}
             </div>
-            <div className="flex items-center mb-2 gap-4">
+            <div className="flex items-center mb-2 gap-2 2xl:gap-4">
               <label
                 htmlFor="yearCourse"
                 className="text-black text-lg flex-shrink-0 ml-5"
@@ -203,7 +203,7 @@ export default function FormSubmit({ data, courseName }) {
                   id="yearEducation"
                   value={yearSelect}
                   onChange={(e) => handleOnChangeYear(e.target.value)}
-                  className="select select-secondary w-full max-w-xs"
+                  className="select select-secondary w-full 2xl:max-w-xs"
                   name="yearEducation"
                 >
                   <option value="" selected>กรุณาเลือกปี</option>
@@ -216,14 +216,14 @@ export default function FormSubmit({ data, courseName }) {
               ) : (
                 <select
                   id="yearEducation"
-                  className="select w-full max-w-xs"
+                  className="select w-full 2xl:max-w-xs"
                   disabled
                 >
                   <option value="">กรุณาเลือกปี</option>
                 </select>
               )}
             </div>
-            <div className="flex items-center mb-2 gap-4">
+            <div className="flex items-center mb-2 gap-12 2xl:gap-4">
               <label
                 htmlFor="semesterCourse"
                 className="text-black text-lg flex-shrink-0 ml-5"
@@ -235,7 +235,7 @@ export default function FormSubmit({ data, courseName }) {
                   id="semester"
                   value={semesterSelect}
                   onChange={(e) => handleOnChangeSemester(e.target.value)}
-                  className="select select-secondary w-full max-w-xs"
+                  className="select select-secondary w-full 2xl:max-w-xs"
                   name="semester"
                 >
                   <option value="" selected>กรุณาเลือกเทอม</option>
@@ -248,7 +248,7 @@ export default function FormSubmit({ data, courseName }) {
               ) : (
                 <select
                   id="semester"
-                  className="select w-full max-w-xs"
+                  className="select w-full 2xl:max-w-xs"
                   disabled
                 >
                   <option value="">กรุณาเลือกเทอม</option>
@@ -256,10 +256,10 @@ export default function FormSubmit({ data, courseName }) {
               )}
             </div>
           </div>
-          <div className="xl:flex xl:gap-5 flex-row">
+          <div className="2xl:flex 2xl:gap-5 flex-row">
             {data.length >=1 ? (
                 <button
-                className="btn btn-primary w-full text-white px-4 py-2 rounded-lg xl:w-32 xl:max-w-md"
+                className="btn btn-primary w-full text-white px-4 py-2 rounded-lg 2xl:w-32 2xl:max-w-md"
                 type="submit"
                 disabled={isLoading} // Disable the button while loading
               >
@@ -274,7 +274,7 @@ export default function FormSubmit({ data, courseName }) {
               </button>
             ) : (
               <button
-              className="btn btn-primary w-full text-white px-4 py-2 rounded-lg xl:w-32 xl:max-w-md"
+              className="btn btn-primary w-full text-white px-4 py-2 rounded-lg 2xl:w-32 2xl:max-w-md"
               type="submit"
               disabled={true} // Disable the button while loading
             >

@@ -35,7 +35,7 @@ export default async function Home({ searchParams }) {
           <PieChart data={dashBoard} />
         </div>
       ) : (
-        <div class="flex justify-center items-center border border-gray-200 border-opacity-50 shadow-sm bg-base-100 w-full h-auto rounded-lg my-5 p-4">
+        <div className="flex justify-center items-center border border-gray-200 border-opacity-50 shadow-sm bg-base-100 w-full h-auto rounded-lg my-5 p-4">
           <p className="text-xl">
             ยังไม่เคยมีการอัปโหลดข้อมูลเกิดขึ้น กรุณาอัปโหลดคะแนนสำหรับการแสดงผล
           </p>

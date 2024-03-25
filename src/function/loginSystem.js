@@ -14,6 +14,7 @@ export const login = async(previousState,formData)=>{
     
     try {
         await signIn("credentials",{username,password})
+        console.log("is login");
         return { success:true}
     } catch (error) {
         if(!error.message.includes("NEXT_REDIRECT")){

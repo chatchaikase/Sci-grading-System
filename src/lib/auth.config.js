@@ -32,33 +32,33 @@ export const authConfig = {
       const isOnImportMaintainPanel = request.nextUrl?.pathname.startsWith("/import/importmaintain");
       const isOnImportListPanel = request.nextUrl?.pathname.startsWith("/import/importlist");
 
-      if (isOnAdminPanel && !user?.isAdmin) {
-        return false;
-      }
+      // if (isOnAdminPanel && !user?.isAdmin) {
+      //   return false;
+      // }
 
-      if (isOnSubjectListPanel && !user) {
-        return false;
-      }
+      // if (isOnSubjectListPanel && !user) {
+      //   return false;
+      // }
 
-      if (isOnStudentListtPanel && !user) {
-        return false;
-      }
+      // if (isOnStudentListtPanel && !user) {
+      //   return false;
+      // }
 
-      if (isOnImportListPanel && !user) {
-        return false;
-      }
+      // if (isOnImportListPanel && !user) {
+      //   return false;
+      // }
 
-      if (isOnImportMaintainPanel && !user) {
-        return false;
-      }
+      // if (isOnImportMaintainPanel && !user) {
+      //   return false;
+      // }
 
-      if (isOnStartPanel && !user) {
-        return false;
-      }
+      // if (isOnStartPanel && !user) {
+      //   return false;
+      // }
 
-      if (isOnLoginPage && user) {
-        return Response.redirect(new URL("/", request.nextUrl));
-      }
+      // if (isOnLoginPage && user) {
+      //   return Response.redirect(new URL("/", request.nextUrl));
+      // }
 
       return true;
     },

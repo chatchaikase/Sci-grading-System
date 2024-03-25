@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/0407c262-2495-4fb3-b0c9-872482189e3f/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/sci-grading-system",
+    "appService.deploySubpath": "."
+}

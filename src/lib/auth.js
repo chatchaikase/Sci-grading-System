@@ -43,7 +43,7 @@ export const {
   } = NextAuth({
     ...authConfig,
     providers: [
-      Providers.Credentials({
+      CredentialsProvider({
         async authorize(credentials){
           try {
             const user = await login(credentials);

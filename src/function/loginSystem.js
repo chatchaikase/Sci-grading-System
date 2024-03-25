@@ -16,9 +16,9 @@ export const login = async(previousState,formData)=>{
         await signIn("credentials",{username,password})
         return { success:true}
     } catch (error) {
-        if(!error.message.includes("NEXT_REDIRECT")){
-            return { error: "ชื่อ Username หรือ Password ไม่ถูกต้อง" };
-        }
+        // if(!error.message.includes("NEXT_REDIRECT")){
+        //     return { error: "ชื่อ Username หรือ Password ไม่ถูกต้อง" };
+        // }
         throw error;
     }
 }

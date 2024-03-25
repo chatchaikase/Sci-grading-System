@@ -56,9 +56,9 @@ export const authConfig = {
         return false;
       }
 
-      // if (isOnLoginPage && user) {
-      //   return Response.redirect(new URL("/", request.nextUrl));
-      // }
+      if (isOnLoginPage && user) {
+        return Response.redirect(new URL("/", request.nextUrl));
+      }
 
       return true;
     },

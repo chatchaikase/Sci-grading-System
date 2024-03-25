@@ -32,9 +32,9 @@ export const authConfig = {
       const isOnImportMaintainPanel = request.nextUrl?.pathname.startsWith("/import/importmaintain");
       const isOnImportListPanel = request.nextUrl?.pathname.startsWith("/import/importlist");
 
-      // if (isOnAdminPanel && !user?.isAdmin) {
-      //   return false;
-      // }
+      if (isOnAdminPanel && !user?.isAdmin) {
+        return false;
+      }
 
       if (isOnSubjectListPanel && !user) {
         return false;
@@ -56,9 +56,9 @@ export const authConfig = {
         return false;
       }
 
-      // if (isOnLoginPage && user) {
-      //   return Response.redirect(new URL("/", request.nextUrl));
-      // }
+      if (isOnLoginPage && user) {
+        return Response.redirect(new URL("/", request.nextUrl));
+      }
 
       return true;
     },

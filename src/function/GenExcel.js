@@ -13,7 +13,7 @@ export const GenExcel = async (listItem,listGrade, id) => {
     id: id,
   };
   try {
-    const response = await axios.post(`${path}/api/List/GenerateExcel`,
+    const response = await axios.post(`https://grade-project.azurewebsites.net/api/List/GenerateExcel`,
       exportModel,
       {
         responseType: 'arraybuffer',   
@@ -35,7 +35,7 @@ export const GenStudentDeatailExcel = async(listItem,listSumGrade,id) => {
     id: id,
   };
   try {
-    const response = await axios.post(`${path}/api/List/GenerateStudentDetailExcel`,
+    const response = await axios.post(`https://grade-project.azurewebsites.net/api/List/GenerateStudentDetailExcel`,
     ExportStudentDetailModel,
       {
         responseType: 'arraybuffer',   
@@ -52,7 +52,7 @@ export const GenStudentDeatailExcel = async(listItem,listSumGrade,id) => {
 
 export const GenExcelHome = async (itemList) => {
   try {
-    const response = await axios.post(`${path}/api/Home/GenerateHomeExcel`,
+    const response = await axios.post(`https://grade-project.azurewebsites.net/api/Home/GenerateHomeExcel`,
     itemList,
       {
         responseType: 'arraybuffer',   

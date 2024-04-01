@@ -3,6 +3,9 @@ import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+const path = process.env.LocalhostDOTNET;
+
+
 export const GenExcel = async (listItem,listGrade, id) => {
   const exportModel = {
     students: listItem,
@@ -10,7 +13,7 @@ export const GenExcel = async (listItem,listGrade, id) => {
     id: id,
   };
   try {
-    const response = await axios.post(`https://final-project-backend20240325201927.azurewebsites.net/api/List/GenerateExcel`,
+    const response = await axios.post(`${path}/api/List/GenerateExcel`,
       exportModel,
       {
         responseType: 'arraybuffer',   
@@ -32,7 +35,7 @@ export const GenStudentDeatailExcel = async(listItem,listSumGrade,id) => {
     id: id,
   };
   try {
-    const response = await axios.post(`https://final-project-backend20240325201927.azurewebsites.net/api/List/GenerateStudentDetailExcel`,
+    const response = await axios.post(`${path}/api/List/GenerateStudentDetailExcel`,
     ExportStudentDetailModel,
       {
         responseType: 'arraybuffer',   
@@ -50,7 +53,7 @@ export const GenStudentDeatailExcel = async(listItem,listSumGrade,id) => {
 export const GenExcelHome = async (itemList) => {
   console.log(itemList)
   try {
-    const response = await axios.post(`https://final-project-backend20240325201927.azurewebsites.net/api/Home/GenerateHomeExcel`,
+    const response = await axios.post(`${path}/api/Home/GenerateHomeExcel`,
     itemList,
       {
         responseType: 'arraybuffer',   

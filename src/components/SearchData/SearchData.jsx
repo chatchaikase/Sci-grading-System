@@ -35,7 +35,7 @@ export default function SearchKist({ placeholder1, placeholder2 }) {
     }
     params.set("page", currentPage);
     replace(`${pathname}?${params}`);
-  },400);
+  },200);
 
   return (
     <div className="flex gap-2">

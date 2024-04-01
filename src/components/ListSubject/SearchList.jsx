@@ -48,7 +48,7 @@ export default function SearchKist({
 
     params.set("page", currentPage);
     replace(`${pathname}?${params}`);
-  }, 400);
+  }, 200);
 
   return (
     <div className="flex flex-wrap justify-center items-center">

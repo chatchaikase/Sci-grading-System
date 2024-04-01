@@ -55,15 +55,16 @@ export default function ModalConfirm({
             className="text-orange-500 text-xl text-center"
           />
         </div>
+        <div className="flex items-center justify-center">
+          <span className="font-bold text-md">ต้องการตรวจสอบข้อมูลเดิมก่อนหรือไม่</span>
+        </div>
         <div className="flex items-center justify-center gap-2">
-          <h3 className="ml-3.5 font-bold text-lg">เนื่องจากข้อมูลตรงกับ</h3>
+          <h3 className="ml-3.5 font-bold text-md">เนื่องจากข้อมูลตรงกับ</h3>
           <h3 className="font-bold text-lg text-yellow-600">
             {importHeaderInDB}
           </h3>
         </div>
-        <div className="flex items-center px-7">
-          <span className="font-bold text-lg">ต้องการตรวจสอบข้อมูลเดิมก่อนหรือไม่</span>
-        </div>
+       
         <div className="modal-action">
           <div className="flex items-center justify-center gap-2">
           <button className="btn bg-yellow-600  text-white" onClick={() => setCheckStep1(true)}>ตรวจสอบ</button>

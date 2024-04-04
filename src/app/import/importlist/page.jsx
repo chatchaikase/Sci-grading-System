@@ -7,7 +7,7 @@ import {
   getAllListSubject,
   getListimportheaderForPage,
 } from "../../../function/listSubject";
-import Pagination from "../../../components/Pageination/Pageination";
+import Pageination from "../../../components/Pageination/Pageination";
 import { auth } from "../../../lib/auth";
 import BreadCrumbImportList from "../../../components/BreadCrumbs/BreadCrumbImportList"
 
@@ -17,6 +17,7 @@ export default async function ImportListPage({ searchParams }) {
   const page = searchParams?.page || 1;
   const list = await getListimportheaderForPage(page, userId);
   const countPage = await CountListimportheader(userId);
+  const amountPage = Math.ceil(countPage / 5);
 
   // จัดรูปเเบบเวลา
   const formatDate = (dateCreated) => {
@@ -118,7 +119,7 @@ export default async function ImportListPage({ searchParams }) {
               )}
             </tbody>
           </table>
-          <Pagination rows={5} count={countPage} />
+          <Pageination rows={5} count={countPage} pageNow={page} amountPage={amountPage} />
         </div>
       </div>
     </div>

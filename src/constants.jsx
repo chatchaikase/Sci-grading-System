@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 
 export const SIDENAV_ITEMS = [
   {
-    title: 'Home',
+    title: 'หน้าเเรก',
     path: '/',
     icon: <Icon icon="lucide:home" width="24" height="24" />,
     isAdmin: 0
@@ -19,7 +19,7 @@ export const SIDENAV_ITEMS = [
     isAdmin: 0
   },
   {
-    title: 'รายการของฉัน',
+    title: 'รายการผู้ใช้งาน',
     path: '/projects',
     icon: <Icon icon="solar:folder-linear" width="24" height="24" />,
     submenu: true,
@@ -30,7 +30,7 @@ export const SIDENAV_ITEMS = [
     isAdmin: 0
   },
   {
-    title: 'Admin',
+    title: 'เเอดมิน',
     path: '/admin',
     icon: <Icon icon="ic:outline-admin-panel-settings" width="24" height="24" />,   
     isAdmin: 1

@@ -48,7 +48,7 @@ export default async function Home({ searchParams }) {
       )}
       <div className="p-3 h-auto w-full border border-gray-200 border-opacity-50 rounded-lg bg-base-100 shadow-sm mt-5">
         <BtnPrintHomepage itemList={itemList} />
-        <div className="table-container table-responsive mt-5 border border-solid max-h-[6z 00px] overflow-y-auto rounded-lg shadow">
+        <div className="table-container table-responsive mt-5 border border-solid max-h-[600px] overflow-y-auto rounded-lg shadow">
           <table className="w-full overflow-x-auto">
             <thead className="border-b-2 border-gray-200 sticky top-0 bg-gray-50">
               <tr>

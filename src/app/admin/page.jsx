@@ -19,6 +19,7 @@ export default async function AdminPage({ searchParams }) {
   const users = await getAllUser(query, additionalQuery, page);
   const countPage = await CountUser(query, additionalQuery);
   const startingIndex = (page - 1) * 8;
+  const amountPage = Math.ceil(countPage / 8);
 
   return (
     <div className="h-full mx-auto p-3">
@@ -167,7 +168,7 @@ export default async function AdminPage({ searchParams }) {
             </table>
 
             {/*Pageination*/}
-            <Pageination rows={8} count={countPage} />
+            <Pageination rows={8} count={countPage} pageNow={page} amountPage={amountPage} />
           </div>
         </div>
       </div>

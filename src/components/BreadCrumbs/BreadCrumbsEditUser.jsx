@@ -10,7 +10,7 @@ export default function BreadCrumbsEditUser() {
   }
   return (
     <Breadcrumbs size="lg">
-      <BreadcrumbItem onClick={routerToSubjectListPage}>Admin</BreadcrumbItem>
+      <BreadcrumbItem onClick={routerToSubjectListPage}>เเอดมิน</BreadcrumbItem>
       <BreadcrumbItem onClick={routerToSubjectListPage}>จัดการผู้ใช้งาน</BreadcrumbItem>
       <BreadcrumbItem>เเก้ไขผู้ใช้งาน</BreadcrumbItem>
     </Breadcrumbs>

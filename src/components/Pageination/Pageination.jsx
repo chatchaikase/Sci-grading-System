@@ -2,7 +2,7 @@
 import React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function Pagination({ count,rows }) {
+export default function Pagination({ count,rows,pageNow,amountPage }) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -23,7 +23,11 @@ export default function Pagination({ count,rows }) {
   };
   
   return (
-    <div className="flex justify-end gap-2 px-5 py-2">
+    <div className="flex justify-between px-5 py-2">
+      <div className="flex justify-center items-center">
+      <span className="badge py-5 px-3 text-md">หน้า {pageNow} / {amountPage}</span>
+      </div>
+      <div className="flex gap-2">
       <button
         className={`my-2 btn rounded-md bg-gray-400 text-white`}
         disabled={!hasPrev}
@@ -43,6 +47,7 @@ export default function Pagination({ count,rows }) {
           ถัดไป
         </button>
       )}
+      </div>
     </div>
   );
 }

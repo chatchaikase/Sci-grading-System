@@ -16,8 +16,8 @@ export default async function StudentListPage({ searchParams }) {
   const page = searchParams?.page || 1;
   const itemList = await GetStudent(query, additionalQuery, page, userId);
   const countPage = await CountListStudent(query, additionalQuery, userId);
+  const amountPage = Math.ceil(countPage / 8);
   const startingIndex = (page - 1) * 8;
-
   return (
     <div className="h-full mx-auto p-3">
       {/*Breadcrumb Section*/}
@@ -54,7 +54,7 @@ export default async function StudentListPage({ searchParams }) {
                 ชื่อ
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide ">
-                รายวิชาที่ลงทะเบียน
+                จำนวนวิชาที่ได้เกรด
               </th>
               <th className="text-center p-3 text-lg font-semibold tracking-wide flex justify-center items-center">
                 <IconOption />
@@ -123,7 +123,7 @@ export default async function StudentListPage({ searchParams }) {
         </table>
 
         {/*Pageination*/}
-        <Pageination rows={8} count={countPage} />
+        <Pageination rows={8} count={countPage} pageNow={page} amountPage={amountPage} />
       </div>
     </div>
   );

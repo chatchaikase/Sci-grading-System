@@ -74,7 +74,7 @@ export default function FormEditUser({ params, user }) {
         onChange={(e) => setLastname(e.target.value)}
         value={lastname}
       />
-      <p className="text-md mb-1">password</p>
+      <p className="text-md mb-1">รหัสผ่าน</p>
       <div className="flex w-full mb-7">
         <input
           type="password"

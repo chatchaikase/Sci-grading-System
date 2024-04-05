@@ -28,7 +28,7 @@ export default async function Home({ searchParams }) {
 
   return (
     <div className="h-full w-full">
-      <FormSubmit data={dashBoard} courseName={courseName} />
+      <FormSubmit data={dashBoard} courseName={courseName} userId={userId}/>
       {dashBoard.length >= 1 ? (
         <div className="border border-gray-200 border-opacity-50 shadow-sm bg-base-100 w-full h-auto rounded-lg my-5 p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
           <BarChartComponent data={dashBoard} />
@@ -95,10 +95,10 @@ export default async function Home({ searchParams }) {
                   D
                 </th>
                 <th className="text-center p-3 text-lg font-semibold tracking-wide ">
-                  I
+                  F
                 </th>
                 <th className="text-center p-3 text-lg font-semibold tracking-wide ">
-                  F
+                  I
                 </th>
                 <th className="text-center p-3 text-lg font-semibold tracking-wide ">
                   W

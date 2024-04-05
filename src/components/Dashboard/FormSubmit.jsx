@@ -7,8 +7,9 @@ import { useDebouncedCallback } from "use-debounce";
 import { Button } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import {SearchByCourseName , SearchFilterYear,SearchFilterSemester} from "../../function/FormSubmitHome.js"
+import { auth } from "../../lib/auth.js";
 
-export default function FormSubmit({ data, courseName }) {
+export default function FormSubmit({ data, courseName,userId }) {
   const [searchCourse, setSearchCourse] = useState({
     courseName: '',
     courseID: '',
@@ -34,7 +35,7 @@ export default function FormSubmit({ data, courseName }) {
     await setNameSelect(value);
     await setIdSelect("");
     try {
-        const dataCourseID = await SearchByCourseName(value);
+        const dataCourseID = await SearchByCourseName(value,userId);
         await setIdCourse(dataCourseID);
     } catch (error) {
         throw new Error("Error fetching data");
@@ -45,7 +46,7 @@ export default function FormSubmit({ data, courseName }) {
     await setIdSelect(value);
     await setYearSelect("");
     try {
-      const dataYearEducation = await SearchFilterYear(value,nameSelect)
+      const dataYearEducation = await SearchFilterYear(value,nameSelect,userId)
       await setYearCourse(dataYearEducation);
     } catch (error) {
       throw new Error("Error fetching data");
@@ -57,7 +58,7 @@ export default function FormSubmit({ data, courseName }) {
     await setYearSelect(value);
     await setsemesterSelect("");
     try {
-      const dataSemester = await SearchFilterSemester(value,idSelect,nameSelect)
+      const dataSemester = await SearchFilterSemester(value,idSelect,nameSelect,userId)
       await setSemesterCourse(dataSemester);
     } catch (error) {
       throw new Error("Error fetching data");

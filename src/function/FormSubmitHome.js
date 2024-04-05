@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const path = process.env.LocalhostDOTNET;
 
-export const SearchByCourseName = async (isSelectName) => {
+export const SearchByCourseName = async (isSelectName,userId) => {
   const api = `${path}/api/Home/FilterSerchByCourseName`;
   try {
     const courseNameFilter = await axios.get(api, {
@@ -17,6 +17,7 @@ export const SearchByCourseName = async (isSelectName) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        "userId": userId.toString(),
       },
     });
     if (!courseNameFilter) {
@@ -28,7 +29,7 @@ export const SearchByCourseName = async (isSelectName) => {
   }
 };
 
-export const SearchFilterYear = async (idSelect, nameSelect) => {
+export const SearchFilterYear = async (idSelect, nameSelect,userId) => {
   const api = `${path}/api/Home/FilterSerchYear`;
   try {
     const courseNameFilter = await axios.get(api, {
@@ -39,6 +40,7 @@ export const SearchFilterYear = async (idSelect, nameSelect) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        "userId": userId.toString(),
       },
     });
 
@@ -51,7 +53,7 @@ export const SearchFilterYear = async (idSelect, nameSelect) => {
   }
 };
 
-export const SearchFilterSemester = async (value,idSelect,nameSelect) => {
+export const SearchFilterSemester = async (value,idSelect,nameSelect,userId) => {
   const api = `${path}/api/Home/FilterSerchSemester`;
   try {
     const courseNameFilter = await axios.get(api, {
@@ -63,6 +65,7 @@ export const SearchFilterSemester = async (value,idSelect,nameSelect) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        "userId": userId.toString(),
       },
     });
     if (!courseNameFilter) {

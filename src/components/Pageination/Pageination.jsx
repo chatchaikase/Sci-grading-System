@@ -25,7 +25,9 @@ export default function Pagination({ count,rows,pageNow,amountPage }) {
   return (
     <div className="flex justify-between px-5 py-2">
       <div className="flex justify-center items-center">
-      <span className="badge py-5 px-3 text-md">หน้า {pageNow} / {amountPage}</span>
+        { amountPage != 0 && 
+        <span className="badge py-5 px-3 text-md">หน้า {pageNow} / {amountPage}</span>
+        }
       </div>
       <div className="flex gap-2">
       <button

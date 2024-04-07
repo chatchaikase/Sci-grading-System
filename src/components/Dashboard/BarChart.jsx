@@ -132,6 +132,21 @@ export default function BarChart({ data }) {
     }));
   }, [chartData]);
 
+  useEffect(() => {
+    setChartOptions((prevChartOptions) => ({
+      ...prevChartOptions,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      elements: {
+        line: {
+          tension: 0.5, // Adjust the tension to control the curve smoothness
+        },
+      },
+    }));
+  }, []);
+
   return (
     <div className='w-full md:col-span-2 relative lg:h-[70vh] h-[50vh] p-4 border rounded-lg bg-white text-center content-center flex items-center justify-center'>
       {isloading ? (

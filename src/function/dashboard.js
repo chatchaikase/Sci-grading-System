@@ -36,17 +36,17 @@ export const GetCourseNameList = async (userId) => {
   const api = `${path}/api/Home/GetCourseNameList`;
 
   try {
-    const CourseName = await axios.get(api, {
+    const YearEducation = await axios.get(api, {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
         "userId": userId.toString(),
       },
     });
-    if (!CourseName) {
+    if (!YearEducation) {
       throw new Error("Cannot fetch data");
     }
-    return CourseName.data;
+    return YearEducation.data;
   } catch (error) {
     throw new Error("Error fetching data");
   }

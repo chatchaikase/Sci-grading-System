@@ -7,12 +7,12 @@ import { toast } from "react-toastify";
 
 const path = process.env.LocalhostDOTNET;
 
-export const SearchByCourseName = async (isSelectName,userId) => {
-  const api = `${path}/api/Home/FilterSerchByCourseName`;
+export const SearchFilterYearEducation = async (value,userId) => {
+  const api = `${path}/api/Home/FilterSearchYear`;
   try {
-    const courseNameFilter = await axios.get(api, {
+    const semesterInDB = await axios.get(api, {
       params: {
-        isSelectName: isSelectName,
+        yearEducation: value,
       },
       headers: {
         "Content-Type": "application/json",
@@ -20,22 +20,22 @@ export const SearchByCourseName = async (isSelectName,userId) => {
         "userId": userId.toString(),
       },
     });
-    if (!courseNameFilter) {
+    if (!semesterInDB) {
       throw new Error("Cannot fetch data");
     }
-    return courseNameFilter.data;
+    return semesterInDB.data;
   } catch (error) {
     throw new Error("Error fetching data");
   }
 };
 
-export const SearchFilterYear = async (idSelect, nameSelect,userId) => {
-  const api = `${path}/api/Home/FilterSerchYear`;
+export const SearchFilterSemester = async (yearEducationSelect,value,userId) => {
+  const api = `${path}/api/Home/FilterSearchSemester`;
   try {
-    const courseNameFilter = await axios.get(api, {
+    const idAndCourseNameInDB = await axios.get(api, {
       params: {
-        idSelect: idSelect,
-        nameSelect: nameSelect,
+        yearEducation:yearEducationSelect,
+        semester: value,
       },
       headers: {
         "Content-Type": "application/json",
@@ -43,36 +43,36 @@ export const SearchFilterYear = async (idSelect, nameSelect,userId) => {
         "userId": userId.toString(),
       },
     });
-
-    if (!courseNameFilter) {
+    if (!idAndCourseNameInDB) {
       throw new Error("Cannot fetch data");
     }
-    return courseNameFilter.data;
+    return idAndCourseNameInDB.data;
   } catch (error) {
     throw new Error("Error fetching data");
   }
 };
 
-export const SearchFilterSemester = async (value,idSelect,nameSelect,userId) => {
-  const api = `${path}/api/Home/FilterSerchSemester`;
-  try {
-    const courseNameFilter = await axios.get(api, {
-      params: {
-        nameSelect: nameSelect,
-        yearSelect: value,
-        idSelect: idSelect,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-        "userId": userId.toString(),
-      },
-    });
-    if (!courseNameFilter) {
-      throw new Error("Cannot fetch data");
-    }
-    return courseNameFilter.data;
-  } catch (error) {
-    throw new Error("Error fetching data");
-  }
-};
+// export const SearchFilterYear = async (idSelect, nameSelect,userId) => {
+//   const api = `${path}/api/Home/FilterSerchYear`;
+//   try {
+//     const courseNameFilter = await axios.get(api, {
+//       params: {
+//         idSelect: idSelect,
+//         nameSelect: nameSelect,
+//       },
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Cache-Control": "no-store",
+//         "userId": userId.toString(),
+//       },
+//     });
+
+//     if (!courseNameFilter) {
+//       throw new Error("Cannot fetch data");
+//     }
+//     return courseNameFilter.data;
+//   } catch (error) {
+//     throw new Error("Error fetching data");
+//   }
+// };
+

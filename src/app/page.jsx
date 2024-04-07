@@ -3,7 +3,7 @@
 import React from "react";
 import BarChartComponent from "../components/Dashboard/BarChart";
 import PieChart from "../components/Dashboard/PieChart";
-import { GetDataDashboard, GetCourseNameList } from "../function/dashboard.js";
+import { GetDataDashboard, GetYearEducationList } from "../function/dashboard.js";
 import FormSubmit from "../components/Dashboard/FormSubmit.jsx";
 import FormDate from "../components/Dashboard/FormDate.jsx";
 import { auth } from "../lib/auth";
@@ -23,7 +23,7 @@ export default async function Home({ searchParams }) {
   const session = await auth();
   const userId = session.user.userId;
   const dashBoard = await GetDataDashboard(query_CourseName,query_CourseID,query_YearEducation,query_Semester,userId);
-  const yearEducation = await GetCourseNameList(userId);
+  const yearEducation = await GetYearEducationList(userId);
   const itemList = await GetHomePageList(query_CourseName,query_CourseID,query_YearEducation,query_Semester, userId);
 
   return (

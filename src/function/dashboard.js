@@ -32,8 +32,8 @@ export const GetDataDashboard = async (query_CourseName,query_CourseID,query_Yea
   }
 };
 
-export const GetCourseNameList = async (userId) => {
-  const api = `${path}/api/Home/GetCourseNameList`;
+export const GetYearEducationList = async (userId) => {
+  const api = `${path}/api/Home/GetYearEducationList`;
 
   try {
     const YearEducation = await axios.get(api, {

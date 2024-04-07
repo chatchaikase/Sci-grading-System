@@ -26,7 +26,7 @@ export default function ImportMain({ session }) {
   const [courseID, setCourseID] = useState("");
   const [term, setTerm] = useState("midterm");
   const [courseName, setCourseName] = useState("");
-  const [semester, setSemester] = useState("summer");
+  const [semester, setSemester] = useState("ภาคฤดูร้อน");
   const [yearEducation, setYearEducation] = useState(0);
   const [yearEducationSelect, setYearEducationSelect] = useState(
     (new Date().getFullYear() + 542).toString()

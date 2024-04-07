@@ -23,12 +23,12 @@ export default async function Home({ searchParams }) {
   const session = await auth();
   const userId = session.user.userId;
   const dashBoard = await GetDataDashboard(query_CourseName,query_CourseID,query_YearEducation,query_Semester,userId);
-  const courseName = await GetCourseNameList(userId);
+  const yearEducation = await GetCourseNameList(userId);
   const itemList = await GetHomePageList(query_CourseName,query_CourseID,query_YearEducation,query_Semester, userId);
 
   return (
     <div className="h-full w-full">
-      <FormSubmit data={dashBoard} courseName={courseName} userId={userId}/>
+      <FormSubmit data={dashBoard} listYearEducation={yearEducation} userId={userId}/>
       {dashBoard.length >= 1 ? (
         <div className="border border-gray-200 border-opacity-50 shadow-sm bg-base-100 w-full h-auto rounded-lg my-5 p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
           <BarChartComponent data={dashBoard} />

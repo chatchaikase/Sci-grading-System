@@ -6,10 +6,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation.js";
 import { useDebouncedCallback } from "use-debounce";
 import { Button } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
-import {SearchByCourseName , SearchFilterYear,SearchFilterSemester} from "../../function/FormSubmitHome.js"
+import {SearchFilterSemester ,SearchFilterYearEducation} from "../../function/FormSubmitHome.js"
 import { auth } from "../../lib/auth.js";
 
-export default function FormSubmit({ data, courseName,userId }) {
+export default function FormSubmit({ data, listYearEducation,userId }) {
   const [searchCourse, setSearchCourse] = useState({
     courseName: '',
     courseID: '',
@@ -22,52 +22,41 @@ export default function FormSubmit({ data, courseName,userId }) {
   const [isLoading, setIsLoading] = useState(false);
 
   //ตัวแปรในการ fill select => select ตามหลังเก็บค่าที่เลือก
-  const [nameCourse, setNameCourse] = useState(courseName);
-  const [nameSelect, setNameSelect] = useState("");
-  const [idCourse, setIdCourse] = useState([]);
-  const [idSelect, setIdSelect] = useState("");
-  const [yearCourse, setYearCourse] = useState([]);
-  const [yearSelect, setYearSelect] = useState("");
+  const [yearEducation,setYearEducation] = useState(listYearEducation);
+  const [yearEducationSelect,setYearEducationSelect] = useState("");
   const [semesterCourse, setSemesterCourse] = useState([]);
-  const [semesterSelect, setsemesterSelect] = useState("");
+  const [semesterCourseSelect, setSemesterCourseSelect] = useState("");
+  const [courseIdAndCourseName,setCourseIdAndCourseName] = useState([]);
+  const [courseIdAndCourseNameSelect,setCourseIdAndCourseNameSelect] = useState("");
 
-  const handleOnChangeCourseName = async (value) => {
-    await setNameSelect(value);
-    await setIdSelect("");
-    try {
-        const dataCourseID = await SearchByCourseName(value,userId);
-        await setIdCourse(dataCourseID);
-    } catch (error) {
-        throw new Error("Error fetching data");
-    }     
-  };
-  
-  const handleOnChangeCourseID = async (value) => {
-    await setIdSelect(value);
-    await setYearSelect("");
-    try {
-      const dataYearEducation = await SearchFilterYear(value,nameSelect,userId)
-      await setYearCourse(dataYearEducation);
-    } catch (error) {
-      throw new Error("Error fetching data");
-    }
-  };
+  //filter เทอม ด้วย ปี
+  const handleFilterYearEducation  = async(value) => {
+   await setYearEducationSelect(value);
+   await setSemesterCourseSelect("");
+   try {
+      const SemesterInDB = await SearchFilterYearEducation(value,userId);
+      await setSemesterCourse(SemesterInDB);
+   } catch (error) {
+     throw new Error("Error fetching data");
+   }
+  }
 
-
-  const handleOnChangeYear = async (value) => {
-    await setYearSelect(value);
-    await setsemesterSelect("");
+  //filter รหัสวิชา-ชื่อวิชา ด้วย ปีเเละเทอม
+  const handleFilterSemester = async(value) => {
+    await setSemesterCourseSelect(value);
+    await setCourseIdAndCourseNameSelect("");
     try {
-      const dataSemester = await SearchFilterSemester(value,idSelect,nameSelect,userId)
-      await setSemesterCourse(dataSemester);
+      const CourseIdAndCourseNameInDB = await SearchFilterSemester(yearEducationSelect,value,userId);
+      await setCourseIdAndCourseName(CourseIdAndCourseNameInDB)
     } catch (error) {
       throw new Error("Error fetching data");
     }
-  };
+  }
 
-  const handleOnChangeSemester = async (value) => {
-    await setsemesterSelect(value);
-  };
+  //filter ข้อมูลในรายวิชา ด้วย ปี,เทอม,รหัสวิชา-ชื่อวิชา
+  const handleOnChangeCourseIDAndCourseName = async(value) =>{
+    await setCourseIdAndCourseNameSelect(value);
+  }
 
   const handleFormSubmit = (formData) => {
     setIsLoading(true);
@@ -79,13 +68,17 @@ export default function FormSubmit({ data, courseName,userId }) {
     }, 2000);
 
     setSearchCourse("");
-    const { courseName,courseID,yearEducation,semester} = Object.fromEntries(formData);
+    const { yearEducation,semester,courseIdAndCourseName,} = Object.fromEntries(formData);
+    const separatorIndex = courseIdAndCourseName.indexOf("-");
+    const courseIdSplite = courseIdAndCourseName.substring(0, separatorIndex);
+    const courseNameSplite = courseIdAndCourseName.substring(separatorIndex + 1);
+
     setSearchCourse(prevState =>({
       ...prevState,
-      courseName: courseName,
-      courseID: courseID,
       yearEducation: yearEducation,
-      semester: semester
+      semester: semester,
+      courseName: courseNameSplite,
+      courseID: courseIdSplite,
     }));
   };
 
@@ -129,99 +122,35 @@ export default function FormSubmit({ data, courseName,userId }) {
           <div className="2xl:flex 2xl:gap-5 flex-row">
             <div className="flex items-center mb-2 gap-10 2xl:gap-4">
               <label
-                htmlFor="courseName"
+                htmlFor="yearEducation"
                 className="text-black text-lg flex-shrink-0 ml-5"
               >
-                ชื่อวิชา
+                ปีการศึกษา
               </label>
-              {nameCourse.length >= 1 ? (
+              {listYearEducation.length >= 1 ? (
                 <select
-                id="courseName"
-                value={nameSelect ?? ""}
-                onChange={(e) => handleOnChangeCourseName(e.target.value)}
-                className="select select-secondary w-full 2xl:max-w-xs"
-                name="courseName"
+                id="yearEducation"
+                value={yearEducationSelect ?? ""}
+                onChange={(e) => handleFilterYearEducation(e.target.value)}
+                className="select select-secondary w-full ml-6 2xl:ml-0 2xl:max-w-xs "
+                name="yearEducation"
               >
-                <option value="" >กรุณาเลือกชื่อวิชา</option>
-                {nameCourse.map((course, index) => (
-                  <option key={index} value={course.courseName}>
-                    {course.courseName}
+                <option value="" >กรุณาเลือกปีการศึกษา</option>
+                {listYearEducation.map((course, index) => (
+                  <option key={index} value={course.yearEducation}>
+                    {course.yearEducation}
                   </option>
                 ))}
               </select>
               ) : (
                 <select
-                id="courseName"
-                className="select select-secondary w-full 2xl:max-w-xs"
-                name="courseName"
+                id="yearEducation"
+                className="select select-secondary w-full ml-6 2xl:ml-0 2xl:max-w-xs"
+                name="yearEducation"
                 disabled
               >
-                <option value="" >กรุณาเลือกชื่อวิชา</option>
+                <option value="" >กรุณาเลือกปีการศึกษา</option>
               </select>
-              )}
-            </div>
-            <div className="flex items-center mb-2 gap-8 2xl:gap-4">
-              <label
-                htmlFor="idCourse"
-                className="text-black text-lg flex-shrink-0 ml-5"
-              >
-                รหัสวิชา
-              </label>
-              {idCourse.length >= 1 ? (
-                <select
-                  id="courseID"
-                  value={idSelect}
-                  onChange={(e) => handleOnChangeCourseID(e.target.value)}
-                  className="select select-secondary w-full 2xl:max-w-xs"
-                  name="courseID"
-                >
-                  <option value="">กรุณาเลือกรหัสวิชา</option>
-                  {idCourse.map((option, index) => (
-                    <option key={index} value={option.courseID}>
-                      {option.courseID}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <select
-                  id="courseID"
-                  className="select w-full 2xl:max-w-xs"
-                  disabled
-                >
-                  <option value="">กรุณาเลือกรหัสวิชา</option>
-                </select>
-              )}
-            </div>
-            <div className="flex items-center mb-2 gap-2 2xl:gap-4">
-              <label
-                htmlFor="yearCourse"
-                className="text-black text-lg flex-shrink-0 ml-5"
-              >
-                ปีการศึกษา
-              </label>
-              {(yearCourse.length >= 1 && idCourse.length >= 1) && (nameSelect != "" && idSelect != "") ? (
-                <select
-                  id="yearEducation"
-                  value={yearSelect}
-                  onChange={(e) => handleOnChangeYear(e.target.value)}
-                  className="select select-secondary w-full 2xl:max-w-xs"
-                  name="yearEducation"
-                >
-                  <option value="" selected>กรุณาเลือกปี</option>
-                  {yearCourse.map((option, index) => (
-                    <option key={index} value={option.yearEducation}>
-                      {option.yearEducation}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <select
-                  id="yearEducation"
-                  className="select w-full 2xl:max-w-xs"
-                  disabled
-                >
-                  <option value="">กรุณาเลือกปี</option>
-                </select>
               )}
             </div>
             <div className="flex items-center mb-2 gap-12 2xl:gap-4">
@@ -231,12 +160,12 @@ export default function FormSubmit({ data, courseName,userId }) {
               >
                 เทอม
               </label>
-              {(yearCourse.length >= 1 && idCourse.length >= 1 && semesterCourse.length >=1) && (nameSelect != "" && idSelect != "" && yearSelect != "") ? (
+              {(yearEducation.length >= 1 && semesterCourse.length >=1) && ( yearEducationSelect != "") ? (
                 <select
                   id="semester"
-                  value={semesterSelect}
-                  onChange={(e) => handleOnChangeSemester(e.target.value)}
-                  className="select select-secondary w-full 2xl:max-w-xs"
+                  value={semesterCourseSelect}
+                  onChange={(e) => handleFilterSemester(e.target.value)}
+                  className="select select-secondary w-full ml-14 2xl:ml-0 2xl:max-w-xs"
                   name="semester"
                 >
                   <option value="" selected>กรุณาเลือกเทอม</option>
@@ -249,14 +178,46 @@ export default function FormSubmit({ data, courseName,userId }) {
               ) : (
                 <select
                   id="semester"
-                  className="select w-full 2xl:max-w-xs"
+                  className="select w-full  ml-14 2xl:ml-0 2xl:max-w-xs"
                   disabled
                 >
                   <option value="">กรุณาเลือกเทอม</option>
                 </select>
               )}
             </div>
-          </div>
+            <div className="flex items-center mb-2 gap-8 2xl:gap-4">
+              <label
+                htmlFor="courseIdAndCourseName"
+                className="text-black text-lg flex-shrink-0 ml-5"
+              >
+                รหัสวิชา-ชื่อวิชา
+              </label>
+              {courseIdAndCourseName.length >= 1 ? (
+                <select
+                  id="courseIdAndCourseName"
+                  value={courseIdAndCourseNameSelect}
+                  onChange={(e) => handleOnChangeCourseIDAndCourseName(e.target.value)}
+                  className="select select-secondary w-full 2xl:max-w-xs"
+                  name="courseIdAndCourseName"
+                >
+                  <option value="">กรุณาเลือกรหัสวิชาเเละวิชา</option>
+                  {courseIdAndCourseName.map((option, index) => (
+                    <option key={index} value={option.courseIdAndCourseName}>
+                      {option.courseIdAndCourseName}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <select
+                  id="courseIdAndCourseName"
+                  className="select w-full 2xl:max-w-xs"
+                  disabled
+                >
+                  <option value="">กรุณาเลือกรหัสวิชาเเละวิชา</option>
+                </select>
+              )}
+            </div>
+          </div> 
           <div className="2xl:flex 2xl:gap-5 flex-row">
             {data.length >=1 ? (
                 <button
@@ -266,8 +227,8 @@ export default function FormSubmit({ data, courseName,userId }) {
               >
                 {isLoading ? (
                   <>
-                    <span className="loading loading-spinner bg-black"></span>
-                    <p className="text-black">loading</p>
+                    <span className="loading loading-spinner text-sm bg-black"></span>
+                    <p className="text-black text-sm">รอสักครู่..</p>
                   </>
                 ) : (
                   "ค้นหา"

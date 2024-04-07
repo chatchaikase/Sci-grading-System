@@ -94,9 +94,9 @@ export default function ImportInputFields({
                   value={semester || ""}
                   onChange={(e) => setSemester(e.target.value)}
                 >
-                  <option value="summer">Summer</option>
-                  <option value="first">First</option>
-                  <option value="second">Second</option>
+                  <option value="ภาคฤดูร้อน">ภาคฤดูร้อน</option>
+                  <option value="ภาคต้น">ภาคต้น</option>
+                  <option value="ภาคปลาย">ภาคปลาย</option>
                 </select>
               </div>
             </div>

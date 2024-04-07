@@ -24,7 +24,6 @@ export default function ImportMain({ session }) {
   const currentYear = new Date().getFullYear();
   const userId = session;
   const [courseID, setCourseID] = useState("");
-  const [term, setTerm] = useState("midterm");
   const [courseName, setCourseName] = useState("");
   const [semester, setSemester] = useState("ภาคฤดูร้อน");
   const [yearEducation, setYearEducation] = useState(0);
@@ -215,7 +214,6 @@ export default function ImportMain({ session }) {
 
     let formData = {
       courseID: courseID.trim(),
-      term: term.trim(),
       courseName: courseName.trim(),
       semester: semester.trim(),
       yearEducation: checkYearEducationSelect

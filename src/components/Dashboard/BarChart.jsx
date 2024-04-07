@@ -1,14 +1,16 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import {Spinner} from "@nextui-org/react";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
+  Filler,
   Legend,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -17,11 +19,12 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
-  Legend,
-  ChartDataLabels
+  Filler,
+  Legend
 );
 
 export default function BarChart({ data }) {
@@ -102,6 +105,7 @@ export default function BarChart({ data }) {
         datasets: [
           {
             label: 'Percentage of Grade',
+            fill: true,
             data: data.map((item) => item.percentage),
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgb(53, 162, 235, 0.5)',
@@ -133,7 +137,7 @@ export default function BarChart({ data }) {
       {isloading ? (
         <Spinner label="Loading..." color="primary" size='lg'/>
       ) : (
-        <Bar data={chartData} options={chartOptions} />
+        <Line data={chartData} options={chartOptions} />
       )}
     </div>
   )

@@ -69,9 +69,16 @@ export default function FormSubmit({ data, listYearEducation,userId }) {
 
     setSearchCourse("");
     const { yearEducation,semester,courseIdAndCourseName,} = Object.fromEntries(formData);
-    const separatorIndex = courseIdAndCourseName.indexOf("-");
-    const courseIdSplite = courseIdAndCourseName.substring(0, separatorIndex);
-    const courseNameSplite = courseIdAndCourseName.substring(separatorIndex + 1);
+
+    let courseIdSplite = '';
+    let courseNameSplite = '';
+    let separatorIndex = '';
+    
+    if(courseIdAndCourseName != null){
+      separatorIndex = courseIdAndCourseName.indexOf("-");
+      courseIdSplite = courseIdAndCourseName.substring(0, separatorIndex);
+      courseNameSplite = courseIdAndCourseName.substring(separatorIndex + 1);
+    }
 
     setSearchCourse(prevState =>({
       ...prevState,

@@ -11,6 +11,7 @@ export default function BtnPrintSubject({
     listItem,
     listGrade
 }) {
+
   const handleSubjectExport = async () => {
     try {
       const response = await GenExcel(listItem,listGrade,id);
@@ -23,7 +24,7 @@ export default function BtnPrintSubject({
       const objectURL = URL.createObjectURL(blob);
 
       downloadLink.href = objectURL;
-      downloadLink.download = 'ข้อมูลรายวิชา ' + id + '.xlsx';
+      downloadLink.download = 'ข้อมูลรายวิชา ' + decodeURIComponent(id) + '.xlsx';
 
       // Append the link to the document and trigger a click to start the download
       document.body.appendChild(downloadLink);
